@@ -1,0 +1,373 @@
+{
+    "results": [
+        {
+            "CVE-ID": "CVE-2022-21698",
+            "CVE-Description": "client_golang is the instrumentation library for Go applications in Prometheus, and the promhttp package in client_golang provides tooling around HTTP servers and clients. In client_golang prior to version 1.11.1, HTTP server is susceptible to a Denial of Service through unbounded cardinality, and potential memory exhaustion, when handling requests with non-standard HTTP methods. In order to be affected, an instrumented software must use any of `promhttp.InstrumentHandler*` middleware except `RequestsInFlight`; not filter any specific methods (e.g GET) before middleware; pass metric with `method` label name to our middleware; and not have any firewall/LB/proxy that filters away requests with unknown `method`. client_golang version 1.11.1 contains a patch for this issue. Several workarounds are available, including removing the `method` label name from counter/gauge used in the InstrumentHandler; turning off affected promhttp handlers; adding custom middleware before promhttp handler that will sanitize the request method given by Go http.Request; and using a reverse proxy or web application firewall, configured to only allow a limited set of methods.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 459,
+            "CWE Description": "The product does not properly clean up and remove temporary or supporting resources after they have been used.",
+            "Mapped CAPEC-ID": 62,
+            "CAPEC Description": "An attacker crafts malicious web links and distributes them (via web pages, email, etc.), typically in a targeted manner, hoping to induce users to click on the link and execute the malicious action against some third-party application. If successful, the action embedded in the malicious link will be processed and accepted by the targeted application with the users' privilege level. This type of attack leverages the persistence and implicit trust placed in user session cookies by many web applications today. In such an architecture, once the user authenticates to an application and a session cookie is created on the user's system, all following transactions for that session are authenticated using that cookie including potential actions initiated by an attacker and simply riding the existing session cookie.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-39325",
+            "CVE-Description": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing. With the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection. This issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2. The default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 459,
+            "CWE Description": "The product does not properly clean up and remove temporary or supporting resources after they have been used.",
+            "Mapped CAPEC-ID": 166,
+            "CAPEC Description": "An attacker forces the target into a previous state in order to leverage potential weaknesses in the target dependent upon a prior configuration or state-dependent factors. Even in cases where an attacker may not be able to directly control the configuration of the targeted application, they may be able to reset the configuration to a prior state since many applications implement reset functions.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2022-41717",
+            "CVE-Description": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 787,
+            "CWE Description": "The product writes data past the end, or before the beginning, of the intended buffer.",
+            "Mapped CAPEC-ID": 33,
+            "CAPEC Description": "An adversary abuses the flexibility and discrepancies in the parsing and interpretation of HTTP Request messages using various HTTP headers, request-line and body parameters as well as message sizes (denoted by the end of message signaled by a given HTTP header) by different intermediary HTTP agents (e.g., load balancer, reverse proxy, web caching proxies, application firewalls, etc.) to secretly send unauthorized and malicious HTTP requests to a back-end HTTP agent (e.g., web server). See CanPrecede relationships for possible consequences.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-3978",
+            "CVE-Description": "Text nodes not in the HTML namespace are incorrectly literally rendered, causing text which should be escaped to not be. This could lead to an XSS attack.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 79,
+            "CWE Description": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
+            "Mapped CAPEC-ID": 209,
+            "CAPEC Description": "An adversary creates a file with scripting content but where the specified MIME type of the file is such that scripting is not expected. The adversary tricks the victim into accessing a URL that responds with the script file. Some browsers will detect that the specified MIME type of the file does not match the actual type of its content and will automatically switch to using an interpreter for the real content type. If the browser does not invoke script filters before doing this, the adversary's script may run on the target unsanitized, possibly revealing the victim's cookies or executing arbitrary script in their browser.",
+            "Original CWE-ID": "CWE-79",
+            "Original CAPEC-ID": "209, 588, 591, 63, 85, 592"
+        },
+        {
+            "CVE-ID": "CVE-2021-38561",
+            "CVE-Description": "golang.org/x/text/language in golang.org/x/text before 0.3.7 can panic with an out-of-bounds read during BCP 47 language tag parsing. Index calculation is mishandled. If parsing untrusted user input, this can be used as a vector for a denial-of-service attack.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 125,
+            "CWE Description": "The product reads data past the end, or before the beginning, of the intended buffer.",
+            "Mapped CAPEC-ID": 109,
+            "CAPEC Description": "An attacker leverages a weakness present in the database access layer code generated with an Object Relational Mapping (ORM) tool or a weakness in the way that a developer used a persistence framework to inject their own SQL commands to be executed against the underlying database. The attack here is similar to plain SQL injection, except that the application does not use JDBC to directly talk to the database, but instead it uses a data access layer generated by an ORM tool or framework (e.g. Hibernate). While most of the time code generated by an ORM tool contains safe access methods that are immune to SQL injection, sometimes either due to some weakness in the generated code or due to the fact that the developer failed to use the generated access methods properly, SQL injection is still possible.",
+            "Original CWE-ID": "CWE-125",
+            "Original CAPEC-ID": "540"
+        },
+        {
+            "CVE-ID": "CVE-2022-32149",
+            "CVE-Description": "An attacker may cause a denial of service by crafting an Accept-Language header which ParseAcceptLanguage will take significant time to parse.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1333,
+            "CWE Description": "The product uses a regular expression with an inefficient, possibly exponential worst-case computational complexity that consumes excessive CPU cycles.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-772",
+            "Original CAPEC-ID": "469"
+        },
+        {
+            "CVE-ID": "CVE-2022-23806",
+            "CVE-Description": "Curve.IsOnCurve in crypto/elliptic in Go before 1.16.14 and 1.17.x before 1.17.7 can incorrectly return true in situations with a big.Int value that is not a valid field element.",
+            "Severity": "CRITICAL",
+            "Mapped CWE-ID": 252,
+            "CWE Description": "The product does not check the return value from a method or function, which can prevent it from detecting unexpected states and conditions.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-252",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2023-24538",
+            "CVE-Description": "Templates do not properly consider backticks (`) as Javascript string delimiters, and do not escape them as expected. Backticks are used, since ES6, for JS template literals. If a template contains a Go template action within a Javascript template literal, the contents of the action can be used to terminate the literal, injecting arbitrary Javascript code into the Go template. As ES6 template literals are rather complex, and themselves can do string interpolation, the decision was made to simply disallow Go template actions from being used inside of them (e.g. \"var a = {{.}}\"), since there is no obviously safe way to allow this behavior. This takes the same approach as github.com/google/safehtml. With fix, Template.Parse returns an Error when it encounters templates like this, with an ErrorCode of value 12. This ErrorCode is currently unexported, but will be exported in the release of Go 1.21. Users who rely on the previous behavior can re-enable it using the GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be escaped. This should be used with caution.",
+            "Severity": "CRITICAL",
+            "Mapped CWE-ID": 15,
+            "CWE Description": "One or more system settings or configuration elements can be externally controlled by a user.",
+            "Mapped CAPEC-ID": 62,
+            "CAPEC Description": "An attacker crafts malicious web links and distributes them (via web pages, email, etc.), typically in a targeted manner, hoping to induce users to click on the link and execute the malicious action against some third-party application. If successful, the action embedded in the malicious link will be processed and accepted by the targeted application with the users' privilege level. This type of attack leverages the persistence and implicit trust placed in user session cookies by many web applications today. In such an architecture, once the user authenticates to an application and a session cookie is created on the user's system, all following transactions for that session are authenticated using that cookie including potential actions initiated by an attacker and simply riding the existing session cookie.",
+            "Original CWE-ID": "CWE-94",
+            "Original CAPEC-ID": "77, 242, 35"
+        },
+        {
+            "CVE-ID": "CVE-2020-16845",
+            "CVE-Description": "Go before 1.13.15 and 14.x before 1.14.7 can have an infinite read loop in ReadUvarint and ReadVarint in encoding/binary via invalid inputs.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1050,
+            "CWE Description": "The product has a loop body or loop condition that contains a control element that directly or indirectly consumes platform resources, e.g. messaging, sessions, locks, or file descriptors.",
+            "Mapped CAPEC-ID": 109,
+            "CAPEC Description": "An attacker leverages a weakness present in the database access layer code generated with an Object Relational Mapping (ORM) tool or a weakness in the way that a developer used a persistence framework to inject their own SQL commands to be executed against the underlying database. The attack here is similar to plain SQL injection, except that the application does not use JDBC to directly talk to the database, but instead it uses a data access layer generated by an ORM tool or framework (e.g. Hibernate). While most of the time code generated by an ORM tool contains safe access methods that are immune to SQL injection, sometimes either due to some weakness in the generated code or due to the fact that the developer failed to use the generated access methods properly, SQL injection is still possible.",
+            "Original CWE-ID": "CWE-835",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2020-28362",
+            "CVE-Description": "Go before 1.14.12 and 1.15.x before 1.15.4 allows Denial of Service.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1333,
+            "CWE Description": "The product uses a regular expression with an inefficient, possibly exponential worst-case computational complexity that consumes excessive CPU cycles.",
+            "Mapped CAPEC-ID": 528,
+            "CAPEC Description": "An adversary may execute a flooding attack using XML messages with the intent to deny legitimate users access to a web service. These attacks are accomplished by sending a large number of XML based requests and letting the service attempt to parse each one. In many cases this type of an attack will result in a XML Denial of Service (XDoS) due to an application becoming unstable, freezing, or crashing.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2021-27918",
+            "CVE-Description": "encoding/xml in Go before 1.15.9 and 1.16.x before 1.16.1 has an infinite loop if a custom TokenReader (for xml.NewTokenDecoder) returns EOF in the middle of an element. This can occur in the Decode, DecodeElement, or Skip method.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1050,
+            "CWE Description": "The product has a loop body or loop condition that contains a control element that directly or indirectly consumes platform resources, e.g. messaging, sessions, locks, or file descriptors.",
+            "Mapped CAPEC-ID": 83,
+            "CAPEC Description": "An attacker can craft special user-controllable input consisting of XPath expressions to inject the XML database and bypass authentication or glean information that they normally would not be able to. XPath Injection enables an attacker to talk directly to the XML database, thus bypassing the application completely. XPath Injection results from the failure of an application to properly sanitize input used as part of dynamic XPath expressions used to query an XML database.",
+            "Original CWE-ID": "CWE-835",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2021-39293",
+            "CVE-Description": "In archive/zip in Go before 1.16.8 and 1.17.x before 1.17.1, a crafted archive header (falsely designating that many files are present) can cause a NewReader or OpenReader panic. NOTE: this issue exists because of an incomplete fix for CVE-2021-33196.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 22,
+            "CWE Description": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2022-23772",
+            "CVE-Description": "Rat.SetString in math/big in Go before 1.16.14 and 1.17.x before 1.17.7 has an overflow that can lead to Uncontrolled Memory Consumption.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 787,
+            "CWE Description": "The product writes data past the end, or before the beginning, of the intended buffer.",
+            "Mapped CAPEC-ID": 100,
+            "CAPEC Description": "Buffer Overflow attacks target improper or missing bounds checking on buffer operations, typically triggered by input injected by an adversary. As a consequence, an adversary is able to write past the boundaries of allocated buffer regions in memory, causing a program crash or potentially redirection of execution as per the adversaries' choice.",
+            "Original CWE-ID": "CWE-190",
+            "Original CAPEC-ID": "92"
+        },
+        {
+            "CVE-ID": "CVE-2022-2879",
+            "CVE-Description": "Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive could cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panics. After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 770,
+            "CWE Description": "The product allocates a reusable resource or group of resources on behalf of an actor without imposing any restrictions on the size or number of resources that can be allocated, in violation of the intended security policy for that actor.",
+            "Mapped CAPEC-ID": 33,
+            "CAPEC Description": "An adversary abuses the flexibility and discrepancies in the parsing and interpretation of HTTP Request messages using various HTTP headers, request-line and body parameters as well as message sizes (denoted by the end of message signaled by a given HTTP header) by different intermediary HTTP agents (e.g., load balancer, reverse proxy, web caching proxies, application firewalls, etc.) to secretly send unauthorized and malicious HTTP requests to a back-end HTTP agent (e.g., web server). See CanPrecede relationships for possible consequences.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2022-2880",
+            "CVE-Description": "Requests forwarded by ReverseProxy include the raw query parameters from the inbound request, including unparsable parameters rejected by net/http. This could permit query parameter smuggling when a Go proxy forwards a parameter with an unparsable value. After fix, ReverseProxy sanitizes the query parameters in the forwarded query when the outbound request's Form field is set after the ReverseProxy. Director function returns, indicating that the proxy has parsed the query parameters. Proxies which do not parse query parameters continue to forward the original query parameters unchanged.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 444,
+            "CWE Description": "The product acts as an intermediary HTTP agent (such as a proxy or firewall) in the data flow between two entities such as a client and server, but it does not interpret malformed HTTP requests or responses in ways that are consistent with how the messages will be processed by those entities that are at the ultimate destination.",
+            "Mapped CAPEC-ID": 488,
+            "CAPEC Description": "An adversary may execute a flooding attack using the HTTP protocol with the intent to deny legitimate users access to a service by consuming resources at the application layer such as web services and their infrastructure. These attacks use legitimate session-based HTTP GET requests designed to consume large amounts of a server's resources. Since these are legitimate sessions this attack is very difficult to detect.",
+            "Original CWE-ID": "CWE-444",
+            "Original CAPEC-ID": "33, 273"
+        },
+        {
+            "CVE-ID": "CVE-2022-29804",
+            "CVE-Description": "Incorrect conversion of certain invalid paths to valid, absolute paths in Clean in path/filepath before Go 1.17.11 and Go 1.18.3 on Windows allows potential directory traversal attack.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 22,
+            "CWE Description": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-22",
+            "Original CAPEC-ID": "126, 79, 76, 78, 64"
+        },
+        {
+            "CVE-ID": "CVE-2022-30580",
+            "CVE-Description": "Code injection in Cmd.Start in os/exec before Go 1.17.11 and Go 1.18.3 allows execution of any binaries in the working directory named either \"..com\" or \"..exe\" by calling Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when Cmd.Path is unset.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 470,
+            "CWE Description": "The product uses external input with reflection to select which classes or code to use, but it does not sufficiently prevent the input from selecting improper classes or code.",
+            "Mapped CAPEC-ID": 77,
+            "CAPEC Description": "This attack targets user controlled variables (DEBUG=1, PHP Globals, and So Forth). An adversary can override variables leveraging user-supplied, untrusted query variables directly used on the application server without any data sanitization. In extreme cases, the adversary can change variables controlling the business logic of the application. For instance, in languages like PHP, a number of poorly set default configurations may allow the user to override variables.",
+            "Original CWE-ID": "CWE-94",
+            "Original CAPEC-ID": "77, 242, 35"
+        },
+        {
+            "CVE-ID": "CVE-2022-30634",
+            "CVE-Description": "Infinite loop in Read in crypto/rand before Go 1.17.11 and Go 1.18.3 on Windows allows attacker to cause an indefinite hang by passing a buffer larger than 1 << 32 - 1 bytes.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1050,
+            "CWE Description": "The product has a loop body or loop condition that contains a control element that directly or indirectly consumes platform resources, e.g. messaging, sessions, locks, or file descriptors.",
+            "Mapped CAPEC-ID": 540,
+            "CAPEC Description": "An adversary attacks a target by providing input that causes an application to read beyond the boundary of a defined buffer. This typically occurs when a value influencing where to start or stop reading is set to reflect positions outside of the valid memory location of the buffer. This type of attack may result in exposure of sensitive information, a system crash, or arbitrary code execution.",
+            "Original CWE-ID": "CWE-835",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2022-41720",
+            "CVE-Description": "On Windows, restricted files can be accessed via os.DirFS and http.Dir. The os.DirFS function and http.Dir type provide access to a tree of files rooted at a given directory. These functions permit access to Windows device files under that root. For example, os.DirFS(\"C:/tmp\").Open(\"COM1\") opens the COM1 device. Both os.DirFS and http.Dir only provide read-only filesystem access. In addition, on Windows, an os.DirFS for the directory (the root of the current drive) can permit a maliciously crafted path to escape from the drive and access any path on the system. With fix applied, the behavior of os.DirFS(\"\") has changed. Previously, an empty root was treated equivalently to \"/\", so os.DirFS(\"\").Open(\"tmp\") would open the path \"/tmp\". This now returns an error.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 276,
+            "CWE Description": "During installation, installed file permissions are set to allow anyone to modify those files.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-22",
+            "Original CAPEC-ID": "126, 79, 76, 78, 64"
+        },
+        {
+            "CVE-ID": "CVE-2022-41722",
+            "CVE-Description": "A path traversal vulnerability exists in filepath.Clean on Windows. On Windows, the filepath.Clean function could transform an invalid path such as \"a/../c:/b\" into the valid path \"c:\\b\". This transformation of a relative (if invalid) path into an absolute path could enable a directory traversal attack. After fix, the filepath.Clean function transforms this path into the relative (but still invalid) path \".\\c:\\b\".",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 22,
+            "CWE Description": "The product uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the product does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-22",
+            "Original CAPEC-ID": "126, 79, 76, 78, 64"
+        },
+        {
+            "CVE-ID": "CVE-2022-41725",
+            "CVE-Description": "A denial of service is possible from excessive resource consumption in net/http and mime/multipart. Multipart form parsing with mime/multipart.Reader.ReadForm can consume largely unlimited amounts of memory and disk files. This also affects form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. ReadForm takes a maxMemory parameter, and is documented as storing \"up to maxMemory bytes +10MB (reserved for non-file parts) in memory\". File parts which cannot be stored in memory are stored on disk in temporary files. The unconfigurable 10MB reserved for non-file parts is excessively large and can potentially open a denial of service vector on its own. However, ReadForm did not properly account for all memory consumed by a parsed form, such as map entry overhead, part names, and MIME headers, permitting a maliciously crafted form to consume well over 10MB. In addition, ReadForm contained no limit on the number of disk files created, permitting a relatively small request body to create a large number of disk temporary files. With fix, ReadForm now properly accounts for various forms of memory overhead, and should now stay within its documented limit of 10MB + maxMemory bytes of memory consumption. Users should still be aware that this limit is high and may still be hazardous. In addition, ReadForm now creates at most one on-disk temporary file, combining multiple form parts into a single temporary file. The mime/multipart.File interface type's documentation states, \"If stored on disk, the File's underlying concrete type will be an *os.File.\". This is no longer the case when a form contains more than one file part, due to this coalescing of parts into a single file. The previous behavior of using distinct files for each form part may be reenabled with the environment variable GODEBUG=multipartfiles=distinct. Users should be aware that multipart.ReadForm and the http.Request methods that call it do not limit the amount of disk consumed by temporary files. Callers can limit the size of form data with http.MaxBytesReader.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1085,
+            "CWE Description": "A function, method, procedure, etc. contains an excessive amount of code that has been commented out within its body.",
+            "Mapped CAPEC-ID": 25,
+            "CAPEC Description": "The adversary triggers and exploits a deadlock condition in the target software to cause a denial of service. A deadlock can occur when two or more competing actions are waiting for each other to finish, and thus neither ever does. Deadlock conditions can be difficult to detect.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-24536",
+            "CVE-Description": "Multipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts. This stems from several causes: 1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended. 2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts. 3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector. The combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. With fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations. In addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms: 1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=. 2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 770,
+            "CWE Description": "The product allocates a reusable resource or group of resources on behalf of an actor without imposing any restrictions on the size or number of resources that can be allocated, in violation of the intended security policy for that actor.",
+            "Mapped CAPEC-ID": 493,
+            "CAPEC Description": "An adversary may execute an attack on a web service that uses SOAP messages in communication. By sending a very large SOAP array declaration to the web service, the attacker forces the web service to allocate space for the array elements before they are parsed by the XML parser. The attacker message is typically small in size containing a large array declaration of say 1,000,000 elements and a couple of array elements. This attack targets exhaustion of the memory resources of the web service.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-24537",
+            "CVE-Description": "Calling any of the Parse functions on Go source code which contains //line directives with very large line numbers can cause an infinite loop due to integer overflow.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 191,
+            "CWE Description": "The product subtracts one value from another, such that the result is less than the minimum allowable integer value, which produces a value that is not equal to the correct result.",
+            "Mapped CAPEC-ID": 92,
+            "CAPEC Description": "This attack forces an integer variable to go out of range. The integer variable is often used as an offset such as size of memory allocation or similarly. The attacker would typically control the value of such variable and try to get it out of range. For instance the integer in question is incremented past the maximum possible value, it may wrap to become a very small, or negative number, therefore providing a very incorrect value which can lead to unexpected behavior. At worst the attacker can execute arbitrary code.",
+            "Original CWE-ID": "CWE-190",
+            "Original CAPEC-ID": "92"
+        },
+        {
+            "CVE-ID": "CVE-2023-39325",
+            "CVE-Description": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing. With the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection. This issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2. The default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 459,
+            "CWE Description": "The product does not properly clean up and remove temporary or supporting resources after they have been used.",
+            "Mapped CAPEC-ID": 166,
+            "CAPEC Description": "An attacker forces the target into a previous state in order to leverage potential weaknesses in the target dependent upon a prior configuration or state-dependent factors. Even in cases where an attacker may not be able to directly control the configuration of the targeted application, they may be able to reset the configuration to a prior state since many applications implement reset functions.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-45283",
+            "CVE-Description": "The filepath package does not recognize paths with a \\??\\ prefix as special. On Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x. Before fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b. Similarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b. In addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name. UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 459,
+            "CWE Description": "The product does not properly clean up and remove temporary or supporting resources after they have been used.",
+            "Mapped CAPEC-ID": 38,
+            "CAPEC Description": "This pattern of attack sees an adversary load a malicious resource into a program's standard path so that when a known command is executed then the system instead executes the malicious component. The adversary can either modify the search path a program uses, like a PATH variable or classpath, or they can manipulate resources on the path to point to their malicious components. J2EE applications and other component based applications that are built from multiple binaries can have very long list of dependencies to execute. If one of these libraries and/or references is controllable by the attacker then application controls can be circumvented by the attacker.",
+            "Original CWE-ID": "CWE-22",
+            "Original CAPEC-ID": "126, 79, 76, 78, 64"
+        },
+        {
+            "CVE-ID": "CVE-2020-14039",
+            "CVE-Description": "In Go before 1.13.13 and 1.14.x before 1.14.5, Certificate.Verify may lack a check on the VerifyOptions.KeyUsages EKU requirements (if VerifyOptions.Roots equals nil and the installation is on Windows). Thus, X.509 certificate verification is incomplete.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 295,
+            "CWE Description": "The product does not validate, or incorrectly validates, a certificate.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2020-24553",
+            "CVE-Description": "Go before 1.14.8 and 1.15.x before 1.15.1 allows XSS because text/html is the default for CGI/FCGI handlers that lack a Content-Type header.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 79,
+            "CWE Description": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
+            "Mapped CAPEC-ID": 209,
+            "CAPEC Description": "An adversary creates a file with scripting content but where the specified MIME type of the file is such that scripting is not expected. The adversary tricks the victim into accessing a URL that responds with the script file. Some browsers will detect that the specified MIME type of the file does not match the actual type of its content and will automatically switch to using an interpreter for the real content type. If the browser does not invoke script filters before doing this, the adversary's script may run on the target unsanitized, possibly revealing the victim's cookies or executing arbitrary script in their browser.",
+            "Original CWE-ID": "CWE-79",
+            "Original CAPEC-ID": "209, 588, 591, 63, 85, 592"
+        },
+        {
+            "CVE-ID": "CVE-2021-34558",
+            "CVE-Description": "The crypto/tls package of Go through 1.16.5 does not properly assert that the type of public key in an X.509 certificate matches the expected type when doing a RSA based key exchange, allowing a malicious TLS server to cause a TLS client to panic.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 617,
+            "CWE Description": "The product contains an assert() or similar statement that can be triggered by an attacker, which leads to an application exit or other behavior that is more severe than necessary.",
+            "Mapped CAPEC-ID": 33,
+            "CAPEC Description": "An adversary abuses the flexibility and discrepancies in the parsing and interpretation of HTTP Request messages using various HTTP headers, request-line and body parameters as well as message sizes (denoted by the end of message signaled by a given HTTP header) by different intermediary HTTP agents (e.g., load balancer, reverse proxy, web caching proxies, application firewalls, etc.) to secretly send unauthorized and malicious HTTP requests to a back-end HTTP agent (e.g., web server). See CanPrecede relationships for possible consequences.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2022-1705",
+            "CVE-Description": "Acceptance of some invalid Transfer-Encoding headers in the HTTP/1 client in net/http before Go 1.17.12 and Go 1.18.4 allows HTTP request smuggling if combined with an intermediate server that also improperly fails to reject the header as invalid.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 918,
+            "CWE Description": "The web server receives a URL or similar request from an upstream component and retrieves the contents of this URL, but it does not sufficiently ensure that the request is being sent to the expected destination.",
+            "Mapped CAPEC-ID": 126,
+            "CAPEC Description": "An adversary uses path manipulation methods to exploit insufficient input validation of a target to obtain access to data that should be not be retrievable by ordinary well-formed requests. A typical variety of this attack involves specifying a path to a desired file together with dot-dot-slash characters, resulting in the file access API or function traversing out of the intended directory structure and into the root file system. By replacing or modifying the expected path information the access function or API retrieves the file desired by the attacker. These attacks either involve the attacker providing a complete path to a targeted file or using control characters (e.g. path separators (/ or ) and/or dots (.)) to reach desired directories or files.",
+            "Original CWE-ID": "CWE-444",
+            "Original CAPEC-ID": "33, 273"
+        },
+        {
+            "CVE-ID": "CVE-2022-41717",
+            "CVE-Description": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 787,
+            "CWE Description": "The product writes data past the end, or before the beginning, of the intended buffer.",
+            "Mapped CAPEC-ID": 33,
+            "CAPEC Description": "An adversary abuses the flexibility and discrepancies in the parsing and interpretation of HTTP Request messages using various HTTP headers, request-line and body parameters as well as message sizes (denoted by the end of message signaled by a given HTTP header) by different intermediary HTTP agents (e.g., load balancer, reverse proxy, web caching proxies, application firewalls, etc.) to secretly send unauthorized and malicious HTTP requests to a back-end HTTP agent (e.g., web server). See CanPrecede relationships for possible consequences.",
+            "Original CWE-ID": "CWE-770",
+            "Original CAPEC-ID": "487, 528, 130, 496, 495, 494, 493, 491, 147, 229, 489, 469, 482, 488, 486, 490, 125, 197, 230, 231"
+        },
+        {
+            "CVE-ID": "CVE-2023-39318",
+            "CVE-Description": "The html/template package does not properly handle HTML-like \"\" comment tokens, nor hashbang \"#!\" comment tokens, in <script> contexts. This may cause the template parser to improperly interpret the contents of <script> contexts, causing actions to be improperly escaped. This may be leveraged to perform an XSS attack.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 79,
+            "CWE Description": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
+            "Mapped CAPEC-ID": 209,
+            "CAPEC Description": "An adversary creates a file with scripting content but where the specified MIME type of the file is such that scripting is not expected. The adversary tricks the victim into accessing a URL that responds with the script file. Some browsers will detect that the specified MIME type of the file does not match the actual type of its content and will automatically switch to using an interpreter for the real content type. If the browser does not invoke script filters before doing this, the adversary's script may run on the target unsanitized, possibly revealing the victim's cookies or executing arbitrary script in their browser.",
+            "Original CWE-ID": "CWE-79",
+            "Original CAPEC-ID": "209, 588, 591, 63, 85, 592"
+        },
+        {
+            "CVE-ID": "CVE-2023-39319",
+            "CVE-Description": "The html/template package does not apply the proper rules for handling occurrences of \"<script\", \"<!--\", and \"</script\" within JS literals in <script> contexts. This may cause the template parser to improperly consider script contexts to be terminated early, causing actions to be improperly escaped. This could be leveraged to perform an XSS attack.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 79,
+            "CWE Description": "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
+            "Mapped CAPEC-ID": 209,
+            "CAPEC Description": "An adversary creates a file with scripting content but where the specified MIME type of the file is such that scripting is not expected. The adversary tricks the victim into accessing a URL that responds with the script file. Some browsers will detect that the specified MIME type of the file does not match the actual type of its content and will automatically switch to using an interpreter for the real content type. If the browser does not invoke script filters before doing this, the adversary's script may run on the target unsanitized, possibly revealing the victim's cookies or executing arbitrary script in their browser.",
+            "Original CWE-ID": "CWE-79",
+            "Original CAPEC-ID": "209, 588, 591, 63, 85, 592"
+        }
+    ],
+    "statistics": {
+        "severity_accuracy": {
+            "LOW": 0,
+            "MEDIUM": 0.5555555555555556,
+            "HIGH": 0.2857142857142857,
+            "CRITICAL": 0.5
+        },
+        "overall_accuracy": 0.375,
+        "non_2023_accuracy": 0.34782608695652173,
+        "severity_count": {
+            "LOW": 0,
+            "MEDIUM": 9,
+            "HIGH": 21,
+            "CRITICAL": 2
+        },
+        "capec_accuracy": 0.35714285714285715
+    }
+}

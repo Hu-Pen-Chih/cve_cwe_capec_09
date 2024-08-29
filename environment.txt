@@ -1,0 +1,6 @@
+kubernetes
+requests
+torch
+pandas
+transformers
+tqdm

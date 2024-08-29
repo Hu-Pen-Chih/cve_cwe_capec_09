@@ -1,0 +1,131 @@
+{
+    "results": [
+        {
+            "CVE-ID": "CVE-2023-0286",
+            "CVE-Description": "There is a type confusion vulnerability relating to X.400 address processing\ninside an X.509 GeneralName. X.400 addresses were parsed as an ASN1_STRING but\nthe public structure definition for GENERAL_NAME incorrectly specified the type\nof the x400Address field as ASN1_TYPE. This field is subsequently interpreted by\nthe OpenSSL function GENERAL_NAME_cmp as an ASN1_TYPE rather than an\nASN1_STRING.\n\nWhen CRL checking is enabled (i.e. the application sets the\nX509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass\narbitrary pointers to a memcmp call, enabling them to read memory contents or\nenact a denial of service. In most cases, the attack requires the attacker to\nprovide both the certificate chain and CRL, neither of which need to have a\nvalid signature. If the attacker only controls one of these inputs, the other\ninput must already contain an X.400 address as a CRL distribution point, which\nis uncommon. As such, this vulnerability is most likely to only affect\napplications which have implemented their own functionality for retrieving CRLs\nover a network.\n\n",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1287,
+            "CWE Description": "The product receives input that is expected to be of a certain type, but it does not validate or incorrectly validates that the input is actually of the expected type.",
+            "Mapped CAPEC-ID": 619,
+            "CAPEC Description": "In this attack scenario, the attacker passively monitors the signal strength of the target??s cellular RF signal or WiFi RF signal and uses the strength of the signal (with directional antennas and/or from multiple listening points at once) to identify the source location of the signal. Obtaining the signal of the target can be accomplished through multiple techniques such as through Cellular Broadcast Message Request or through the use of IMSI Tracking or WiFi MAC Address Tracking.",
+            "Original CWE-ID": "CWE-843",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2023-0464",
+            "CVE-Description": "A security vulnerability has been identified in all supported versions\n\nof OpenSSL related to the verification of X.509 certificate chains\nthat include policy constraints.  Attackers may be able to exploit this\nvulnerability by creating a malicious certificate chain that triggers\nexponential use of computational resources, leading to a denial-of-service\n(DoS) attack on affected systems.\n\nPolicy processing is disabled by default but can be enabled by passing\nthe `-policy' argument to the command line utilities or by calling the\n`X509_VERIFY_PARAM_set1_policies()' function.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 295,
+            "CWE Description": "The product does not validate, or incorrectly validates, a certificate.",
+            "Mapped CAPEC-ID": 475,
+            "CAPEC Description": "An adversary exploits a cryptographic weakness in the signature verification algorithm implementation to generate a valid signature without knowing the key.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2023-0465",
+            "CVE-Description": "Applications that use a non-default option when verifying certificates may be\nvulnerable to an attack from a malicious CA to circumvent certain checks.\n\nInvalid certificate policies in leaf certificates are silently ignored by\nOpenSSL and other certificate policy checks are skipped for that certificate.\nA malicious CA could use this to deliberately assert invalid certificate policies\nin order to circumvent policy checking on the certificate altogether.\n\nPolicy processing is disabled by default but can be enabled by passing\nthe `-policy' argument to the command line utilities or by calling the\n`X509_VERIFY_PARAM_set1_policies()' function.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 295,
+            "CWE Description": "The product does not validate, or incorrectly validates, a certificate.",
+            "Mapped CAPEC-ID": 77,
+            "CAPEC Description": "This attack targets user controlled variables (DEBUG=1, PHP Globals, and So Forth). An adversary can override variables leveraging user-supplied, untrusted query variables directly used on the application server without any data sanitization. In extreme cases, the adversary can change variables controlling the business logic of the application. For instance, in languages like PHP, a number of poorly set default configurations may allow the user to override variables.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2023-0286",
+            "CVE-Description": "There is a type confusion vulnerability relating to X.400 address processing\ninside an X.509 GeneralName. X.400 addresses were parsed as an ASN1_STRING but\nthe public structure definition for GENERAL_NAME incorrectly specified the type\nof the x400Address field as ASN1_TYPE. This field is subsequently interpreted by\nthe OpenSSL function GENERAL_NAME_cmp as an ASN1_TYPE rather than an\nASN1_STRING.\n\nWhen CRL checking is enabled (i.e. the application sets the\nX509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass\narbitrary pointers to a memcmp call, enabling them to read memory contents or\nenact a denial of service. In most cases, the attack requires the attacker to\nprovide both the certificate chain and CRL, neither of which need to have a\nvalid signature. If the attacker only controls one of these inputs, the other\ninput must already contain an X.400 address as a CRL distribution point, which\nis uncommon. As such, this vulnerability is most likely to only affect\napplications which have implemented their own functionality for retrieving CRLs\nover a network.\n\n",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1287,
+            "CWE Description": "The product receives input that is expected to be of a certain type, but it does not validate or incorrectly validates that the input is actually of the expected type.",
+            "Mapped CAPEC-ID": 619,
+            "CAPEC Description": "In this attack scenario, the attacker passively monitors the signal strength of the target??s cellular RF signal or WiFi RF signal and uses the strength of the signal (with directional antennas and/or from multiple listening points at once) to identify the source location of the signal. Obtaining the signal of the target can be accomplished through multiple techniques such as through Cellular Broadcast Message Request or through the use of IMSI Tracking or WiFi MAC Address Tracking.",
+            "Original CWE-ID": "CWE-843",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2023-0464",
+            "CVE-Description": "A security vulnerability has been identified in all supported versions\n\nof OpenSSL related to the verification of X.509 certificate chains\nthat include policy constraints.  Attackers may be able to exploit this\nvulnerability by creating a malicious certificate chain that triggers\nexponential use of computational resources, leading to a denial-of-service\n(DoS) attack on affected systems.\n\nPolicy processing is disabled by default but can be enabled by passing\nthe `-policy' argument to the command line utilities or by calling the\n`X509_VERIFY_PARAM_set1_policies()' function.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 295,
+            "CWE Description": "The product does not validate, or incorrectly validates, a certificate.",
+            "Mapped CAPEC-ID": 475,
+            "CAPEC Description": "An adversary exploits a cryptographic weakness in the signature verification algorithm implementation to generate a valid signature without knowing the key.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2023-0465",
+            "CVE-Description": "Applications that use a non-default option when verifying certificates may be\nvulnerable to an attack from a malicious CA to circumvent certain checks.\n\nInvalid certificate policies in leaf certificates are silently ignored by\nOpenSSL and other certificate policy checks are skipped for that certificate.\nA malicious CA could use this to deliberately assert invalid certificate policies\nin order to circumvent policy checking on the certificate altogether.\n\nPolicy processing is disabled by default but can be enabled by passing\nthe `-policy' argument to the command line utilities or by calling the\n`X509_VERIFY_PARAM_set1_policies()' function.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 295,
+            "CWE Description": "The product does not validate, or incorrectly validates, a certificate.",
+            "Mapped CAPEC-ID": 77,
+            "CAPEC Description": "This attack targets user controlled variables (DEBUG=1, PHP Globals, and So Forth). An adversary can override variables leveraging user-supplied, untrusted query variables directly used on the application server without any data sanitization. In extreme cases, the adversary can change variables controlling the business logic of the application. For instance, in languages like PHP, a number of poorly set default configurations may allow the user to override variables.",
+            "Original CWE-ID": "CWE-295",
+            "Original CAPEC-ID": "475, 459"
+        },
+        {
+            "CVE-ID": "CVE-2022-37434",
+            "CVE-Description": "zlib through 1.2.12 has a heap-based buffer over-read or buffer overflow in inflate in inflate.c via a large gzip header extra field. NOTE: only applications that call inflateGetHeader are affected. Some common applications bundle the affected zlib source code but may be unable to call inflateGetHeader (e.g., see the nodejs/node reference).",
+            "Severity": "CRITICAL",
+            "Mapped CWE-ID": 120,
+            "CWE Description": "The product copies an input buffer to an output buffer without verifying that the size of the input buffer is less than the size of the output buffer, leading to a buffer overflow.",
+            "Mapped CAPEC-ID": 100,
+            "CAPEC Description": "Buffer Overflow attacks target improper or missing bounds checking on buffer operations, typically triggered by input injected by an adversary. As a consequence, an adversary is able to write past the boundaries of allocated buffer regions in memory, causing a program crash or potentially redirection of execution as per the adversaries' choice.",
+            "Original CWE-ID": "CWE-787",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2023-0286",
+            "CVE-Description": "There is a type confusion vulnerability relating to X.400 address processing\ninside an X.509 GeneralName. X.400 addresses were parsed as an ASN1_STRING but\nthe public structure definition for GENERAL_NAME incorrectly specified the type\nof the x400Address field as ASN1_TYPE. This field is subsequently interpreted by\nthe OpenSSL function GENERAL_NAME_cmp as an ASN1_TYPE rather than an\nASN1_STRING.\n\nWhen CRL checking is enabled (i.e. the application sets the\nX509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass\narbitrary pointers to a memcmp call, enabling them to read memory contents or\nenact a denial of service. In most cases, the attack requires the attacker to\nprovide both the certificate chain and CRL, neither of which need to have a\nvalid signature. If the attacker only controls one of these inputs, the other\ninput must already contain an X.400 address as a CRL distribution point, which\nis uncommon. As such, this vulnerability is most likely to only affect\napplications which have implemented their own functionality for retrieving CRLs\nover a network.\n\n",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1287,
+            "CWE Description": "The product receives input that is expected to be of a certain type, but it does not validate or incorrectly validates that the input is actually of the expected type.",
+            "Mapped CAPEC-ID": 619,
+            "CAPEC Description": "In this attack scenario, the attacker passively monitors the signal strength of the target??s cellular RF signal or WiFi RF signal and uses the strength of the signal (with directional antennas and/or from multiple listening points at once) to identify the source location of the signal. Obtaining the signal of the target can be accomplished through multiple techniques such as through Cellular Broadcast Message Request or through the use of IMSI Tracking or WiFi MAC Address Tracking.",
+            "Original CWE-ID": "CWE-843",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2024-5206",
+            "CVE-Description": "A sensitive data leakage vulnerability was identified in scikit-learn's TfidfVectorizer, specifically in versions up to and including 1.4.1.post1, which was fixed in version 1.5.0. The vulnerability arises from the unexpected storage of all tokens present in the training data within the `stop_words_` attribute, rather than only storing the subset of tokens required for the TF-IDF technique to function. This behavior leads to the potential leakage of sensitive information, as the `stop_words_` attribute could contain tokens that were meant to be discarded and not stored, such as passwords or keys. The impact of this vulnerability varies based on the nature of the data being processed by the vectorizer.",
+            "Severity": "MEDIUM",
+            "Mapped CWE-ID": 770,
+            "CWE Description": "The product allocates a reusable resource or group of resources on behalf of an actor without imposing any restrictions on the size or number of resources that can be allocated, in violation of the intended security policy for that actor.",
+            "Mapped CAPEC-ID": 473,
+            "CAPEC Description": "An attacker generates a message or datablock that causes the recipient to believe that the message or datablock was generated and cryptographically signed by an authoritative or reputable source, misleading a victim or victim operating system into performing malicious actions.",
+            "Original CWE-ID": "CWE-921",
+            "Original CAPEC-ID": "N/A"
+        },
+        {
+            "CVE-ID": "CVE-2022-40897",
+            "CVE-Description": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial of service via HTML in a crafted package or custom PackageIndex page. There is a Regular Expression Denial of Service (ReDoS) in package_index.py.",
+            "Severity": "HIGH",
+            "Mapped CWE-ID": 1333,
+            "CWE Description": "The product uses a regular expression with an inefficient, possibly exponential worst-case computational complexity that consumes excessive CPU cycles.",
+            "Mapped CAPEC-ID": 486,
+            "CAPEC Description": "An adversary may execute a flooding attack using the UDP protocol with the intent to deny legitimate users access to a service by consuming the available network bandwidth. Additionally, firewalls often open a port for each UDP connection destined for a service with an open UDP port, meaning the firewalls in essence save the connection state thus the high packet nature of a UDP flood can also overwhelm resources allocated to the firewall. UDP attacks can also target services like DNS or VoIP which utilize these protocols. Additionally, due to the session-less nature of the UDP protocol, the source of a packet is easily spoofed making it difficult to find the source of the attack.",
+            "Original CWE-ID": "CWE-1333",
+            "Original CAPEC-ID": "492"
+        }
+    ],
+    "statistics": {
+        "severity_accuracy": {
+            "LOW": 0,
+            "MEDIUM": 0.6666666666666666,
+            "HIGH": 0.5,
+            "CRITICAL": 0.0
+        },
+        "overall_accuracy": 0.5,
+        "non_2023_accuracy": 0.3333333333333333,
+        "severity_count": {
+            "LOW": 0,
+            "MEDIUM": 3,
+            "HIGH": 6,
+            "CRITICAL": 1
+        },
+        "capec_accuracy": 0.4
+    }
+}
