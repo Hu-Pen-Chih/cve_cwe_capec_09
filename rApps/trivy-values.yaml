@@ -1,0 +1,4 @@
+trivyOperator:
+  targetNamespaces: "ricxapp"
+operator:
+  configAuditScannerEnabled: false
