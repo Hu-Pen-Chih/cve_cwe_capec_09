@@ -11,8 +11,17 @@ from tqdm import tqdm
 import torch.nn.functional as F
 import requests
 
-# 設置 KUBECONFIG 環境變量
-os.environ['KUBECONFIG'] = '/home/joehu/.kube/config'
+# 檢查是否已經設置 KUBECONFIG 環境變量
+if 'KUBECONFIG' not in os.environ:
+    # 如果沒有設置，嘗試設置為默認的 kube config 路徑
+    default_kubeconfig_path = os.path.expanduser('~/.kube/config')
+    if os.path.exists(default_kubeconfig_path):
+        os.environ['KUBECONFIG'] = default_kubeconfig_path
+        print(f"使用默認的 KUBECONFIG 路徑: {default_kubeconfig_path}")
+    else:
+        print("沒有找到 KUBECONFIG，請設置 KUBECONFIG 環境變量或指定 kube config 的路徑。")
+else:
+    print(f"KUBECONFIG 環境變量已設置為: {os.environ['KUBECONFIG']}")
 
 # NVD API Key
 NVD_API_KEY = '8ec1f7dd-7991-45ea-b6bd-7a57476f31bd'
@@ -69,17 +78,42 @@ class InferenceModelCWEtoCAPEC(nn.Module):
         logits = self.classifier(combined_features)
         return logits
 
+# 從Google Drive下載訓練好的模型
+folders_to_download = {
+    'v2w_model_save': '1GlrhK1LIzbT2ETOEBawYmmAsuFDMibwO',  
+    'vwa_model_save': '1wSUjkeNWdiLxf8SI3zmtqIw8k1zPB9h5'   
+}
+
+# 檢查並創建目標資料夾並下載文件
+for folder_name, folder_id in folders_to_download.items():
+    # 如果目標資料夾不存在，則創建它
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    
+    # 檢查該資料夾是否已經下載過模型
+    folder_content = os.listdir(folder_name)
+    if len(folder_content) > 0:
+        print(f" {folder_name} 已經存在模型，跳過下載。")
+        continue
+
+    # 使用 gdown 下載每個資料夾中的所有文件
+    command = f'gdown --folder https://drive.google.com/drive/folders/{folder_id} -O {folder_name}'
+    subprocess.run(command, shell=True)
+    print(f"已下載文件到資料夾 {folder_name}。")
+
+print("所有模型已成功下載")
+
 # 加載 CVE 到 CWE 的模型和分詞器
 tokenizer_cve_cwe = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cve_cwe = InferenceModelCVEtoCWE(num_labels=2)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model_cve_cwe.load_state_dict(torch.load('vwa_result/cve_cwe.pt', map_location=device))
+model_cve_cwe.load_state_dict(torch.load('vwa_model_save/cve_cwe.pt', map_location=device, weights_only=True))
 model_cve_cwe.eval()
 
 # 加載 CWE 到 CAPEC 的模型和分詞器
 tokenizer_cwe_capec = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cwe_capec = InferenceModelCWEtoCAPEC(num_labels=2)
-model_cwe_capec.load_state_dict(torch.load('vwa_result/cve_capec.pt', map_location=device))
+model_cwe_capec.load_state_dict(torch.load('vwa_model_save/cve_capec.pt', map_location=device, weights_only=True))
 model_cwe_capec.eval()
 
 print("模型加載成功。")
@@ -108,17 +142,17 @@ file_path_mapping = 'inference_data/CWE_Desc_CAPEC_129.csv'  # 用於準確率�
 
 try:
     df_inference = pd.read_csv(file_path_inference, encoding='utf-8')
-    print("推理用CAPEC_Desc_CWE_254.csv資料集加載成功！")
+    print("inference資料集加載成功！")
     print(df_inference.head())
 except Exception as e:
-    print(f"推理用CAPEC_Desc_CWE_254.csv資料集加載失敗: {e}")
+    print(f"inference資料集加載失敗: {e}")
 
 try:
     df_mapping = pd.read_csv(file_path_mapping, encoding='utf-8')
-    print("準確率計算用CWE_Desc_CAPEC_129.csv資料集加載成功！")
+    print("accuracy資料集加載成功！")
     print(df_mapping.head())
 except Exception as e:
-    print(f"準確率計算用CWE_Desc_CAPEC_129.csv資料集加載失敗: {e}")
+    print(f"accuracy資料集加載失敗: {e}")
 
 
 # 確認 nvd_cve_storage 資料夾是否存在，不存在則創建
@@ -166,7 +200,7 @@ def fetch_cve_details(cve_id, storage_dir, use_local_only=False, max_retries=3, 
                         else:
                             print(f"CVE {cve_id} NVD資料中沒有映射的 CWE")
                     else:
-                        print(f"CVE {cve_id} 的資料中沒有 weaknesses 訊息")
+                        print(f"CVE {cve_id} 的資料中沒有 weaknesses payload")
             elif response.status_code == 403:
                 print(f"API 限制達到，休息一會再嘗試...")
                 time.sleep(backoff_factor * (2 ** attempt))  # Exponential backoff
@@ -361,11 +395,6 @@ def calculate_capec_accuracy(capec_results):
 
 def process_new_reports():
     namespace = "ricxapp"
-    hardcoded_reports = [
-        "replicaset-qp-h-84cdd7d847-qp-h",
-        "replicaset-rc-ricxapp-deployment-764c8bffd4-ricxapp-container",
-        "replicaset-ad-i-release-7cdbd655d4-ad-i-container"
-    ]
 
     # 自動偵測存在的 vulnerabilityreport
     kubectl_command = f"kubectl get vulnerabilityreport -n {namespace} -o json"
@@ -387,20 +416,21 @@ def process_new_reports():
         report_path = os.path.join(result_dir, f"{report_name}.json")
 
         if os.path.exists(report_path):
-            print(f"報告 {report_name} 已經處理過，跳過。")
+            print(f"漏洞報告 {report_name} 已經處理過，跳過。")
             continue
 
-        print(f"處理新的報告 {report_name}...")
+        print(f"處理新的漏洞報告 {report_name}...")
 
         # 獲取 CVE IDs
         cve_ids = [vuln['vulnerabilityID'] for vuln in report['report']['vulnerabilities'] if vuln['vulnerabilityID'].startswith('CVE')]
         cve_severities = {vuln['vulnerabilityID']: vuln['severity'] for vuln in report['report']['vulnerabilities'] if vuln['vulnerabilityID'].startswith('CVE')}
 
-        if report_name in hardcoded_reports:
-            print(f"報告 {report_name} 使用固定報告存儲資料...")
+        # 動態檢測報告名稱是否包含特定關鍵字
+        if any(x in report_name for x in ["ric-xapps-qp", "ric-xapps-rc", "ric-xapps-ad"]):
+            # 使用固定報告存儲資料
             cve_details = fetch_all_cve_details(cve_ids, storage_dir=fixed_report_storage_dir, use_local_only=True)
         else:
-            print(f"報告 {report_name} 從 NVD API 獲取 CVE 資料...")
+            # 從 NVD API 獲取 CVE 資料
             cve_details = fetch_all_cve_details(cve_ids, storage_dir=general_storage_dir)
 
         filtered_cve_details = filter_cve_details(cve_details)
@@ -437,9 +467,38 @@ def process_new_reports():
         with open(report_path, 'w') as f:
             json.dump(output_data, f, indent=4)
 
-        print(f"報告 {report_name} 處理完成，結果已保存到 {report_path}。")
+        print(f"漏洞報告 {report_name} 處理完成，結果已保存到 {report_path}。")
+
+
 
 while True:
     process_new_reports()
-    print("等待 15 秒後重新檢查新報告...")
+    print("等待 15 秒後重新檢查新漏洞報告...")
     time.sleep(15)
+
+
+
+#                       _oo0oo_
+#                      o8888888o
+#                      88" . "88
+#                      (| -_- |)
+#                      0\  =  /0
+#                    ___/`---'\___
+#                  .' \\|     |# '.
+#                 / \\|||  :  |||# \
+#                / _||||| -:- |||||- \
+#               |   | \\\  -  #/ |   |
+#               | \_|  ''\---/''  |_/ |
+#               \  .-\__  '-'  ___/-. /
+#             ___'. .'  /--.--\  `. .'___
+#          ."" '<  `.___\_<|>_/___.' >' "".
+#         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+#         \  \ `_.   \_ __\ /__ _/   .-` /  /
+#     =====`-.____`.___ \_____/___.-`___.-'=====
+#                       `=---='
+#
+#
+#     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#               菩提本無樹   明鏡亦非臺
+#               本來無bug    何必常修改
