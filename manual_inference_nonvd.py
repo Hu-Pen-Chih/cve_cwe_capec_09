@@ -10,8 +10,17 @@ from transformers import BertTokenizer, BertModel, BertConfig
 from tqdm import tqdm
 import torch.nn.functional as F
 
-# 設置 KUBECONFIG 環境變量
-os.environ['KUBECONFIG'] = '/home/joehu/.kube/config'
+# 檢查是否已經設置 KUBECONFIG path
+if 'KUBECONFIG' not in os.environ:
+    # 如果沒有設置，嘗試設置為默認的 kube config 路徑
+    default_kubeconfig_path = os.path.expanduser('~/.kube/config')
+    if os.path.exists(default_kubeconfig_path):
+        os.environ['KUBECONFIG'] = default_kubeconfig_path
+        print(f"使用默認的 KUBECONFIG 路徑: {default_kubeconfig_path}")
+    else:
+        print("沒有找到 KUBECONFIG，請設置 KUBECONFIG 環境變量或指定 kube config 的路徑。")
+else:
+    print(f"KUBECONFIG 環境變量已設置為: {os.environ['KUBECONFIG']}")
 
 print("開始設定推理模型...")
 
@@ -40,7 +49,7 @@ class InferenceModelCWEtoCAPEC(nn.Module):
         super(InferenceModelCWEtoCAPEC, self).__init__()
         self.bert = BertModel.from_pretrained('bert-base-uncased')
         self.dropout = nn.Dropout(0.1)
-        self.classifier = nn.Linear(768 * 2, 2)
+        self.classifier = nn.Linear(768 * 2, num_labels)
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids, attention_mask=attention_mask)
@@ -53,21 +62,45 @@ class InferenceModelCWEtoCAPEC(nn.Module):
         logits = self.classifier(combined_features)
         return logits
 
+
+# 從Google Drive下載訓練好的模型
+folders_to_download = {
+    'v2w_model_save': '1GlrhK1LIzbT2ETOEBawYmmAsuFDMibwO',  
+    'vwa_model_save': '1wSUjkeNWdiLxf8SI3zmtqIw8k1zPB9h5'   
+}
+
+# 檢查並創建目標資料夾並下載文件
+for folder_name, folder_id in folders_to_download.items():
+    # 如果目標資料夾不存在，則創建它
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    
+    # 檢查該資料夾是否已經下載過模型
+    folder_content = os.listdir(folder_name)
+    if len(folder_content) > 0:
+        print(f" {folder_name} 已經存在模型，跳過下載。")
+        continue
+
+    # 使用 gdown 下載每個資料夾中的所有文件
+    command = f'gdown --folder https://drive.google.com/drive/folders/{folder_id} -O {folder_name}'
+    subprocess.run(command, shell=True)
+    print(f"已下載文件到資料夾 {folder_name}。")
+
+print("所有模型已成功下載")
+
 # 加載 CVE 到 CWE 的模型和分詞器
 tokenizer_cve_cwe = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cve_cwe = InferenceModelCVEtoCWE(num_labels=2)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-#model_cve_cwe.load_state_dict(torch.load('vwa_result/cve_cwe.pt', map_location=device))
-model_cve_cwe.load_state_dict(torch.load('v2w_result/cve_cwe.pt', map_location=device))
-
+model_cve_cwe.load_state_dict(torch.load('vwa_model_save/cve_cwe.pt', map_location=device, weights_only=True))
+# model_cve_cwe.load_state_dict(torch.load('v2w_model_save/cve_cwe.pt', map_location=device, weights_only=True))
 model_cve_cwe.eval()
 
 # 加載 CWE 到 CAPEC 的模型和分詞器
 tokenizer_cwe_capec = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cwe_capec = InferenceModelCWEtoCAPEC(num_labels=2)
-#model_cwe_capec.load_state_dict(torch.load('vwa_result/cve_capec.pt', map_location=device))
-model_cve_cwe.load_state_dict(torch.load('v2w_result/cve_capec.pt', map_location=device))
-
+model_cwe_capec.load_state_dict(torch.load('vwa_model_save/cve_capec.pt', map_location=device, weights_only=True))
+# model_cve_cwe.load_state_dict(torch.load('v2w_model_save/cve_capec.pt', map_location=device, weights_only=True))
 model_cwe_capec.eval()
 
 print("模型加載成功。")
@@ -204,7 +237,7 @@ def run_inference(cve_details, cve_severities):
     non_2023_accuracy = non_2023_correct / non_2023_count if non_2023_count > 0 else 0
 
     print("推理結果:")
-    print(results)
+    # print(results)
     print("嚴重程度準確率:")
     print(severity_accuracy)
     print("整體準確率:")
@@ -215,10 +248,6 @@ def run_inference(cve_details, cve_severities):
     return results, severity_accuracy, overall_accuracy, non_2023_accuracy, severity_count
 
 # 進行CVE到CAPEC的映射
-def extract_cwe_id(cwe_id_str):
-    match = re.search(r'\d+', cwe_id_str)
-    return int(match.group()) if match else None
-
 def map_cve_to_capec(cve_details):
     capec_results = []
 
@@ -295,11 +324,32 @@ def calculate_capec_accuracy(capec_results):
 
 def process_new_reports():
     namespace = "ricxapp"
+    
+    # 自動偵測 vulnerability reports
+    kubectl_command = f"kubectl get vulnerabilityreport -n {namespace} -o json"
+    process = subprocess.Popen(kubectl_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+
+    if error:
+        print(f"獲取 vulnerabilityreport 時出錯: {error}")
+        return
+
+    try:
+        reports = json.loads(output)
+    except json.JSONDecodeError as e:
+        print(f"解析 JSON 時出錯: {e}")
+        return
+
+    # 過濾報告名稱，找出符合特定關鍵字的報告
     report_names = [
-        "replicaset-qp-h-84cdd7d847-qp-h",
-        "replicaset-rc-ricxapp-deployment-764c8bffd4-ricxapp-container",
-        "replicaset-ad-i-release-7cdbd655d4-ad-i-container"    
+        report['metadata']['name']
+        for report in reports['items']
+        if any(x in report['metadata']['name'] for x in ["ric-xapps-qp", "ric-xapps-rc", "ric-xapps-ad"])
     ]
+
+    output_dir = 'inference_result'
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     for specific_report_name in report_names:
         kubectl_command = f"kubectl get vulnerabilityreport {specific_report_name} -n {namespace} -o json"
@@ -310,10 +360,18 @@ def process_new_reports():
             print(f"獲取 VulnerabilityReport 時出錯: {error}")
             continue
 
-        report = json.loads(output)
+        if not output:
+            print(f"沒有找到報告 {specific_report_name}，請確認名稱是否正確。")
+            continue
+
+        try:
+            report = json.loads(output)
+        except json.JSONDecodeError as e:
+            print(f"解析 JSON 時出錯: {e}")
+            continue
 
         report_name = report['metadata']['name']
-        report_path = f"{report_name}.json"
+        report_path = os.path.join(output_dir, f"{report_name}.json")
 
         if os.path.exists(report_path):
             print(f"報告 {report_name} 已經處理過，跳過。")
@@ -364,9 +422,30 @@ def process_new_reports():
 if not os.path.exists('nvd_cve_storage_v2'):
     os.makedirs('nvd_cve_storage_v2')
 
-# while True:
-#     process_new_reports()
-#     print("等待 15 秒後重新檢查新報告...")
-#     time.sleep(15)
-
 process_new_reports()
+
+
+#                       _oo0oo_
+#                      o8888888o
+#                      88" . "88
+#                      (| -_- |)
+#                      0\  =  /0
+#                    ___/`---'\___
+#                  .' \\|     |# '.
+#                 / \\|||  :  |||# \
+#                / _||||| -:- |||||- \
+#               |   | \\\  -  #/ |   |
+#               | \_|  ''\---/''  |_/ |
+#               \  .-\__  '-'  ___/-. /
+#             ___'. .'  /--.--\  `. .'___
+#          ."" '<  `.___\_<|>_/___.' >' "".
+#         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+#         \  \ `_.   \_ __\ /__ _/   .-` /  /
+#     =====`-.____`.___ \_____/___.-`___.-'=====
+#                       `=---='
+#
+#
+#     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#               菩提本無樹   明鏡亦非臺
+#               本來無bug    何必常修改
