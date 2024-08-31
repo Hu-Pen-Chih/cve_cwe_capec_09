@@ -10,8 +10,17 @@ from sklearn.feature_extraction.text import CountVectorizer
 from tqdm import tqdm
 import re
 
-# 設置 KUBECONFIG 環境變量
-os.environ['KUBECONFIG'] = '/home/joehu/.kube/config'
+# 檢查是否已經設置 KUBECONFIG 環境變量
+if 'KUBECONFIG' not in os.environ:
+    # 如果沒有設置，嘗試設置為默認的 kube config 路徑
+    default_kubeconfig_path = os.path.expanduser('~/.kube/config')
+    if os.path.exists(default_kubeconfig_path):
+        os.environ['KUBECONFIG'] = default_kubeconfig_path
+        print(f"使用默認的 KUBECONFIG 路徑: {default_kubeconfig_path}")
+    else:
+        print("沒有找到 KUBECONFIG，請設置 KUBECONFIG 環境變量或指定 kube config 的路徑。")
+else:
+    print(f"KUBECONFIG 環境變量已設置為: {os.environ['KUBECONFIG']}")
 
 print("開始設定推理模型...")
 
