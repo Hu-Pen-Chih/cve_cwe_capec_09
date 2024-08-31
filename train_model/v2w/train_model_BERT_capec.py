@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 # 抑制特定警告
 warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned.*")
 
-balanced_samples_path_cve_capec = '../bert07/sample_synonyms_data_cve_capec/repeated_samples_2_times_cve_cwe_capec_0802.csv'
+balanced_samples_path_cve_capec = '2023_CVE_CAPEC.csv'
 balanced_samples_cve_capec = pd.read_csv(balanced_samples_path_cve_capec, on_bad_lines='skip', engine='python')
 
 # 顯示讀取的數據以供檢查
