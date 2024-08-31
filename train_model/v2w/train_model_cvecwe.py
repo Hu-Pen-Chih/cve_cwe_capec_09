@@ -16,7 +16,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned.*")
 
 # 設置文件路徑
-balanced_samples_path_2023 = 'train_dat/2023_CVE_CWE.csv'
+balanced_samples_path_2023 = '2023_CVE_CWE.csv'
 
 # 讀取處理好的數據
 balanced_samples_2023 = pd.read_csv(balanced_samples_path_2023, on_bad_lines='skip', engine='python')
