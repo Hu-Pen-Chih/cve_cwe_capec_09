@@ -8,8 +8,7 @@ WORKDIR /app
 COPY environment.txt ./
 COPY inference_data ./inference_data
 COPY nvd_cve_storage_v2 ./nvd_cve_storage_v2
-COPY inference_result ./inference_result
-COPY vwa_result ./vwa_result
+COPY vwa_model_save ./vwa_model_save
 COPY auto_inference_08.py ./
 
 # 安裝系統dependency
