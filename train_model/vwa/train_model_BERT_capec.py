@@ -10,34 +10,15 @@ import torch
 warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned.*")
 
 
-#balanced_samples_path_cve = '../bert07/sample_synonyms_data/repeated_samples_8_times_2023.csv'
-
-#balanced_samples_path_cve_capec = '../bert07/sample_synonyms_data_cve_capec/repeated_samples_1_times_cve_cwe_capec_0802.csv'
-#balanced_samples_path_cve_capec = '../bert07/sample_synonyms_data_cve_capec/repeated_samples_1_times_cve_cwe_capec_0802.csv'
-balanced_samples_path_cve_capec = '../bert07/sample_synonyms_data_cve_capec/repeated_samples_2_times_cve_cwe_capec_0802.csv'
-
-balanced_samples_path_cve_cwe = '../bert07/cve_data/balanced_samples_2023_1_1_test.csv'
-
-#balanced_samples_path_3gpp_1 ='../bert07/cve_data/balanced_samples_3gpp_final_4k_capec_test.csv'
-#balanced_samples_path_3gpp_1 ='../bert07/sample_synonyms_data_cwe_capec/repeated_samples_1_times_3gpp_cwe_capec.csv'
-
-#balanced_samples_path_3gpp_1 ='../bert07/sample_synonyms_data_cve_capec_3gpp_0814/repeated_samples_1_times_cve_capec_0814.csv'
-balanced_samples_path_3gpp_1 ='../bert07/sample_synonyms_data_cve_capec_3gpp_0814/repeated_samples_2_times_cve_capec_3K.csv'
-
-#balanced_samples_path_3gpp_2 ='../bert07/sample_synonyms_data_cve_capec_3gpp_0814/repeated_samples_1_times_cve_capec_0814.csv'
-balanced_samples_path_3gpp_2 ='../bert07/sample_synonyms_data_cve_capec_3gpp_0819/repeated_samples_1_times_cve_capec_15K.csv'
-
-#balanced_samples_path_cwe_capec = 'train_data/sample_synonym_repeated_cwe_capec/repeated_samples_64_times.csv'
-balanced_samples_path_cwe_capec = 'train_data/sample_synonyms_data_cwe_capec_0817/repeated_samples_1_times_cwe_capec_127.csv'
+balanced_samples_path_cve_capec = '2023_CVE_CAPEC.csv'
+balanced_samples_path_3gpp_1 ='for_cvecapec_3gpp_4k.csv'
 
 ###########
 
 balanced_samples_cve_capec = pd.read_csv(balanced_samples_path_cve_capec, on_bad_lines='skip', engine='python')
-balanced_samples_cve_cwe = pd.read_csv(balanced_samples_path_cve_cwe, on_bad_lines='skip', engine='python').dropna()
+#balanced_samples_cve_cwe = pd.read_csv(balanced_samples_path_cve_cwe, on_bad_lines='skip', engine='python').dropna()
 balanced_samples_3gpp_1 = pd.read_csv(balanced_samples_path_3gpp_1, on_bad_lines='skip', engine='python')
-balanced_samples_3gpp_2 = pd.read_csv(balanced_samples_path_3gpp_2, on_bad_lines='skip', engine='python')
-
-balanced_samples_cwe_capec = pd.read_csv(balanced_samples_path_cwe_capec, on_bad_lines='skip', engine='python').dropna()
+balanced_samples_3gpp_1 = balanced_samples_3gpp_1[balanced_samples_3gpp_1['P/N'] == 'P']
 
 # 顯示讀取的數據以供檢查
 print("前五行 (balanced_samples_cve):")
@@ -47,20 +28,6 @@ print(balanced_samples_cve_capec.info())
 print("資料集描述 (balanced_samples_cve):")
 print(balanced_samples_cve_capec.describe())
 
-# print("前五行 (balanced_samples):")
-# print(balanced_samples_path_cve_cwe.head())
-# print("數據框的基本訊息 (balanced_samples):")
-# print(balanced_samples_path_cve_cwe.info())
-# print("資料集描述 (balanced_samples):")
-# print(balanced_samples_path_cve_cwe.describe())
-
-# print("前五行 (balanced_samples):")
-# print(balanced_samples_cwe_capec.head())
-# print("數據框的基本訊息 (balanced_samples):")
-# print(balanced_samples_cwe_capec.info())
-# print("資料集描述 (balanced_samples):")
-# print(balanced_samples_cwe_capec.describe())
-
 print("前五行 (balanced_samples_3gpp_1):")
 print(balanced_samples_3gpp_1.head())
 print("數據框的基本訊息 (balanced_samples):")
@@ -68,21 +35,9 @@ print(balanced_samples_3gpp_1.info())
 print("資料集描述 (balanced_samples):")
 print(balanced_samples_3gpp_1.describe())
 
-print("前五行 (balanced_samples_3gpp_2):")
-print(balanced_samples_3gpp_2.head())
-print("數據框的基本訊息 (balanced_samples):")
-print(balanced_samples_3gpp_2.info())
-print("資料集描述 (balanced_samples):")
-print(balanced_samples_3gpp_2.describe())
-
 # 合併兩個數據框
-#balanced_samples = pd.concat([balanced_samples_path_cve, balanced_samples_3gpp])
-#balanced_samples = pd.concat([balanced_samples_path_cve_capec, balanced_samples_path_cve_cwe, balanced_samples_cwe_capec, balanced_samples_3gpp_2])
-#balanced_samples = pd.concat([balanced_samples_path_cve_capec, balanced_samples_path_cve_cwe])
-#balanced_samples = pd.concat([balanced_samples_path_cve_capec, balanced_samples_3gpp_1, balanced_samples_3gpp_2])
-
 balanced_samples = pd.concat([balanced_samples_cve_capec, balanced_samples_3gpp_1])
-#balanced_samples = balanced_samples_cve_capec
+# balanced_samples = balanced_samples_cve_capec
 
 # 先替換 'P' 和 'N' 為數字
 balanced_samples['P/N'] = balanced_samples['P/N'].replace({'P': 1, 'N': 0})
