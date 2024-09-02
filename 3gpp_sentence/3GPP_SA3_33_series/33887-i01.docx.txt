@@ -1,0 +1,100 @@
+Whether and how the security aspects for UE TNAP mobility can be supported in the 5GS without performing the full authentication.
+IETF RFC : " Improved Extensible Authentication Protocol Method for 3rd Generation Authentication and Key Agreement (EAP-AKA')".
+IETF RFC : "EAP Extensions for the EAP Re-authentication Protocol (ERP)".
+For the purposes of the present document, the terms given in TR 21.905 , in TS 33.501and in TR 23.700-17are applied.
+For the purposes of the present document, the abbreviations given in TR 21.905 , in TS 33.501and in TR 23.700-17are applied.
+In the present document, when UE switches from one TNAP (source) to another TNAP (destination) within the same TNGF, full authentication is not performed.
+AUN3 devices supporting EAP can be connected to RG via WLAN or wireline.
+When AUN3 devices connect to the RG over Wi-Fi, the session between AUN3 devices and the RG is not protected.
+For example, when UE moves between two nearby or overlapping TNAP1 and TNAP2, the connectivity will break.
+The AUN3 device uses SUCI in NAI format (i.e., username@realm format as specified in clause 28.7.3 of ) or 5G-GUTI.
+The W-AGF sends to the AMF/SEAF a registration request on behalf of the AUN3 device.
+The registration request includes the NAI SUCI, wireline network name if available, and the new indication.
+The same message content is forwarded from AMF to AUSF and then from AUSF to UDM.
+Based on the indication in step 3, AMF derives the WAGF key.7.
+W-AGF/RG derive the KAUN3 as PMK key from the WAGF key (KWAGF').
+Note: Whether the PMK is derived by RG and W-AGF is out if9.
+The AUN3 device performs a 4-way handshake to establish a secure connection with the WLAN AN.
+New indication received for AUN3 devices and select authentication algorithm accordingly.
+The AMF/SEAF selects the AUSF based on the SUCI in the received registration request and sends a Nausf_UEAuthentication_Authenticate Request message to the AUSF.
+It contains the SUCI of the AUN3 device, and an AUN3 device indicator.11a-11b.
+If steps 4a-4b is executed, the AMF/SEAF sends to the W-AGF the EAP-Success message and the MSK in an Authentication Result message.
+The W-AGF sends to the FN-RG the EAP-Success message and the MSK in AAA message.
+If step 4c is executed, the AMF/SEAF sends to the 5G-RG the EAP-Success message and the MSK in an Authentication Result message.
+This solution meets the requirement that an AUN3 device 6.3 Solution #3: EAP base authentication for AUN3 devices behind RG in SNPN1.
+The AUN3 device attempts to establish a layer 2 connection with the RG either via Ethernet or Wi-Fi.
+If the layer 2 connection is based on Ethernet, steps 13-14 are skipped.
+The RG initiates the EAP authentication procedure by sending an EAP request/Identity to the AUN3 device in a layer frame (e.g. EAPOL).
+The AUN3 device sends back an EAP response/Identity including its Network Access Identifier (NAI) in the form of username@realm.
+The username part of the NAI Otherwise, the anonymous NAI can be used if the EAP method supports subscription identifier privacy 4a-4b.
+It contains the SUCI of the AUN3 device and the AUN3 device indicator.
+The UDM invokes the SIDF to map the SUCI to the SUPI and selects an authentication method based on the SUPI.
+The UDM sends a Nudm_UEAuthentication_Get Response to the AUSF, which contains the SUPI of the AUN3 device and an indicator of the selected authentication method.
+EAP-AKA' as specified in RFCor other key generating EAP method can be selected.
+The AUSF and the AUN3 device perform EAP authentication based on the selected authentication method.
+Storage and processing of credentials for EAP authentication method is described in Annex I of.11a-11b.
+If steps 4a-4b is executed, the AMF/SEAF sends to the W-AGF the EAP-Success message and the MSK in an Authentication Result message.
+The W-AGF sends to the FN-RG the EAP-Success message and the MSK in AAA message.
+If step 4c is executed, the AMF/SEAF sends to the 5G-RG the EAP-Success message and the MSK in an Authentication Result message.
+The AMF/SEAF selects the AUSF based on the SUCI in the received registration request and sends a Nausf_UEAuthentication_Authenticate Request message to the AUSF.
+It contains the SUCI of the AUN3 device, and an AUN3 device indicator.10.
+The AAA and the AUN3 device perform EAP authentication based on the selected authentication method.
+Storage and processing of credentials for EAP authentication method is described in Annex I of.13.
+The NSSAAF returns the EAP Success message, the MSK and the SUPI to the AUSF using the Nnssaaf_AIWF_Authenticate service operation response message.
+The AUSF sends to the AMF/SEAF the EAP-Success message along with the SUPI and the MSK in a Nausf_UEAuthentication_Authenticate Response message.16.
+The RG sends to the AUN3 device the EAP-Success message in a layer 2 frame.
+The AUN3 device and the RG use the first 256-bit of the MSK as the PMK, from which the WLAN keys are derived.
+The AUN3 and the RG performs four-way handshaking to establish WLAN secure connection.
+TNAP#2 sends the L2 EAP-Request for Identity towards the UE and the UE responds back with an L2 EAP-Response with Identity and a TNAP_Mobility_Indication flag.
+UE and TNGF performs mutual authentication during UE TNAP mobility without performing the full authentication.
+TNAP#2 sends the L2 EAP-Request for Identity towards the UE and the UE responds back with an L2 EAP-Response with Identity and a TNAP_Mobility_Indication flag.
+This solution addresses key issue #4: Security aspect of TNAP mobility.
+This solution addresses the TNAP mobility using the Fast BSS Transition protocol .
+Specifically, KFT is used as Master PMK (MPMK) that is used as an input key for R0-Key-Data derivation.
+The TNGF can send both KTNAP and KFT to the entity that holds the root key of the FT key hierarchy as an MSK.
+The TNGF sets the MSK to KTNAP || KFT, where MSK is 512 bits and the KTNAP and KFT are 256 bits.
+The key PMK-R0 and PMK-R1 are identified by PMKR0Name and PMKR1Name respectively.
+Each AP gets a different PMK-R1 provided to it to secure the communications between the UE and AP.
+Finally, nonces (SNonce from UE and ANonce from the AP) are used to ensure freshness of the traffic key (PTK) between the UE and AP.
+Figure 6.7.2.2-1 shows a UE attaching to the first AP that results in establishing the FT key hierarchy.
+Figure 6.7.2.2-1: Initial UE associationStep 2: The UE and AP exchange 802.11 Authentication Request and Response.
+The UE checks the MIC and, if successful, installs likewise the PTK for the subsequent data exchanges.
+This solution requires new functionality of deriving a new key from an existing key in the UE and TNGF.
+Further the UE sends to TNGF, a UE Nonce (UNonce) in step 10c.
+The UE provides a Network Access Identifier (NAI) containing username = Reauth-ID and realm = nai.5gc.tngf<TNGF-ID>.mnc<MNC>.mcc<MCC>.org.
+The TNGF finds a stored UE context containing the received Reauth-ID, thus, it determines that the UE is a known UE which requests reauthentication.
+The UE context was created in the TNGF when the UE performed an initial registration (see Figure 6.8.2-1) via TNGF.
+The UE derives an expected MAC1 (XMAC1) using TNGF key stored in UE, and TNonce and compares XMAC1 with the received MAC1.
+The UE responds with a 5G-Challenge containing UNonce, TNonce and MAC2.11.
+The TNGF derives a fresh Reauth-ID for the UE, e.g. by using TNGF key stored in TNGF, TNGF-ID, TNonce and UNonce.
+In addition, the TNGF derives a new TNAP key by using the TNGF key stored in TNGF, the TNGF-ID, the TNonce and UNonce values.13.
+The UE derives a new Reauth-ID by using the TNGF key stored in UE, TNGF-ID, TNonce and UNonce.
+In addition, the UE derives also a new TNAP key similarly to the TNGF (as in step 11).15.
+The UE and TNGF need to derive a Re-auth ID, the details of the inputs is up to the normative work.
+UE need to construct NAI using Re-auth ID and TNGF information.
+The TNGF need to find a stored UE context based on Reauth-ID.6.9.1 Introduction This solution addresses the authentication of AUN3 devices supporting 5G key hierarchy(i.e.
+The AUN3 device establishes a WLAN connection with the WLAN Access Network (AN), using procedures specified in IEEE 802.11.4.
+Authentication procedure for EAP-AKA' is performed as defined in the clause 6.1.3.1 of.8.
+New indication received for AUN3 devices and select authentication algorithm accordingly.
+AMF: generates the keys and provides the same to RG/W-AGF.This solution addresses key issue #4: Security aspect of TNAP mobility.1-3.
+TNGF finds the UE security context based on the UE ID, and determines to perform re-authentication procedure based on UE ID.
+TNGF sends EAP-REQ message to start the re-authentication procedure, a, Nonce-TNGF and the HMAC are carried in this message.
+TNGF verifies the HMAC, if the verification passes, TNGF generates KTNAP' by using method defined in TS 33.501 clause A.22.12.
+UE and TNAP#2 establish security association by using the newly generated KTNAP'.
+This solution addresses the requirement of KI #4 by generating a new KTNGF'.
+In case the UE used SUCI in the primary authentication it need to store the SUCI and use it when it wants to TNAP mobility.
+The solution can be reused to TNGF relocation case by replacing N3IWF with TNGF.2.
+If the Registration Request contains a SUCI, AMF initiates primary authentication.
+If no relocation is needed again, the AMF proceeds with the rest of procedures defined in clause 7.2.1 ofand clause 7A.2.1 of.
+Particularly, the AMF generates a new KNI3WF for setting up the IPsec tunnel.
+The solution proposes to establish the IPsec tunnel before sending the redirection information (e.g. new SSID and associated Requested NSSAI) in the Registration Reject message.
+In this way, the security between the UE and the AMF is established and the redirection information can be protected.
+This would enable UEs to move from one access point to another without performing a full primary authentication.
+In short, it was specified that AUSF The TNGF would then derive further keys from rRK, as specified in RFCalso shown below.
+rMSKnThis solution proposes to reuse ERP for reauthentication but modify the method of how the root key (rRK) is derived.
+Instead of deriving the key rRK from EMSK, the rRK is derived from KTNGF.
+Section 4.2 of RFCspecifying ERP, the properties for rRK are listed: The rRK has the following properties.
+These properties apply to the rRK regardless of the parent key used to derive it.
+The rRK can be derived by TNGF once a mobility request is received or at any time when it is convenient.
+The AUN3 device supporting the 5G key hierarchy is also called the N5CW device.
+It is concluded that solution #9 is used as a basis for the normative specification.

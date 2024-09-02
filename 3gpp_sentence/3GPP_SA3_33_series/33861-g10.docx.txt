@@ -1,0 +1,164 @@
+".300: "NR and NG-RAN Overall Description".002: "Network architecture ".New vulnerabilities in 4G and 5G cellular access network protocols: exposing device capabilities.
+Definitions of terms, symbols and abbreviationsMisbehaving UE: A UE that is controlled by an attacker with malicious application running.ng-eNB: See definition in.
+For the purposes of the present document, the abbreviations given in TR 21.905and the following apply.
+Next Generation Evolved Node-BUPF User Plane FunctionThe architectural study in TR 23.724addresses two new 5G features related to service delivery for CIoT capable UEs.
+It is targeted at constrained, low power and low rate UEs.
+The solution for this feature makes use of the NAS signalling to transport the data similarly to the Data over NAS (DoNAS) feature in EPS.
+The system The small data The 5G systems are expected to provide connectivity and other types of services to a massive number of devices simultaneously.
+Such devices include IoT devices that SA2 is studying several solutions for sending/receiving infrequent or frequent small data in their TR 23.724 .
+In addition, many IoT device developers are primarily concerned with CIoT devices internet functions rather than security.
+Hence a range of AS security options (encryption vs integrity) need to be supported at the AS layer.
+The TR 23.724contains two key issues on the support of infrequent and frequent small data communication respectively in clauses 5.1 and 5.2.
+On the other hand, for the frequent small data, the attacker would have access to more protected small data to mount the same attack.
+Consequently, this would lead to more frequent situations of key stream reuse and hash collisions.
+An attacker could exploit these weaknesses to mount efficient key recovery attacks and increase his chances for success.
+NIDD is further defined in TS 23.401 , clause 4.3.17.8.1 and in TS 23.682 , clause 4.5.14.
+When the UE exchanges MM or SM related signalling with the network a N2 connection is set-up.
+Once the MM or SM transaction(s) are over the N2 connection for the UE is released.
+It is agreed in clause 8.15 in TR 23.724that core network selection for CIoT could be addressed to use NAS based redirection solution.
+If the same procedure is introduced in 5G, NAS protection for RRC Re-establishment procedure is expected to be used.
+These attacks This key issue deals with user plane, as signalling plane attacks are already addressed in key issue #4.
+Constraining the communication abilities of exploited CIOT devices reduces the potential for the devices to be used in these types of attacks.
+The researchers describe related vulnerabilities inThe Device identification is based on the differential analysis of the capabilities that are obtained from a UE.
+With the reference model, baseband vendors, OS developers or device manufacturers are all possibly detected.
+Further, these device fingerprints can be combined with the permanent identifier IMSI to track subscribers.
+MiTM adversary can alter UE capability information sent by the UE, resulting in a denial of service and battery degradation.
+Storing the UE capability at AMF for a concise period will not solve the following issues.
+The key issue proposes to integrity- and confidentiality- protect small data for security data transmission solutions in TR 23.724.
+For MT data transport, the MT small data is also included in NAS PDU, and is transferred in DL NAS message.
+So, this solution proposes to reuse security solution of current NB-IoT CP solution.
+The partial cipher mechanism defined in clause 8.2 of TS 33.401can be reused to protect the MO NAS PDU in the initial NAS message.
+Then each of data 1 to data N is sent to the receiver individually.
+The transmitter sets the values of 0 and 1 when the priority is low and high, respectively.
+If the received PDCP message contains P=1, then the receiving side is required to verify the integrity of the message by checking against the MAC-I.
+This handling allows the receiving side to further save the processing power.
+Also, all data 1 through N need to be discarded if the integrity check fails.
+If the re-transmission of N PDCP frames becomes necessary, it can negatively impact the overall throughput and effective data rate.
+In this case, the saving of processing resource can be achieved for the price of not verifying the integrity of the received PDCP frames.
+The evaluation against other key issues is not addressed in the present document.
+This solution addresses key issue #2: Integrity protection of small data and key issue #3: Encryption of small data in the present document.
+In this solution, small data is included in a MO SMS.
+This security solution proposes an optimized NAS signalling solution for sending small data in a MO SMS.
+The MO SMS is included in an initial NAS message (e.g. Registration Request) whenever the UE has a valid 5G security context.
+This solution assumes that the UE has information about whether the target AMF supports MO SMS or not.
+If the integrity check of the whole initial NAS message is successful, then the source AMF releases the 5G security context to the target AMF.
+The target AMF does not have the NAS encryption key which the UE used to encrypt the MO SMS containing small data.
+This security solution describes how to protect MO SMS in initial NAS message.
+The following figure shows a MO SMS delivered from the UE using initial NAS message at AMF re-allocation.
+It is expected that MO SMS sent over 5G will be both integrity protected and ciphered using NAS security.
+The UE decides to send a MO SMS and initiates the establishment of a NAS connection with the network by initiating an initial NAS message.
+The source AMF verifies the integrity of the received initial NAS message using its stored 5G NAS security context.
+If the verification of the integrity check is successful, the source AMF releases the 5G security context to the target AMF.
+The derivation of the new one-time encryption key is performed by the source AMF regardless whether source AMF performs horizontal KAMF derivation or not.
+The target AMF and UE proceeds as described in step 6 and onwards in clause 4.2.2.2.2 in TS 23.502 .
+This security solution address solution 19: 5GS UP Optimization for Infrequent Small Data Transmission in SA2 TR 23.724 .
+It enables transfer of user plane data without need for the Service Request procedure.
+The eNB derives the new Krrcint and Krrcenc to protect and send the RRCConnectionRelease message which include an indication of suspend.
+LTE including eLTE (LTE UE connected to 5GC), integrity protection of user plane data is not supported.
+Therefore, any solution requires a change in UE behavior and would not be compatible with legacy eNBs.
+Today RRC calculates the shortResumeMAC-I independent of PDCP data PDU and includes it in RRCConnectionResumeRequest message.
+As defined in TS 23.401 , the Control Plane CIoT EPS optimisation to send small data over NAS was added in EPS/LTE Rel-13.
+A NB-IoT UE could include small data in NAS signalling (DoNAS) to the MME.
+It is expected that small data included in initial NAS message sent over 5G will be both integrity protected and ciphered using NAS security.
+The UE needs to construct an initial NAS message that is integrity protected by the already established 5G NAS security context (i.e. current KNASint key).
+The source AMF verifies the integrity of the received initial NAS message using its stored 5G NAS security context (i.e. current KNASint key).
+If the verification of the integrity check is successful, the source AMF releases the 5G security context to the target AMF.
+The user device will be limited to y MB/s for the next z minutes.
+The procedure here is described for the AMF but can easily be changed for another NF.
+In this case, the AMF has requested analytics data on a (set of) UEs.
+The UE is provided with security instructions using the mechanism of the UE Configuration Update procedure specified TS 23.502 .
+The flow can look as follows: Figure 6.6.2.2-1: Signalling overload handling using UE Configuration Update procedure2.
+The NWDAF responds to the AMF with analytics data, reporting that a particular UE is acting abnormally.5.
+Instead, this IoT device ignore the network notification intentionally and trigger RRC re-establishment.
+After RRC re-establishment are successful, network notifies the IoT device to perform the same action again, and the IoT device triggers RRC re-establishment again.
+The proposed solution fulfils the potential security requirements given in the related key issue.
+This solution addresses key issue #2: Integrity protection of small data and key issue #3: Encryption of small data in the present document.
+In addition, the source AMF decrypts the encrypted data IE and sends the decrypted data back to the target AMF.
+Figure 6.9.2-11) UE sends a Registration Request that contains the small data.
+The small data is encrypted using the initial NAS protection mechanism in TS 33.501 .
+The solution proposes a Security-Property-Group assignment mechanism to classify IoT devices who The solution also proposes a DDoS mitigation mechanism.
+The attacker often exploits the same vulnerability to compromise a large of IoT devices.
+If network finds a way to classify these properties into a group, the network This is called a Security-Property-Group.
+The AMF assigns a Security-Property-Group ID according to the IEs described above.
+If AMF/SMF is overload, the AMF/SMF the counter for the specific Security-Property-Group ID far in excess of the daily average.
+The PCF create packet filters based on received instruction and/or local policy.
+The filters include IP address, source port, target port and so on as described in clause 5.7.6 in TS 23.501 .
+The PCF sends packet filter(s) and indicator to UE, which indicates that these packet filters are used for discarding the packets.
+When used, the solution makes it possible to mitigate DDoS attack originated from UE side.
+The solution will not disconnect the UE from the network, but only allows the UE to discard malicious packets.
+CN will significantly realize resource saving when DDoS attacks are prevented.
+Detection and creating packet filters are performed on the network side.
+SF sends and updates instructions to PCF based on detection results.
+This solution requires that the PCF to take instruction from SF into consideration when making a packet filter.
+This solution also requires that the UE supports discarding the packet based on the indicator and filter rules.
+For infrequent small data, only solutions for small data transport within NAS are considered.
+The present document does not provide an evaluation for the solution provided in clause 6.14 of the present document.
+This solution addresses the key issue #1 "Efficient frequent small data transmissions" and the key issue #2 "Integrity protection of small data".
+This solution reduces the overhead of MAC-I (Message Authentication Code-Integrity) included in the small data when integrity protection is applied in the UP.
+The proposed solution decreases the overhead of transmitting one MAC-I from 4 octets to 1.
+The transmitter and receiver store the last three messages for use in the (truncated) MAC-I computation.
+The receiver forwards a message to its destination if that message is no longer needed for (truncated) MAC-I computation and its integrity status is 'OK'.
+The receiver deletes a message if that message is no longer needed for (truncated) MAC-I computation and its integrity status is 'NOT OK'.
+An attacker could send up to three messages from each fake address for flooding the network when solution #2 is deployed.
+Furthermore, suppose an attacker forges one single transmission with a truncated MAC-I, that is, one single message and the first MAC-I to which it contributes.
+This solution addresses key issues #1 and #2.This solution addresses the key issue #4 "Signalling overload due to Malicious Applications on the UE ".
+The NWDAF detects the UEs with abnormal behaviour, including serious misbehaviours that are considered DDoS attack by using analysis or other tools.
+The solution is used to mitigate potential DDoS attack on the RAN caused by a huge number of misbehaving CIoT UEs.
+The RAN-based mechanism to mitigate DDoS attack is depicted in figure 6.17.2.2-1.
+In EPS/LTE Rel-15, early data transmission (EDT) feature was added to the RRC Connection Resume/Suspend procedures in eNB as specified in.
+Uplink user plane data is included as early data transmission with the RRC Connection Resume Request (msg 3).
+In the EPS/LTE Rel-15, RRC Connection Resume Request (msg 3) only supports encryption of uplink user plane data (EDT).
+The RAN immediately suspends the RRC connection (to minimize UE power consumption) as described in TS 23.724 .
+proposed security solution fulfils the potential security requirements of KI#3: Encryption of small data.
+This solution addresses the key issue #4 "Signalling overload due to Malicious Applications on the UE".
+This solution provides mechanism for AMF to release PDU session of the malicious CIoT UEs in overload case.
+ArchitectureThe AMF-based mechanism to mitigate DDoS attack caused by misbehaving CIoT UEs is depicted in figure 6.19.2.2-1.
+When the AMF experiences to be overloaded, the AMF performs the mitigation procedures as described from step 5 to step 8.
+In addition, when the KAMF is changed, since it is a new security feature in 5G, the solution proposes to support key synchronization procedure.
+DL_NAS_MAC* is calculated with newly derived KNAS-int* and these parameters in addition to target cell ID.
+However, did not any optimized procedure is not specified for this case in TS 23.401and TS 36.300respectively.
+Since the attack happens before security activation, the solution proposes to integrity protect the NAS Redirection message with a public key of AMF.
+The solution is consisted of two procedures, Authorization Procedure and Protection Procedure of NAS message.
+When the AMF receives an initial NAS message from a UE, the AMF checks whether it has a related valid authorized public key.
+If not, the AMF initiates Authorization Procedure with UE Authentication Procedure to require UDM to sign the public key for the AMF.
+Otherwise, the AMF could use the related Public key PKAMF-PKx to protect the NAS Redirection message.
+At this time, the visited AMF cannot contact the home UDM to get a sign (PKAMF-PKx).
+But the message could also be forged or tampered, the UE delete/store PLMN, delete security context, etc.
+For CIoT UE, backward compatibility is not needed to be considered, feature negotiation is not needed.
+UE and network support this feature in the first release just like ABBA.ME supports DSS (e.g. FIPS 186-4) to verify integrity of NAS Reject message.
+VPLMN impact: vAMF supportsw generation and storage of public key pair.vAMF supports DSS (e.g. FIPS 186-4) to sign NAS Reject message.hUDM supports to authorization procedure.
+Uplink user plane data is included as early data transmission with the RRC Connection Resume Request (msg 3).
+The target RAN then verifies the integrity of the UL EDT data using the newly derived KUPint 1b.
+The RAN immediately suspends the RRC connection (to minimize UE power consumption) as described in TS 23.724 .
+This solution resolves key issue #2.This solution addresses the key issue #5 "gNB Protection from CIoT DoS attack".
+More and More IoT terminals support mobility such as police or military terminals, Smart Automated Cars etc.
+Mobility-enabled terminals could be compromised to perform similar actions at the same time and cause a RRC signalling attack to the RAN.
+Since the terminals move fast, the neighbour RAN Misbehaving UEs similar as solution 7.
+The AMF This solution addresses key issue #x: preventing Botnet Attacks from Improper CIOT Device Usage.
+This solution is proposing enabling the serving network to be aware of CIOT devices expected behaviour.
+This solution provides the serving network this information by utilizing IETF RFCwhich specifies the Manufacturers Usage Description (MUD) protocol.
+MUD provides a scalable and efficient solution for communicating detailed networking requirements to local network devices in a machine-readable format.
+The present document identifies three potential options for communicating networking requirements to cellular networks using MUD.
+This information is provided from the device in the form of a MUD URL as specified in IETF RFC .
+The IETF MUD RFC provides a mechanism for signalling a standardized way for a CIOT device to signal this information to the serving network.
+It will not contact a news service, nor speak to the refrigerator, and it has no need of a printer or other devices.
+"The Home network delivers the MUD URL specified in IETF RFCto the serving network upon successful attach of the CIOT device.
+The network verifies the UE radio capabilities when it acquires the UE radio capabilities as part of the UE capability enquiry procedure.1.
+NOTE 3: How often the UE radio capability info request is triggered by AMF is not addressed in the present document.
+NOTE 4: Whether the solution allows early acquisition of UE radio capability by NG-RAN node is not addressed in the present document.5.
+After successful verification of the UE radio capability, the NG-RAN node sends the UE radio capabilities to the AMF with an indication of successful verification.
+The present document does not provide an evaluation for the solution provided in clause 6.27 of the present document.
+This solution proposes to protect the UE radio capabilities of CIoT UEs without AS security in the following way:1.
+AMF checks if it is a CIoT UE that only support CP optimization.
+If yes, AMF sends a UE radio capability information request message with NAS security protection.5.
+AMF stores the UE Capability information during CM IDLE state for the UE and RM-REGISTERED state for the UE after successful verification.
+This solution proposes to use the NAS based keys to protect the UE capability transfer from UE to the core network.
+Solution details Figure 6.29.2-1: UE Capability Transfer for UEs with No AS Security.
+NOTE 1b: How often the UE radio capability info request is triggered by AMF is not addressed in the present document.
+Whether the solution allows early acquisition of UE radio capability by NG-RAN node is not addressed in the present document.5.
+The AMF calculates the hash of the received UE radio capabilities and compares it with the hash received from the UE.
+If they match (i.e. verification is successful), the AMF stores the UE radio capabilities with a verified flag set.
+The present document does not provide an evaluation for the solution provided in clause 6.30 of the present document.
+It is agreed that the size of the MAC fields or the length of the keys cannot be reduced.
+It is concluded that for KI#7 no normative work is needed as existing mechanisms are sufficient.
+Solution 8 is recommended for normative work to support protection of NIDD interfaces.

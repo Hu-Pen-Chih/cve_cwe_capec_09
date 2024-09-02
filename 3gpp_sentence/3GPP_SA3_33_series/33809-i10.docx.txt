@@ -1,0 +1,337 @@
+The present document uses the term "false base station" in general to denote wireless devices that impersonate genuine base stations.
+Today, the capabilities of false base stations vary depending upon whether the mobile network is GPRS, UMTS, LTE, or 5G.
+The false base station could behave as a man-in-the-middle and catch the UECapabilityInformation over-the-air.
+Currently, resume cause field in the RRCResumeRequest message is not protected by the ResumeMAC-I token.
+This means that the integrity of the resume cause field in the RRCResumeRequest message is not provided nor integrity protected.
+This attack could reduce the type of service offered by the network to the UE.
+but the network will immediately send the UE back to INACTIVE while the UE is waiting to establish an emergency call, for example.
+These broadcasted messages are intended for all UEs which are camping on a cell.
+In the idle mode or inactive mode, the UE monitors the SI of cells and choose a suitable cell to camp on.
+The UE typically acquires the SI from the cell and performs initial access to transition to connected state to obtain services.
+UE in IDLE mode performs PLMN selection, monitor paging, performs cell selection, cell re-selection, and applies access control before making an access attempt.
+There are some distinct challenges when studying the broadcast messages protection as below:b) Time synchronization.
+Once a determination is reached that a particular base station is false, the genuine network can take actions to isolate such false base stations.
+The genuine network can help UEs with information to avoid connecting to the false base stations.
+As UEs are not able to validate the system information sent by gNBs, UEs cannot distinguish whether the gNB is genuine or not.
+A MitM false base station It reject or drop service request, not pass on paging messages etc.
+The gNB and the UE keep the current AS key KRRCint.
+On receiving the RRC Reject message from the gNB, the UE calculates the rejectMAC-I in the same way as the gNB did in step 2.
+If the rejectMAC-I check is successful, then the UE follows rest of the procedure as specified in .
+If the rejectMAC-I check fails, then the UE ignores the received RRC Reject message.
+UE moves to RRC Idle, deletes the 5G AS context and I-RNTI, and indicates to upper layer with appropriate cause value for NAS recovery.
+When UE in the RRC-INACTIVE state, there are 2 kinds of situation, gNB has the security context, and gNB does not have the security context.
+It means the followings:NOTE : Evaluation of the security vulnerabilities for allowing the network to accept unprotected UECapabilitiesInformation is not addressed in the present document.
+Additionally,provides support for reporting of Cell Group Info (CGI_info) which contains information broadcasted in MIB and SIB1.
+NOTE 4: The network can set the requesting frequency for CGI info, similar to the ANR frequency configuration.
+It is suggested to reuse the algorithm of SHA256 to calculate the hashes of MIB/SIBs.
+If verification fails, e.g., the hashes do not match, the network This solution addresses FBS network detection of Key issue #3.
+It enhances FBS detection by enriching the measurement reports from UEs.2.
+The reporting RSRP/RSRQ/RSSI/beam level information of SSB or CSI-RS is supported since Rel-15.
+And reporting connection establishment failure and radio link failure is supported in Rel-16.
+If other information is required to be reported, additional work will be required.
+This solution does not address DoS launched against UEs by other means (e.g., jamming).
+In the registration request procedure, the victim UE sends a registration request message to the false base station FBS.4.
+The gNB sends the registration request message to the AMF with the user's location information reported by the gNB (indicated by "Location Info-gNB").6.
+NOTE 1: In case of the UE is already registered, the Location Info-UE 12.
+The user's actual location information In addition, based on the eLCS procedure, the UE is allowed to submit its location to the core network.
+The privacy issue would be solved based on the privacy setting, which is agreed by the UE.
+Therefore, the location information of the UE cannot be tampered by the false base station.
+Note: Evaluation on privacy aspects is not addressed in the present document.
+This solution addresses the security requirement in key issue #3 for preventing UE from connecting to false base station.
+Step 8: The UE sends MSG1 to the camped cell in clear.
+Step 9: The false cell responds with MSG2 in plaintext, instructing the UE to send the next uplink message using the dedicated UL allocation resource.
+Step 10: The UE sends the HO confirm message using the dedicated UL allocation resource.
+For the UE, the false cell does not have the UE security context, the UE would find RLF at later time.
+Step 6: The source gNB (A) sends a measurement task including the CSI-RS information to the UE while being protected with RRC security context.
+Step 7: The UE executes a second measurement of the dedicated CSI-RS signal indicated in the measurement task.
+The solution is turned on dynamically by a source gNB.The solution addresses Key Issue #3 to avoid the UE connecting to FBS during Handover procedure.
+The solution requires new signalling overhead before Handover, but it can be configured on-demand.
+DoS attack on UE: attempts to hinder the UEs' access to the network.
+This solution does not verify the authenticity of the cell during initial registration procedure.
+NOTE 2: It is not addressed in the present document whether the K-SIG-Priv of all gNBs within a TA are same or different.
+Mechanisms to reduce the overhead are detailed in the clause 6.7.2.3 of the present document.
+The UE and the VPLMN require a secure negotiation mechanism so that both have a common understanding of where and which SI messages are protected.
+This solution proposes the NAS layer based negotiation as shown in the Figure 6.7.2.4-1.
+UE cannot verify the SIB message during the initial registration procedure.
+The key provision procedure is leveraging the legacy NAS signalling and no extra signalling is needed.
+Given the fact that replay attack cannot being 100 % eliminated, the method given by this solution helps to mitigate the reply attack.
+Based on threshold of detected cell's signal, UE determines whether the cell is authentic or not, to camp on it.
+The UE checks that the timestamp is within an acceptable time-window before it verifies the signature to prevent replay attacks.
+The generated DS together with some least significant bits of Time Counter is added to the system information before transmitting over the air.
+In order to verify the authenticity of the cell, the NR act as "signer" (according to the definitions in RFC ).
+The signature length depends upon the signature scheme and its domain parameters.
+The solution here particularly focusses on the UEs in active state.
+The active UEs which does handover from real base station to false base station will fail, and the UE will select a new target cell.
+The serving base station can make the determination that the reported Cell ID does not belong to its PLMN network.
+Note: It is not addressed in the present document how a serving base station resolves duplicate Cell IDs as genuine vs false.
+The network integrity protects broadcast messages, e.g. MIB, SIBs, warning messages, etc., together with the DL ARFCN.
+The serving network provisions protection area (PA) information to the ME, which includes keys that the gNBs uses to integrity protect the radio signaling.
+The keys in the PA information are encrypted by the CKp and can only be decrypted by the USIM.
+The ME sends the protection area information and the radio signaling to the USIM for cell authenticity.
+The UE sends a Registration Request message to the serving network.
+If the UE decides to change protection key (CKp), the UE 5.
+If the NONCE and the CKp are received, the AMF/SEAF sends a Registration Accept (NONCE) message to the UE.8.
+The USIM returns an indication to the ME after CKp has been generated.
+Each SRKG is included in one or more PAs, and each of those PAs includes the full SRKG.
+The following figure illustrates the relationship between SRKG and protection area (PA).
+The expiry time is used to avoid a false base station, who cracks a KBS of a gNB, to cheat the UE after key expiration.
+The ME received the message including a <bsGKI, bsGNI> and a MAC-I via a cell.
+The ME checks whether the bsGKI exists in the protection area information.
+If the check fails, then the ME marks the cell as suspect cell in cache.
+If verification fails, the UE marks the cell as false cell in cache, otherwise remove the cell from the cache.
+The ME tries to camp on a cell and decides to send message1 to the cell.
+If message1 is not Preamble, it generates a 32-bit random string NONCE.
+The NONCE is used as replay protection parameter for the successive downlink message.3.
+The ME sends the message1 to the cell, which includes the NONCE if the message1 is not Preamble, the message1 6.
+The gNB sends the message2 along with the MAC-I to the UE via the cell.
+If the message1 is Preamble, then the 32-bit NONCE = (2-bit padding || 6-bit RA-RNTI || 2-bit padding || 6-bit RAPID || 16-bit Temporary C-RNTI).
+In order to provide backward compatibility, short MAC-I can be appended sequentially after the payload.
+The UE has an eSK and an ePK, and the gNB has a SKgNB and a PKgNB.
+The gNB can provision the PKgNB in the early stage, so the UE can get the PKgNB of gNB.
+If the UE is only pre-provisioned PKgNB of home network, then the UE can achieve anti-FBS in home PLMN.
+The vendor can provision a list of Root certificate into the UEs, the length of the list depends on the capability of the UE.
+It is not addressed in the present document how the MNOs control the CA provisioning and revocation.
+UE needs to be pre-provisioned of a list of root certificate.
+the UE does not own a corresponding Root Cert for verification, then the UE UE may have 2 choices:Key issue 1&2 are mitigated.
+All broadcast message before security activation can be signed using this solution.
+It is not addressed in the present document where the PKG is located in the network.
+After UE registered and perform authentication with the network, UE applies for the PKPKG from the trusted Serving network in the NAS SMC complete message.
+If the UE is provisioned the valid PKPKG and the verification succeeds, the UE treats the information as genuine.
+If the UE is provisioned the valid PKPKG and the verification fails, the UE drops this message.
+NOTE 1: How the MitM attack is addressed is not addressed in the present document .
+If the first one is chosen, the UE needs to be provisioned into PKPKG, then his solution works for VPLMN/roaming cases.
+If the UE is only pre-provisioned of PKPKG of the HPLMN, then the UE can achieve anti-FBS in HPLMN.
+If the ResumeMAC-I passes validation with any of the resumecause values, the old gNB respond with RETRIEVE UE CONTEXT RESPONSE as in the successful case.
+IntroductionWhen gNB receives the hash value and it verifies the correctness of the hash.
+If the verification fails, the gNB indicates the mismatch and in addition provides the MIB/SIBs, to the UE.1.
+(optional) AMF sends a NAS Security Mode Command to the UE optionally with indication of support for system information protection.
+If the UE receives the indication of support for system information protection, the UE stores it as part of the security context.4.
+(optional) UE sends a NAS Security Mode Complete to the AMF.6.
+UE sends a Security Mode Complete with the hash of the MIB/SIBs.
+Also, the UE indicates the list of SIBs that were used to calculate the hash value.
+If the verification is successful, the gNB further verifies the hash of the MIB/SIBs.
+This solution fulfils the potential security requirement of the KI #2 when the UE is in the RRC-Connected state.
+How to protect the MIB/SIBs when AS security is not supported is not addressed in the present document.
+Indications in the AMF: - -The AMF receives a Service Request from a completely unknown UE with a wrong GUTI pointing to a different PLMN.
+The AMF also does not have the security context used by the UE and will reject the NAS message.
+The indications could be combined together in the following procedure: Figure 6.15.2-1: Procedure to detect Authentication Relay Attack in different PLMNs2.
+According to normal procedure the AMF sends a Nausf_UEAuthentication_Authenticate Request message in step 5 to the AUSF of the HPLMN of the Victim UE.
+If implemented in the HPLMN, then the HPLMN could already deny the authentication request to the AMF with a location mismatch cause value.
+The AUSF provides the challenge to the AMF (SEAF), e.g. the AKA' challenge or the 5G Serving Environment Authentication Vector (RAND, AUTN, HXRES*).
+The AUSF will perform normal primary Authentication procedure (e.g. 5G AKA or EAP-AKA') of the UE 6.
+Upon reception of the Security Mode Command message, the UE knows that the Authentication procedure was successful.
+The UE sends a Security Mode Reject message including an appropriate error cause value, i.e. integrity check failure.
+The AMF rejects the registration and This message In parallel the UE performs cell reselection and starts initial registration.
+This solution addresses the key issues #1 "Security of unprotected unicast messages" for RRC Reject message protection.
+A newer network uses the newer version of ResumeMAC-I/shortResumeMAC-I only if supported by the UE.
+Once the source gNB (A) receives the CSI-RS information in the Conditional Handover request ACK, the source gNB attaches threshold of HO.
+The source gNB (A) sends CHO Command including the dedicated CSI-RS information and threshold to the UE while being protected with RRC security context.
+The solution is turned on dynamically according to detection report of network or UE.
+A Other false base station detection method of Key Issue #3 could be used too.
+The solution reuses agreed conditional handover procedure, and requires new signalling overhead.
+Only new IEs are added, so, the impact is small, and the feature can be always turned on.
+This solution addresses the security requirement of Key Issue #2: Security protection of system information.
+PCI (Physical Cell Identity) is additionally included in the calculation of the MIB/SIB hash.
+gNB sends an AS Security Mode Command to the UE with a list of hash values of MIB/SIBs.
+The hash values of MIB/SIB are generated by additionally including the PCI of the cell.6.
+UE compares the received hash values of the MIB/SIBs with the locally computed ones and determines whether the MIB/SIBs that it has read are correct.7.
+UE sends an AS Security Mode Complete optionally including a list of MIB/SIB(s) whose hash mismatch is identified in step 6. 8.
+This solution does not require any additional key provisioning and setup procedure.
+This solution only requires transporting the hashes of MIB/SIBs or MIB/SIBs using secure RRC signalling.
+This solution requires RAN node to provide the hashes of all MIB/SIBs to UE including those that UE is not interested in.
+Note: How the solution can work with SI that is modified while the UEs are in connected state is not addressed in the present document.
+This solution#20 address the key Issue#2 "Security Protection of system information".
+A UE makes cell selection based on a number of criteria including the authenticity of broadcasted system information.
+It differs from solutions #7 and #11 in that it delegates digital signing from gNB to a network function, namely Digital Signing Network Function (DSnF).
+While delegated digital signing For example, many websites use Content Distribution Networks (CDNs) to improve performance and security (e.g., defending against DDoS and web attacks).
+To use CDN, a website would have to share its TLS certificate and the associated private key with CDN.
+CDNs servers are distributed on the Internet and Sharing private keys with those untrustworthy servers bear high security risks.
+To solve this problem, some banks adopted the concept of delegation and implemented so called Keyless SSL .
+Similarly, each cell in this proposal does not have the private key for digital signing.
+It sends the information blocks to the DSnF to be digitally signed.
+This removes the need for UE to synchronize time with all gNBs.
+This contribution also provides additional consideration on how UE verifies message freshness and performs cell selection and additional security analysis of digital signature-based protection.
+Solution details- MIB - SIB1- Downlink frequency6.20.2.2.0 GeneralSecond, when some fields in a SIB are to change, new signatures can be requested from DSnF.
+Usually SIBs do not change often (e.g., unchanged for about 3 hours).
+This short-live certificate can be signed by the DSnF digital signing certificate, thus chained to the trust anchor.
+Note 2: how to broadcast short-lived certificate is not addressed in the present document..
+When a period of 10.24 s starts, the gNB starts broadcasting the short-term certificate for this period of time.
+It is left for normative phase in which SIB this information is broadcasted.
+gNB makes digital signing requests via N2 message to AMF/SEAF, which then generates a service request to DSnF.
+This new SIB includes the digital signature along with supplement information to facilitate the verification of the digital signature.
+It is assumed that the response also contains secondary signing keys.
+If a UE does not support digital signature verification, its behaviour in cell scanning and cell selection remain unchanged.
+For example, GSMA provides a Network Settings Exchange program, which can be leveraged to maintain the list of trusted CA certificates.
+This list of CA certificates needs to be provisioned into UEs as trusted anchors to allow UEs to verify signatures carried in the SIB messages.
+This allows for deployment flexibility and trust anchor update when the home operator or any of its roaming partners changes its trust anchor.
+The specific parameters of certificate scope can be specified during normative phase.
+For instance, a UE might contain a trust anchor associated to an NPN located in a very specific area.
+UE uses the acquired system information block to determine which other system information blocks are digitally signed.
+With this information, UE can compute a hash over the protected system information along with supplement information elements in the acquired system information block.
+UE then uses key identifier to retrieve the public key corresponding to the signing private key.
+With the computed hash, and the public key, a digital signature can be verified accordingly depending on the digital signing algorithm being used.
+Note: The exact format of the new SIB and signature verification procedure are not addressed in the present document..
+If they are close to each other, it indicates the UE time is out of sync with the network.
+If the Timer Counters are inconsistent, it indicates the presence of attacker (e.g., by replaying old information).
+In either case, UE can select the cell with the highest time counter, since a relayed time counter will highly likely not be the latest.
+For requesting and receiving a signed reference time from the DSnF, existing protocols such as NTP could be re-used.
+This can ensure that Time Counter in the replayed messages is current.
+However, it will have to use the same PCI as the original cell.
+Since MIB/SIBs are digitally signed, DoS based on manipulation of chosen fields in MIB/SIBs (e.g., barred cell) will be detected and prevented.
+Arbitrarily overwriting a bit (e.g., using SigOver) in a signed MIB/SIBs will result in the failure of digital signature verification.
+UE will detect the invalid signature and try to select another cell.
+The attacker can then change its frequency and PCI and broadcast MIB/SIBs with invalid signatures again.
+UE UE needs to take into consideration results from signature and freshness verification of SI for cell selection and reselection (see clause 6.20.2.5).
+Note: further assessment is needed, e.g., SIB acquisition, (gNB) certificate/key acquisition depending on the solution variants.
+Note that this requires the trust anchor of the hash chain to be securely deployed by means of a quantum resistant algorithm.
+The gNB and UEs will accept the messages only after the message is successfully decrypted.
+The locations of the certificates are located in the core network and the UEs.
+This solution addresses the security and privacy areas for #1 DoS attack on UE: attempts to hinder the UEs' access to the network.
+NOTE 5: It is not addressed in the present document if RAN or CN is the right entity to have UE's public keys.
+The UEs extract the certificate from the system information messages and verifies its signature using the core_PUB_key.
+If the signature of certificate is valid, the UE extracts the gNB_PUB_Key.
+All UEs encrypt RRC messages that are send before primary authentication is completed using gNB_PUB_Key.
+ITU-T Recommendation X.509certificate can be used for its flexibility, otherwise more compact certificate format such as Card Verifiable Certificate (CVC) can be considered.
+There is no added overhead for the unicast signaling messages encryption from the RAN aspects; however, there is processing cost.
+The LMF sends configuration information for the UE to report angle and timing information for each gNB measured at the UE.a.
+UE positioning measurements, e.g. the reference signal time difference (RSTD) for the case of Downlink time difference of arrival (DL-TDoA).
+b. Reference signal time difference (RSTD) reports (with respect to serving cell and each neighbour gNB) together with TA of serving gNB.
+The measurements used for estimation of the angle of departure (AoD) at the gNB side.
+This solution enables the network to not only detect the existence of potential false BSs but also estimate the location of the detected false BSs.
+As indicated in KI#7, MitM attacks and FBSs are related but different attacks .
+This allows the attacker to observe, intercept and manipulate, and/or attack later phases of the communication.
+A MitM relay node typically includes a false base station (FBS) and a false UE (FUE).
+A layer-two attacker can place a MitM relay node between a real UE (RUE) and a real BS (RBS).
+As shown in Figure 6.23.1-1, the MitM attacker can intercept, drop, and forward messages with unaltered or altered content .
+These capabilities can lead to multiple attacks including amongst others aLTEr , imp4gt , network misconfiguration , or 5Greasoner .
+The allocated RBs are identified by a unique identifier called blockID.
+This identifier is assumed long enough and unique within the scope of K_PHYint.
+- RBS compute the 24-bit CRC_r value given the received transport block.- RBS checks whether the computed CRC'_r value equals the received CRC' value.
+Signaling in cell change can be performed as specified in Clause 6.9.2 in .
+Furthermore, some extensions are required to make sure that UE and target gNB run the solution once the handover is completed.
+To this end, the current gNB needs to inform the target gNB of the UE's C-CRC capabilities over the Xn Application Protocol defined in .
+This can be done in the Handover Request message as part of the UE Security capabilities.
+Next, the target gNB needs to confirm whether it supports the C-CRC capability.
+Upon reception of this confirmation, the gNB will send a RRCReconfiguration () message informing the UE about the capabilities of the target gNB.
+There is no need for key refresh since the cryptographic CRC is only computed and checked till the SFN component of the blockID wraps around.
+The MitM relay node does not have, however, K_PHYint, and thus, the MitM relay node cannot compute CRC'.
+Next, the UE can receive the SS burst of the base station and the measured SB# power distribution for the different beams.
+The distribution of INFO_gnb needs to be done in a secure way.
+If the check succeeds, it returns a high similarity score and goes to Step 3.
+The network can compare this information with the beam indexes that were used by the UE.
+If these two sets of information differ, then the network can detect the FBS presence.
+Network initialization: The network is in charge of tracking of the positions of base stations and their radiation patterns.
+IntroductionThis solution is based on the link allocated resource parameters between a UE and the gNB, i.e. UE's SFN (system frame number).
+This solution does not address the scenario where a malicious node RF repeater relays messages of a victim UE to the real gNB.
+This message is included between message 1 and message 2 in the Figure.
+This solution addresses key Issue#2 "Security Protection of system information" by using public-key cryptography (PKC) to sign and verify system information.
+In this way, a UE has guarantees on the origin of the signed data.
+This construction is proposed since this does not require tight time synchronization that might be difficult to achieve in some settings.
+each base station gNB broadcasts signed system information (SI), 2. K-SIGPrivate, the private key used to sign the SI, is specific to the Tracking area.
+UE verifies the validity of the digital signature with PK, verifying the SI.
+Note that this includes verifying whether the certificate has not expired.
+The UE will select a gNB based on the received and verified SI.
+See Remark 1 in Clause 6.26.2.3.gNB confirms reception of K by sending Hash(K).
+a. UE activates C-CRC method using key K after receiving message 5.Standard protocol flow but protected with C-CRC.
+UE deactivates the C-CRC method after sending message 10.Standard communication.- Remark 1: This relates to Step 2.
+Here, it is assumed that the certificate verification does not require tight time synchronization.
+- Remark 2: a UE acquires MIB and SIB1 and signature and performs the signature verification in Step 2.
+Note that Steps 3, 4, and so on are only executed if a UE selects a base station.
+UE is in IDLE mode only till Step 2. - Remark 3: This relates to Step 4.
+The MitM does not have access to K since the MitM does not have K-SIGPrivate.
+Since the MitM does not have K, it cannot interfere with the authentication handshake (messages 4-5) and the MitM cannot compute the C-CRC correctly.
+NOTE 2: It is not addressed in the present document to explain why this solution is required for INACTIVE state UEs.
+This solution addresses both the authenticity and replay protection of system information.
+The authenticity is provided by signing system information with a private key only known to the signing party.
+Authenticity of the received system information is ensured in any RRC state.1) too big, then a MitM can perform replay attacks.
+Figure 6.26.3-1: Impact of a big or small time window when verifying the freshness of messages.
+It provides certain security benefits without requiring any additional overhead in key management.
+This is demonstrated by the proposed solutions (e.g., #7, #11, and #20) based on digital signature with certificates.
+As an alternative approach, the ID based signature scheme is also introduced (e.g., #12).
+The unique identity is treated as the public key, which does not require the certificate to be send in the broadcast message..
+However, a stolen signing key Thus, a signing key needs to be protected with more caution.
+Note this delegated signing has some drawbacks such as transmission delayed and bandwidth overhead.
+The choice of signing entities is not addressed in the present document.
+Digital signatures are generated by a private key and verified by the corresponding public key.
+Public keys and trust anchors need to be distributed to UEs to enable them to verify digitally signed system information.
+A public key can be distributed in the form of a raw key or a public key certificate.
+A raw key consists of a public key, and maybe some other data such as a key identifier.
+A public key certificate such as X.509v3 has a well-defined data structure supporting key life cycle management, key hierarchy, and key usage, among other functionalities.
+A public key certificate has rich semantics and supports key hierarchy, allowing multiple public key certificates to be verified using one trust anchor.
+Both CRL and OCSP require network connectivity, which had not yet been established at the stage of SIB acquisition.
+To this end, we propose a hybrid approach that combines the use of public key certificates and short-lived public keys.
+More specifically, a public key certificate is issued to an entity at the core network.
+Therefore, the risk window from a compromised signing key can be reduced with certificate revocation.
+A public key certificate is issued to an entity in the core network, which then issues short-lived public keys to gNBs.
+However, a SIB has a size limit of bits (372 bytes).
+It would take two system information blocks to carry one X.509v3 certificate, which does not appear desirable.
+Thus, we want to try to avoid transmitting public key certificates to UEs to minimize message overhead.
+In this solution, the end entity certificate issued to the core network is configured as a trust anchor.
+PKI is often used to manage the lifecycle of public key certificates.
+Therefore, decentralized PKIs, each of which can be managed by an individual operator, are supported to remove deployment dependence on other parties.
+D4: A decentralized PKI trust model is supported, i.e., each operator issues its own certificates and manages its own trust anchor.
+Figure 6.27.2.1.4-1: PKI trust models - centralized vs decentralizedTrust anchors can be provisioned into UEs (e.g., in USIM) using either out-of-band or in-band mechanisms.
+However, it In-band provisioning of trust anchors allows an operator to provision its own trust anchor independently while offering deployment flexibility.
+For example, if a UE only visits a few roaming partners, the UE will only be provisioned with a few trust anchors.
+Please refer to 6.20.2.5.1 of solution #20 for more discussions on root CA, USIM storage required for storing trust anchors, and trust anchor update.
+Note that MIB and SIB1 are broadcasted at subframes 0 and 5 respectively at their scheduled frames.
+Luckily, the SFN field within the MIB contains only the 6 most significant bits of the 10-bit SFN, thus it changes every 160ms.
+In other words, although MIB has a smaller periodicity than SIB1, it remains unchanged within the periodicity of SIB1, i.e., every 160ms.
+For example, in Figure 6.27.2.1.7-1, there are 9 MIBs shown, each of which is broadcasted at SFN=0 (0x00) to 8 (0x00) respectively.
+SIB6-8 are originated from an external entity to the core network (CBCF and AMF) and then to gNBs.
+The digital signing of SIB6-8 in this solution is not considered.
+A sequence number, either a serial number or incremental counter value, can uniquely identify a message.
+These requirements do not hold in system information broadcasting, since a UE does not acquire every system information block from every gNB.
+Timestamp can be included with a message to provide message timeliness to mitigate replay attacks.
+A timestamp is included with each SIB, and is digitally signed along with the SIB to mitigate replay attacks.
+(in the order of us), andIn this scenario, the total network delay (t_d) is likely less than 1ms, it can be said t_d=1ms .
+It can be said say =2ms, which would be the required accuracy of time synchronization.
+In reality, MIB and SIBs are broadcasted according to precise scheduling.
+There are several options in assigning timestamp (thus a new digital signature) to SIB1.
+First, each SIB1 repetition is assigned a new timestamp (see Figure 6.27.2.2.1-2).
+Thus, a new digital signature is also computed for each SIB1 repetition in every 20ms.
+In this case, there is no scheduled delay to be accommodated.
+To generalize, a timestamp is assumed to be shared by N>=1 SIB1 repetitions.
+To this end, PCI and downlink frequency, as proposed in Solution 7, can be included in the computation of digital signature of system information.
+To replay a digitally signed MIB/SIB1, an attacker would have to use the same PCI and downlink frequency as a legitimate gNB.
+D10: PCI and downlink frequency can be digitally signed along with timestamp and MIB/SIB1 to further mitigate replay attacks.
+With the network delay ignored, |u2-t2|=3,600,000ms, which is also significantly larger than t_w=3ms.
+Thus, the UE will not accept the SIB1 from the second cell either.
+This time deviation from the network could result in denial of service to the UE.
+Note 1: the protocol for consistency checking and its underlying assumptions needs to be clarified and detailed.
+Note 2: potential limitations of consistency checking (e.g.., when a single gNB in reach) and discussion on complementary methods (if required) is ffs.
+Digital signatures provide authenticity and message integrity of system information, preventing an attacker from originating any MIB/SIBs or tampering with an existing MIB/SIB.
+However, a timestamp Further, PCI This can be illustrated in Figure 6.27.2.2.4-1. NOTE 1: Figure 6.27.2.2.4-1 assumes an omnidirectional antenna.
+Attacking area when a gNB uses beamforming is not addressed in the present document.
+To summarize, while it is theoretically possible to relay integrity protected system information, the security impact from the relay attack remains to be seen.
+Additional mitigation can be further introduced if needed, e.g., based on future research results.
+NOTE 2: how to handle NR repeater is not addressed in the present document.
+In this case, the cell can be immediately selected if the signal strength meets the criteria.
+In all other cases, there is some issue with at least one of the parameters.
+Therefore, in any of those cases, the cell cannot be immediately selected, nor fully rejected.
+If UE immediately selects a problematic cell, security could be compromised.
+If the UE fully rejects such cell, it The UE Table 6.27.2.3-1 suggests a priority for each case.
+The first case (#A) is given the priority of 1.1, the highest priority.
+Cases #C and #D likely indicate that the UE leaves its home network and enters a roaming partner's network.
+Note that the last case (#J) is likely from a legitimate base station that does not implement digital signing.
+If all available cells have a priority of 3.x, the UE could decide how to proceed based on local policy.
+NOTE1: It is not addressed in the present document whether this cell selection and reselection strategy is feasible needs further study.
+It is concluded that there will be no further action as it is stated in the NOTE in the key issue details.
+Annex A:A.1 IntroductionImpacts and feasibility on various part of the 5G system (including UE, NG RAN, and 5GC) need to be assessed.
+Impacts and feasibility on O&M and key provisioning aspects also need to be assessed.
+Other threats that B.2 Attack taxonomyThe attacks against 5G UEs over radio interfaces can be classified into two categories, active attacks and passive attacks.
+In active attacks, an attacker actively injects signal or messages to influence what UE would receive.
+In passive attacks, an attacker silently sniffs signals exchanged between a UE and a gNB.
+For the convenience of reference, a number is assigned to each attack in the attack taxonomy tree.
+In attack description, an active attack is prefixed with "A-" and a passive attack is prefixed with "P-".
+This can help distinguish an attack number from a clause number.
+This can be done continuously, or "smart" at certain times only.
+This can lead to 4G attacks, such as identity request, or service reject for that network.
+This attacker often involves downgrading the victim UE to 2G where SMS can be sent to the UE without any security protection.
+Tampering CP/UP (A-1.3.2.1.1.1): a MITM attacker tampers with control plane message or user plane packet before sending to the recipient.
+P-2.1 Uplink sniffing – an attacker sniffs the radio sent by the UE in the uplink channel.
+P-2.1.1 IMSI/SUPI stealing – an IMSI/SUPI sent by a UE to the network can be stolen if it is not encrypted.
+P-2.2 Downlink sniffing – an attacker sniffs the radio sent by the network in the downlink channel.
+User tracking (P-2.2.1): an attacker sniffs downlink traffic of a gNB to observe directly or infer the presence of a user in the area.
+Other data sniffing (P-2.2.2): an attacker sniffs downlink traffic to obtain other data that might be used for malicious purpose.
+Note: descriptions of more passive attacks are not addressed in the present document.

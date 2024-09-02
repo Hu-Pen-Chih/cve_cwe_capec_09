@@ -1,0 +1,51 @@
+Localized service: Service, which is localized (i.e. provided at specific/limited area) and/or can be bounded in time.
+The UE can only provide SUCI/Onboarding SUCI in case it is configured with SUPI privacy parameters.
+This solution proposes to use a hash of the key KTNGF as identifier in case anonymous SUCI is used during the authentication towards the SNPN.
+The new identifier is proposed to be a hash of the key KTNGF.
+It is proposed to send the new identifier using the IDi payload.
+The RFC does not specify how such a key identifier is generated.
+This solution reuses the authentication procedure in clause 7A.2.4 ofwith the following modifications.
+In step 2, NAI includes identifier of SNPN (i.e. PLMN ID and the NID of the SNPN).
+- N5CW sends UE identity (e.g. SUCI/on boarding SUCI) and AN parameters to the TWAP/TWIF.
+This gives a UE and SNPN the means to mutually authenticate and hereby confidentiality, integrity and replay protect the communication as stated in the requirements.
+This solution extends the NSWO procedures to be able to use any key-generating EAP-method in SNPN.Steps 1-2 are performed as described in Annex S.3.2 of.
+Authentication is performed between the AUSF and UE using the selected EAP method.
+The decision to use MSK instead of EMSK is based on the NSWO indicator received in step 5.
+Steps 9-11 are performed as described in steps 16-18 of Annex S.3.2 of.
+It reuses the procedures of Annex S ofas much as possible adding the possibility of using any key-generating EAP-method.
+To access the hosting network, the UE determines whether it can reuse home network credentials.
+Localized service advertisements prompt UE's user using default credentials where UE authenticates with the DCS (e.g., perAnnex I.9.2).
+e.g., After a successful onboarding procedure, the LSP sends a Security Profile corresponding to the UE and LSP certificate to the LSP access.
+The Security Profile associated with the LSP contains all the necessary data to establish a TLS tunnel between the LSP and UE.3.
+UE requests a PDU Session and accesses the localized service of the LSP via the Hosting Network.
+Upon expiry of the time-restricted credentials, the LSP in the role of Credential Holder requests a release of the UE.
+In contrast, the PVS information provided by the DCS takes precedence over the information stored in the onboarding network.
+This solution addresses Key Issue #2 "Authentication for UE access to hosting network".
+There is a business relationship between hosting network and home network.
+There is no business relationship between hosting network and home network.
+For case 1), the business relationship between hosting network and home network can have different implications on the authentication architecture.
+For case 1b), the authentication to the hosting network can be based on the PLMN-credentials of the home network.
+For case 1c), the authentication to the hosting network can also be based on the PLMN-credentials of the home network.
+In case 2a), the UE needs new credentials to authenticate to the hosting network.
+Onboarding requires default UE credentials to be pre-configured on the UE.The high-level solutions described in the solution details do not have normative specification impact.
+The hosting network enables the UE to get onboarded through the onboarding service provided, implying credentials to the hosting network/service is installed.
+The service provider and user contractual agrees to enable the service.
+This implies that the service provider, provides the UE with the default UE credentials.
+The UE registers to the hosting network and authenticates using credentials provisioned in step 2.
+The SMF in the hosting network will initiate the secondary authentication as described inclause 11, as defined for the local breakout configuration.
+The AAA can either be managed by the service provider or the hosting network.
+Figure 6.14.2-1 shows a modified version of Figure 4.2.15-3 of, where HPLMN is replaced with CH and VPLMN is replaced by SNPN.
+The ability to differentiate the authentication of the UE between NSWO case and primary authentication case has not been addressed in the present document.
+This solution solves Key issue #1 in case of the SNPN wants to reuse the credentials from CH AAA for NSWO.
+The solution covers the following different scenarios of authentication related to Providing Access to Localized Services (PALS) based on TR 23.700-08 .Case 1.
+The UE hosting network access relies on other credentials (e.g., preconfigured/provisioned using application layer outside the scope of 700-08Clause 8.4.3).
+Further the realm part of the NAI facilitates to route to the right external CH."For case 1, no impact as existing mechanism fromis reused.
+The solution proposes the usage of a pseudonymous SUCI for the case of onboarding.
+However, identifiers used during onboarding are generally only used once, since onboarding only happens once.
+Therefore, a pseudonymous SUCI is not needed in the case of onboarding.
+For case 1), The authentication method specified in in Annex I.2 ofcan be reused for UE access to SNPN as hosting network.
+Existing primary authentication can be reused for UE access to PNI-NPN as hosting network.
+In the case of PNI-NPN as hosting network using S-NSSAI, slice-specific authentication can also be used.
+This solution addresses Key issue #1 in the case of NSWO using SNPN credentials from Credentials Holder AAA.
+Remaining steps are performed as described in steps 16-18d of Annex S.3.2 of.
+It reuses Annex S.3.2 and clause I.2.2.2 of, thus require minimal normative specification.

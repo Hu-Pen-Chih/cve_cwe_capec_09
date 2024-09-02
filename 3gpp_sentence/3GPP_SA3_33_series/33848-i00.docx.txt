@@ -1,0 +1,88 @@
+The present document considers the consequences of virtualisation onIn legacy deployments, physical rack security and separation implicitly provides underlying security.
+Since there is no single approach to virtualisation, the security threats and risks will vary depending on the deployment use case and virtualisation technology choices.
+"Virtualization Technology: Cross-VM Cache Side Channel Attacks make it Vulnerable"; Shahzad and Litchfield .OpenStack.
+Security; Report on NFV LI Architecture".3: "Procedures for the 5G System (5GS)".3 "Management and orchestration; Architecture framework".
+For the purposes of the present document, the abbreviations given in 905and the following apply.
+Sharing hardware resources between VNFs allows networks to scale services up and down as required and to centralize the management and orchestration.
+However, the adoption of shared resources raises security questions which do not apply when using discrete physical infrastructure.
+In particular, virtualisation technology needs to ensure that VNFs can be isolated from one another, particularly in the case where they have specific security requirements.
+There are various approaches to isolating VNFs, ranging from using physically separate hardware to using separate containers.
+Where VNFs do share resources, these might be managed in different ways, as discussed in clause 6.5 of GS NFV 002 .
+X86 and similar server architectures have a number of physical security weaknesses from a critical national infrastructure perspective.
+Furthermore, many data centre hosts are equipped with Baseband Management Controllers and Intelligent Management Interface Protocol.
+If an attacker is able to access these controllers, they effectively have direct control over all hosts and all VMs running on them.
+For sensitive functions, such as the AUC or LI functions, the risks would obviously be increased.
+There are a very wide number of definitions as to the meaning of "virtualisation".
+A number of vendors have been offering "virtualised" implementations for 15+ years using common hardware platforms running VM implementation architectures.
+However, these limited virtualisation implementations use dedicated hardware instances for each network function.
+On the other hand, these limited implementations do not offer many of the benefits, including security benefits, of fully virtualised deployments.
+Nearly allApplying the same security policies to NFs in different trust domains could lead to reduced security and/or to reduced functionality.
+For example, the long-term keys in a virtual UDM/ARPF could be stolen by an attacker with root access to the virtualisation layer.
+Alternatively, cache side-channel attacks as inmight allow the operator of a VNF sharing resources to recover data.
+By comparison virtualised In virtualised implementations all NFs are implemented using a common software platform such as OpenStack .
+This is required to mitigate the increased attack surface which was partly addressed by physical security assurance protections in physical networks.
+outsideThe system assign/log bindings) key storage and confidential data in a manner that provides protection against data compromise.
+The same also applies in the case of physical attack in post event forensic scenarios.
+If data is decrypted and/or processed in an unencrypted format in an insecure environment it could be intercepted or copied.
+Overtime the number of VNFs will increase but mixed network deployments are expected to be the default for the next 10+ years.
+While the first VNF and PNF are unharmed by the attack, the second VNF falls foul of the implicit trust of PNF and VNF communications.
+Where those VNFs contain cryptographic functions or sensitive information, this increases the risk even further.
+If an attack manipulates the network timing source or VNF clock, the network can be compromised.
+Combined withCompromising MANO would effectively compromise all VNFs (to a much less extent the same applies to the OSS/BSS).
+Unless the IPSec or TLS tunnels transverse a physical network link external to the data centres, the threats they mitigate can largely become irrelevant.
+Solutions to this requirement required outsideFirst generation NFV implementations were based on Virtual Machine (VM) architectures.
+In comparison to VM only deployments, containers have much faster instantiation times but also much shorter life times.
+Containers co-hosted on the same physical machine as tenants share the same kernel and OS resources.
+This allows for a potential risk of a rogue container escaping the container confinement and impacting other co-hosted containers.
+With container images containing secrets or keys, this becomes a serious threat vector.
+An attacker might initiate migration of a VNF from a trustworthy execution environment into a non-trustworthy environment.
+While not trivial, this kind of fork or roll-back attacks can be used to initiate complex attacks against the overall integrity of the 5G system.
+This separation requires the definition of trust domains but can be implemented and enforced in a variety of different ways.
+This can include software defined rules, separate physical infrastructure and appropriate choices of virtualisation infrastructure.
+Risk appetite and use case will determine which combination of these controls are appropriate.
+All workloads, functions and VNFs are allocated a trust domain, based upon their sensitivity.
+Functions identified as security critical do not share trust domains with workloads that are not security critical functions.
+Virtualisation provides a well understood, software defined, mechanism to separate network functions.
+Software defined traffic rules applied directly to each virtual function are used to limit both incoming and outgoing traffic in an efficient and scalable way.
+For example, among other controls, spoofing VLAN/VXLANs of virtual networks is not allowed.
+Virtualisation hosts only open the minimum number of ports required and all ports and services are locked down and managed.
+This will give confidence that patches against security issues will be done in a timely manner.
+The NFVI is kept up to date (including firmware), to minimize security issues.
+This solution uses NFVI to address Key Issues #2, #3, #4, #5, and #14.6.4.1 IntroductionAdministration of a network takes place in the management plane.
+Exploitation of the management plane could have a long-term impact on the availability and confidentiality of the operator's services, including critical services.
+Instead, operators Operators Access to the management plane needs to be temporary and time-bounded.
+Administrative access needs to be via secure, encrypted, and authenticated protocols whenever technically practical.
+This enclave is protected from eavesdropping, replay and alteration attacks as the programs within the enclave are executed'.
+Use of an HMEE in the NFVI provides the means to support at least the following security controls:- Data integrity.
+If the HMEE is shared, it needs to provide isolation from collocated VNFs.
+The NFVI is designated an appropriate trust domain for VNF deployment based on its HMEE capability.
+The validation results assert whether the system under evaluation is in trustworthy state or not.
+Local attestation occurs when the Attester and Verifier run on the same physical machine.
+The virtualisation software mediates access to virtual resources that it abstracts from the physical resources in the hardware platform.
+The hardware platform includes other building blocks (e.g. BIOS, operating systems, etc.) for operation.
+Therefore, the scope of attestation of a VNF comprises all the aforementioned systems and components involved.
+The chain is extended to include attestation of the VNF when it is first instantiated on top of the NFVI.
+Run-time attestation methods for NFVI and VNFs are not considered in this solution.
+After successful attestation of the OS, it will act as attester for the layer above.
+The attestation results and corresponding measurements are maintained by a verifier for subsequent access.
+This architecture assumes the NFVI has been successfully attested and the virtualization layer software can act as the attester for VNFs.
+Figure 6.6.3.5-1: Reference architecture with PACF integrated with NFV architectureNote: Communication between the PACF and NFV MANO is not addressed in the present document.
+Note a: The process for verifying attestation results of the NRF and PACF is not addressed in the present document.
+The modified NF Service Registration procedure retrieves attestation results based on the NF Instance ID in the NF profile.
+Besides the above procedures defined in g. MANO defined in .NOTE 2: The Verifier itself can also be distributed in different layers.
+The consumer requests and receives the OAuth 2.0 token from the NRF.
+During the token request the NRF authenticates the NF requesting the token.
+Remote Attestation is executed during each interaction between consumer and NRF and between consumer and producer.
+The request includes a nonce, which will be used to ensure the freshness of the evidence provided in the subsequent steps.
+The attestation server appraises the provided evidence using endorsements and refence values.
+The attestation server returns the result of the appraisal to the provisioning serverStep 9.
+To implement necessary access controls, this solution proposes using a ticket-based authentication mechanism and ABAC.
+It uses shared secret key cryptography to provide a secure connection between the client, Key Distribution Centre (KDC), and server.
+Note that the VNFs themselves and the infrastructure they run on (NFVI) can and The KDC can be per domain or can serve several domains.
+Admin can use the session key to communicate securely with the resource (NFVI/VNF) for the duration of time on the ticket.
+The reference point between the admin and the NFVI or the VNF, Nf-Vi and Ve-Vnfm reference points respectively, are defined in NFV 002 .
+For example, a NF in a network slice needs to be isolated from other NFs in the same slice.
+In addition, it is proposed thatIt is proposed to first define a set of isolation principles for network design.
+The current solutions cover the following key issues:Only for key issue #9 there are 2 solutions: solution #1 and solution #8.
+Solution #1 defines trust domain and concept of physical/logical isolation between trust domains in high level.
+Functions that support the administration and security of the NFVI are treated as security critical functions.

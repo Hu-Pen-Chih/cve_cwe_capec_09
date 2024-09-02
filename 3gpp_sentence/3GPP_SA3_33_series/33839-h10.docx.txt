@@ -1,0 +1,212 @@
+edition number, version number, etc.) or non-specific.- For a non-specific reference, the latest version applies.
+Access to network application functions using HypertextTransfer Protocol over Transport Layer Security (HTTPS)".
+GSMA IoT.04: "Common Implementation Guide to Using the SIM as "Root of Trust" to Secure IoT Applications".
+For the purposes of the present document, the terms given in 905and the following apply.
+the purposes of the present document, the abbreviations given in 905and the following apply.
+Edge Application Server(s) and the Edge Enabler Server are contained within the EDN.
+The UE is initially provisioned with the configurations required to connect to the Edge Data Network.
+Edge Enabler Client consumes service offered by the Edge Enabler Server, e.g. discovering Edge Application Servers in an area of interest.
+The procedure enables the initialization or update of the Edge Enabler Client context information at the Edge Enabler Server.
+The Edge Enabler Client sends the Edge Enabler Client registration request to the Edge Enabler Server.
+Edge Application Server discovery enables Edge Enabler Clients to obtain information about available Edge Application Servers of interest.
+The identification of the Edge Application Servers is based on matching query filters or Application Client Profiles provided in the request.
+GPSI can be used as a UE identifier inside and outside of 5G networks, as specified inand TS 23.003 .
+In order to identify the UE's Edge Enabler Client, the UE uses Edge Enabler client ID as the client identifier at the edge enabler layer.
+And the Edge Enabler client ID Then the EEC uses two different identifiers towards the EES, EEC ID and UE identifier (could be GPSI)).
+Solutions to this key issue need to clearly state which identifier of the EEC they authenticate.
+Note 1: It is not addressed here whether the EEC ID will be unique across different UEs.
+The received information can reveal Edge Data Network's topology (e.g. URI, IP address, number of Edge Application Servers, Application Server Functionalities, API type, protocols).
+If the Edge Configuration Server (ECS) is deployed by MNO, the Edge Configuration Server (ECS) provides one or more Edge Enabling Server configuration information.
+GPSI can be used as a UE identifier inside and outside of 5G networks, as specified inand.
+In order to identify the UE's Edge Enabler Client, the UE uses Edge Enabler client ID as the client identifier at the edge enabler layer.
+And the Edge Enabler client ID Then the EEC uses two different identifiers towards the EES, EEC ID and UE identifier (could be GPSI)).
+Solutions to this key issue need to clearly state which identifier of the EEC they authenticate.
+Note 1 : It is not addressed here whether the EEC ID will be unique across different UEs.
+The received information can reveal Edge Data Network's topology (e.g. URI, FQDN, IP address, LADN service information, Application Server Functionalities, API type, protocols).
+Edge Configuration Server As per 23.558 , the EDGE-6 reference point enables interactions between the Edge Configuration Server (ECS) and the Edge Enabler Server.
+EDGE-6 supported the registration and registration updates, deregistration, of Edge Enabler Server information to the Edge Enabler Network Configuration Server.
+The Edge Enabler Server uses the Edge Enabler Server deregistration procedure to remove its information from the Edge Configuration Server.
+Malicious actors can use this exposed information for the benefit of PLMN's or Edge Computing Service provider's competitors.
+This key issues studies the related transport security, i.e. confidentiality, integrity, and replay-protection.
+The solution requires a new Functionality, an enhanced DNS Forwarder here referred to as "LDNSR".
+LDNSR supports Edge AS Discovery using DNS using knowledge of the 5GC connectivity of the UE.
+Step 4: UE sends Application Registration request (EEC ID, MACEEC, Kedge ID) to ECS.
+Whether this message is send using NAS or user plane is based on SA2's decision.
+Step 5: ECS sends Authentication verification (EEC ID, MACEEC, Kedge ID) to NEF for verification.
+Step 6: NEF discovers the AUSF based on Kedge ID, and sends Authentication verification (EEC ID, MACEEC, Kedge ID) to AUSF for MACEEC verification.
+Note 1: How to discover the AUSF is not addressed here.
+Step 8: If verification in AUSF succeed, then AUSF sends Authentication verification response(success) back to NEF, otherwise, AUSF sends Authentication verification response(fail) to NEF.
+Step 9: NEF sends Authentication verification response(success/fail) from AUSF to ECS.
+: It is not addressed here how to generate the uniqueness part.- P0 = Kedge,The input S Not addressed here.
+Before sending the access token and ID token to the EES, the UE and the EES establish a secure TLS connection using EES server certificate.
+Edge Configuration Server TLS provides integrity protection, replay protection, and confidentiality protection over the EDGE-1 interface.
+It is required to protect and to provide the access token and ID token to an authentic EAS.
+The EAS obtains the token validation service from the ECS via EES.
+The CounterECS is used as freshness input into KECS-PSK derivations, to mitigate the replay attack.
+The ECS sends the value of the CounterECS (used to generate the KECS-PSK) to the EEC.
+The EES accepts CounterECS value that is greater than stored CounterECS value.
+The ECS suspends the Initial provisioning procedure, if the CounterECS associated with the KECS is about to wrap around.
+This solution reuses AKMA service as defined into use the network access credentials for the UE's authentication for Edge service.
+ID token and Access token are used for authentication and authorization of the UE respectively to obtain the Edge Computing service.
+The UE performs EEC registration (as specified in clause 8.4.2 in) and Discovery (as specified in clause 8.5 in) with the EES.
+EEC establish the TLS session with the ECS, to secure the communication.
+TLS is used to provide integrity protection, replay protection and confidentiality protection for EDGE-4 interface.
+The UE initiates the EEC registration procedure with the EES, including the access token obtained from the ECS in Step 3.b.
+The authorization check for the EEC registration request is performed by verifying the access token issued by the ECS to the UE.
+The EES obtains the access token validation service from the ECS.
+The above solution proposes reusing the authentication and authorization between UE and Edge Data network using existing secondary authentication mechanisms as defined in .
+After establishing the authentication and authorization using secondary authentication with Edge AAA server, EDGE-1, Edge-4 interfaces are further protected using TLS.
+The secondary authentication procedure is required to perform if the SMF check the UE has not been authenticated and authorized by the EES.
+After the successful completion of the secondary authentication procedure, the EES sends EAP Success message to the SMF including the registration response.9.
+The ECS will allocate the Edge Enabler Server information to the EEC.
+Then the client can use this URI information of the Edge Enabler Server to communicate with the Edge Date Network.
+It takes advantage of the secondary authentication between EEC and ECS to realize the authentication between the EEC and the EES.
+The authorization between the EEC and the EES is performed via the ECS.The procedure assumes that the Edge Data Network is deployed by the ECSP.
+Both the ECS and the EES stores the mapping between the EEC ID and GPSI for each EEC.
+The ECS will store the allowed EES list and the subscription expiration time.
+The SMF sends a Namf_Communication_N1N2MessageTransfer to the AMF with the received information.10.
+The EEC sends Edge Enabler Client registration request to the EES.12.
+If the EEC is authorized, the ECS responses to the EES with the service authorization response message.
+Note 1: The mapping relationship between the UE ID used during the secondary authentication and the EEC ID is not addressed here.
+Key issue #2: Authentication and Authorization between EEC and ECSThe solution is based on the KAMF generated during the primary authentication.
+The network function that receives a registration request is querying the previous network function for authentication and the key for setting up an IPsec SA.
+Messages are protected with a MAC-I, which is also used to authenticate the UE.
+The UE performs normal primary authentication and registration to the network.
+The lifetime of the keys The MKI is assumed to be a counter.
+There is no privacy issue with the GUAMI since it is a pure network entity identifier and not identifying any UE.
+The GUAMI is already transmitted over the air interface as part of the 5G-GUTI.
+The NEF authorizes the request from the ECS and identifies the AMF based on the GUAMI.
+The UE is not authenticated at the EES and the EES sends a Key Request with the MKI to the ECS.
+The ECS identifies the UE based on the UE ID and derives the key KEES in a similar way as the UE in step 10.
+The MKI is used to identify the particular key and to ensure the keys are different per service at the same or different EES.
+If both are identical, the message can be authenticated to be sent by the UE.
+The ECS sends a Key Request Response to the EES, including the result of the authentication as well as the KEES.
+Based on the authentication result the EES decides whether to accept or to reject the Application Registration Request from the UE.
+The UE derives the key KEAS from the key KEES using a MEC Key Distinguisher flag and the MKI as input to the KDF.
+The UE is not authenticated at the EAS and the EAS sends a Key Request with the MKI to the EES.
+The EES identifies the UE based on the UE ID and derives the key KEAS in a similar way as the UE in step 17.
+The MKI is used to identify the particular key and to ensure the keys are different per service at the same or different EAS.
+If both are identical, the message can be authenticated to be sent by the UE.
+The EES sends a Key Request Response to the EAS, including the result of the authentication as well as the KEAS.
+Based on the authentication result the EAS decides whether to accept or to reject the Application Registration Request from the UE.
+In this solution, UE knows to use AKMA with EES via interact with ECS before communication with EES.
+If the EES deployed by MNO is considered to be trusted by the operator, the EES interacts directly with AAnF.
+Otherwise, the EESs not allowed by the operator to access directly the Network Functions 0b.
+When the UE determines to communicate with EES, if the UE supports AKMA, the UE derives the AKMA key and the KEES(i.e.
+Upon receiving the request, the Edge Enabler Server discovers the AAnF or NEF.
+NOTE 2: In the case of architecture without CAPIF support, the EES is locally configured with the API termination points for the service.
+The EES verifies the MAC-I using the KEES, when the verification is succeed, and if the UE is authorized to perform the operation.
+Step 6: On successful verification, the ECS retrieves the edge computing related profile for the EEC either from the 5GC or from its local database.
+Afterwards, the ECS can determine the EEC's authorization based on EEC's profile.
+The service authorization is performed via the 5GC.The procedure assumes that the Edge Configuration Server is deployed by the MNO.
+The authentication between the Edge Enabler Client and the Edge Configuration Server reuses the 5G primary authentication procedure in the PLMN.
+The UE can obtain information to access the Edge Configuration Server via the registration accept message.
+The Authorization information of the Edge Enabler Client is retrieved from the UDM in the 5GC.2.
+The UE and the 5G core network preform the primary authentication procedure as described in clause 6.1.2 of .4.
+The ECS sends service provisioning response to the Edge Enabler Client.6.11.1 Solution overview0a.
+Then KAUSF is shared between UE and AUSF in Home network.
+Upon receiving the request, the Edge Configuration Server discovers the AAnF or NEF.
+NOTE 2 : In the case of architecture without CAPIF support, the ECS is locally configured with the API termination points for the service.
+The ECS verifies the MAC-I based on the KECS, when the verification is succeed, and if the UE is authorized to perform the operation.
+EES uses onboarding credentials to authenticate and establish a secure TLS communication with the Edge Configuration Server during the registration process.
+The credential information includes details of the Edge Configuration Server Address and Root CA certificate, and it OAuth 2.0 access token).
+TLS provides integrity protection, replay protection, and confidentiality protection over the EDGE-6 interface.
+An O-Auth token mechanism provides authorization for EES authorization with ECS.
+The supported functionalities include EAS registration, de-registration, etc.- EDGE-9: between EES(s).
+The AF generates a Key-ID for the UE and derives a KLE.
+The Key-ID is used to identify the KLE, and the KLE is used to protect the message transmission between UPF and AF.
+The AF provides the Key-ID to NEF in the request service.5.
+SMF sends the notification information with Key-ID and KLE to the UPF.7.
+If the EAS is authorized, the Edge Enabler Server responds to the Edge Application Server with service exposure information to the EAS.
+EEC and ECS establish the TLS security tunnel based on the pre-shared key KECS.
+The protection between EEC and ECS relies on the NAS and SBI interface protection.
+The following EDGE-4 data could be protected based on Option A or Option B according to its connection option.
+ECS sends the token and EES info back to the EEC via the Provisioning response message.
+EEC and EES establish the TLS security tunnel based on the pre-shared key KEES.
+EES authorizes the EEC based on the verification of the token.
+The IM-UU between the Identity Management client and the Identity management server is protected using HTTPS as defined in ,and .
+For this option, the following solution is proposed:specifies different interactions between EEC and EES/ECS that use the UE ID for identifying the UE.
+If the check is successful, the AAnF/NEF provides the KAF and the GPSI to the EES/ECS.
+If the check is successful, the KAF (KECUEID) is used for authentication as mentioned above.
+The EES/ECS invokes the UE identifier API inputting the UE IP address and the application information associated with the expected GPSI.
+Note that, the EES/ECS can retrieve the application information from the EEC or from local configuration and policy.
+Note that, the UDM can have UE's subscription data provisioned with multiple GPSIs, each of which could be associated with specific application information.5.
+Also token based solution for onboarding is an existing mechanism used in CAPIF framework for onboarding the API invokers.
+Since IP address to GPSI translation API seems enough for authentication of GPSI, option #2 can be preferred to have a simple solution.
+IntroductionThis solution enables authentication and authorization (Proxy AA) with an ECS during registration after primary authentication successful completion.
+The solution is based on the KAMF generated during the primary authentication.2.
+AMF pushes the EEC ID and KProxy to the Proxy AA network function in one of the options.
+Proxy AA network function maintains a mapping of EEC ID and KProxy.
+Note 1: It is not addressed in the present document how proxy AA gets UE context.
+Note 3: It is not addressed in the present document how this solution works if the EEC ID is not unique across different UEs.4.
+The AMF replies with KProxy to Proxy AA, which then stores this in its database.
+If both are identical, the message can be authenticated to be sent by the UE.4.d.
+The Proxy AA sends a Key Response to the ECS, including the result of the authentication and the KECS.
+Therefore, secondary authentication defined in theclause 11 can be reused here for authentication/authorization between UE and Edge Data Network.
+A high level of the procedure is given in the following figure.
+Edge Enabler Server - the Edge Application Server assumes the role of an API invoker.
+This solution addresses the security requirement for authentication/authorization during Edge Data Network change in the key issue #10.
+requirement.- The S-EDN stores the signing key used for token computation.
+And the T-EDN stores the verification key used for token verification.
+UE sends the Registration request to the AMF and registers in the network.
+SMF detects that EDN relocation is required, and determines the T-EDN info.
+SMF sends the Authorization request to the S-EDN via S-UPF, including the GPSI, T-EDN info.
+S-EDN sends the Authorization response message to the SMF via S-UPF, including the token.
+(Optional) If a new PDU session is required for the T-EDN, then UE initiates the PDU session2 establishment procedure for the T-EDN.
+For the Distributed anchor point and Multiple PDU session scenario, step 9 and step 10 will be performed.
+The SMF could send the Authorization request to the T-EDN, if the SMF in the new PDU session is not changed.
+The SMF could use the SUPI, DNN and S-NSSAI received from AMF to check whether the UE is the same, or not.
+If the authorization verification successes, T-EDN sends the Authorization response message to the SMF via T-UPF, including the success indication.
+This solution fully addresses the security requirement for authentication/authorization during Edge Data Network change in the key issue #10.
+The implemented token in CT4 including the claims, computation, and verification could be reused here, to avoid any further discussion on the implementation of Oauth.
+For the Distributed Anchor Point and Multiple PDU sessions scenario, this solution applies if the SMF is not changed during the re-anchoring (SSC#2 and SSC#3).
+This solution uses AKMA to addresses the KI#1 "Authentication and Authorization between EEC and EES" and KI#2 "Authentication and Authorization between EEC and ECS".
+Besides, a mechanism is proposed for authentication of the GPSI used in communication between EEC and EES/ECS 6.23.2 Solution details0.
+The EEC and ECS/EES complete the AKMA procedures and derive the shared A-KID and KAF.2.
+If the check is successful, the AAnF provides validated result to the EES/ECS.
+Profile of the Ua protocols for GBA ( ) are provided in the following clauses as examples to describe that protection.
+It is not proposed to update the below profile in the present document if there is a specific work item for that work.
+The clause provides details needed to define solution similar to the Ua protocol given in 3rather than providing changes to Ua protocol given in.
+UE sends the Registration request to the AMF and registers in the network.
+SMF detects that EDN relocation is required, and determines the T-EDN info.
+(Optional) If a new PDU session is required for the T-EDN, then UE initiates the PDU session2 establishment procedure for the T-EDN.
+The SMF could send the authorization request to the T-EDN.Step 8.
+EEC and ECS establish the TLS security tunnel based on the pre-shared key KECS.
+The protection between EEC and ECS relies on the NAS and SBI interface protection.
+NOTE 1: the following EDGE-4 data could be protected based on Option A or Option B according to its connection option.
+NOTE 2: Whether the EEC ID could use the edge service can be authorized based on the local policy.
+Similar with step 4, pre-shared key KEES is negotiated between EEC and EES, where EES plays the role of a Step 11.
+EES sends the EEC registration/ discovery request message to the EES, including the token.
+If the verification successes, the EES sends the EEC registration/ discovery response message back to the EEC.User identity privacy is addressed during GBA usage.
+GBA, as specified in 3 , defines mechanisms to protect user identity privacy.
+APIs between Edge Security Service and SIM with Edge Security Applet corresponds to existing API defined for Over-The-Air (OTA) SIM management.
+Step 1: The EEC sends Initial Provisioning request to the ECS in order to trigger client certificate provisioning.
+Step 2: The ECS sends to the Edge Security Service ECS certificate and Security Profile corresponding to the ECS.
+Otherwise, the ECS continues the procedure with step 6.Step 7: The SIM with Edge Security Applet sends "Open channel" command.
+Applet client certificate enabling to establish TLS tunnel between EEC and the EES, and optionally EES certificate or root certificate.
+Step 20: Establishment of TLS tunnel between the EEC and EES thanks to the SIM with Edge Security.
+Step 21: The EEC sends EEC Registration request to the EES.
+Step 23: The EES sends response to the EEC Registration Request.
+The solution enables the provisioning of ECS and EES certificates in the User Equipment.
+This solution addressed key issue#2 Authentication and Authorization between EEC and ECS.
+This solution proposes the authentication between EEC (Edge Enabler Client) and ECS (Edge Configuration Server) based on AKMA.
+Then KAUSF is shared between UE and AUSF in Home network.
+Step 1.1: UE generates KAKMA and A-KID following AKMA procedure inand stores them securely.
+Step 4: UE sends Application Registration request (EEC ID, MACEEC, A-KID) to ECS.
+Step 5: ECS sends Authentication verification (EEC ID, MACEEC, A-KID) to AAnF for verification.
+Step 6: AAnF retrieves KAKMA using A-KID and calculates Kedge using KAKMA and EEC ID, then verify MACEEC using the (Kedge and EEC ID).
+Step 7: If AAnF verification success, then AAnF sends Authentication verification response(success) back to ECS, otherwise, AAnF sends Authentication verification response(fail) to ECS.
+This solution requires AAnF to perform the verification of the MACEEC.This solution addresses the EDGE-1 and EDGE-4 parts of key issue #6.
+Figure 6.30.2-1: A method for authentication and interface protection between EEC and EES/ECSStep 1.
+KEEC is derived from KAF and EEC-ID as KEEC = KDF(KAF, EEC-ID).
+KEEC and E(KAF, EEC-ID) are revealed to the EEC where E(KAF, EEC-ID) is the encryption of EEC-ID under the key KAF.Step 3.
+The network sends KAF and expire time for the key to the EES/ECS.Step 7.
+The EEC and the EES/ECS use KEEC in Ua* protocol, instead of KAF.
+NOTE 1: For authentication between EEC and ECS, additional TLS authentication methods can be used.
+Client authentication and key diversity will be addressed in the normative work.
+Since secondary authentication is already supported in, no normative works is required.
+For the type A interface (EDGE-1/4), Solution #13 that was proposed to reuse TLS if HTTP protocol is selected.
+For the type C interface (EDGE-3/6/9), Solution #13 that was proposed to reuse transport security protection on the Web service API interface can be reused.
+For the second case, the solution #14 proposed a new mechanism based on NEF for the key derivation between UPF and AF.
+However, considering that the Note added in , i.e. "NOTE 1: Local PSA UPF can expose the QoS monitoring results to local AF via N6.
+Secondary authentication and authorization, as specified inclause 11.1 andclause 4.3.2.3, addresses authorization of UEs when the Edge Data Network is relocated.

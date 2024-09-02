@@ -1,0 +1,202 @@
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+Currently only the direct AMF re-allocation case is considered complete from a security point of view and supported in in TS 33.501 .
+The present document addresses the security handling of the indirect AMF re-allocation case.
+If a SUCI is received in the RR, this step is skipped.
+Otherwise, the initial AMF notifies the old AMF that the registration is not successful.
+The old AMF continues as if the Namf_Communication_UEContextTransfer in step 2 had never been received.
+The reroute NAS message includes the RR message and the target AMF information.
+It is assumed that the iAMF does not have a communication interface (e.g. N14) to the tAMF.
+The different cases of connectivity among iAMF, tAMF, oAMF are captured in Figure 4.3-1 and described below.
+The absence of communication interfaces is assumed to be due to isolation requirements on the AMFs or deployment restrictions.1.
+The UE potentially interacts only with the iAMF and the tAMF.
+After security is established between the UE and the network the UE does not accept any unprotected NAS messages according to TS 24.501clause, 4.4.4.2.
+The UE has established security with the oAMF in the last registration and provides the 5G-GUTI from the last registration.
+In this case the AMF re-allocation procedure There are the following four subcases in this case:i.
+The iAMF and the oAMF do not have any direct communication interface between them.
+The oAMF shares a direct communication interface with the tAMF:Note 1: Whether the cases can fulfills vertical requirement is not addressed here.
+Note 2: Which existing NF in the registration procedure is used as common NF in the solutions is not addressed here.
+A line between two AMFs means that there exists a N14 interface between the two AMFs and security context can be transferred between them.
+If there is no line between the two AMFs, security context cannot be transferred directly between them.
+The AMF re-allocation procedure due to slicing TS 23.502includes two cases of the re-allocation procedure, the direct case and the indirect case.
+The second issue is resolved by the initial AMF changing the ngKSI in the Registration Request before forwarding the Registration Request to the target AMF.
+Otherwise the initial AMF needs to identify the UE and steps 4 to 6 are mandatory.
+Step 4: The initial AMF send and Identity Request to the UE and receives the UE's SUCI in response.
+Step 6: Initial AMF runs the NAS SMC procedure with the UE.
+NOTE 3: Only one of [Option-1] in above step or [Option-2] in step 8 needs to be standardised.
+The new generated Kamf-1 key could be seen as a one-time key for the purpose of the AMF re-allocation.
+The Initial AMF Step 7: The UE includes the complete RR message sent in step 1 in the NAS Security Mode Complete message.
+The Initial AMF optionally performs horizontal Kamf derivation of Kamf-0 to generate a new Kamf-1.
+If the old AMF has performed horizontal key derivation the initial AMF does not perform one.
+If the Old AMF has not performed any horizontal key derivation the initial AMF performs a horizontal key derivation based on local configuration.
+This step would ensure that target AMF has no access to the Kamf-0 key used in Initial AMF.
+Step 17: The target AMF needs to initiate a new primary authentication with the UE to generate a new Kamf-2.
+This step would ensure that the Initial AMF has no access to the new Kamf-2 key generated between target AMF and the UE.
+The UE includes the complete Registration Request message (sent in step 1) in the NAS Security Mode Complete message to the target AMF.
+The target AMF needs to process the new Reroute NAS message.
+The target AMF also needs to perform an authentication request in order to produce its own security context.
+Also the RAN needs to forward the 5G NAS security context to the Target AMF together with the INITIAL UE MESSAGE.A.
+If the UE registers with a SUCI, then the UE and the initial AMF will establish and activate new security context before RR rerouting.
+After RR rerouting via RAN, the target AMF cannot obtain the new security context.
+To solve this, the solution requires the UE to process the unprotected authentication request.
+The target AMF If the target AMF cannot obtain the old security context, the target will send unprotected authentication request and the UE will discard.
+If the target AMF can obtain the old security context, it The UE with the new security context, cannot process the NAS message.
+To solve this, the solution also requires the UE to resume the old security context.
+The UE sends a RR with a SUCI or a 5G-GUTI.
+The initial AMF decides that NAS rerouting is needed based on local policy and subscription information.
+The initial AMF Then, if an indicator is received in step 1, the initial AMF sends an indication in a NAS message to the UE.
+The indicator is included in the RR and the description on the indicator is in step 1.
+If there is no connectivity between the target and old AMF, the target AMF sends an unprotected authenticate request to the UE.
+If there is connectivity between the target and the old AMF, the target AMF 13.
+In step 13, having UE accept unprotected authentication request does not increase security risk.
+The following analyses the solution for all the possible connectivity options among the initial AMF (iAMF), old AMF (oAMF) and target AMF (tAMF).
+Later in step 10, the RR with SUCI is rerouted to the tAMF.
+The UE, based on the indication received in step 7, will process the authentication message.
+After the tAMF receives the rerouted RR message with GUTI in step 10, the tAMF sends unprotected ID request to the UE.
+The UE, based on the indication received in step 7, will process the ID request message and returns SUCI to the tAMF.
+The tAMF will obtains authentication token from the home network by providing SUCI.
+After that, the tAMF will send unprotected authentication request to the UE.
+The UE, based on the indication received in step 7, will process the unprotected authentication request.
+After the tAMF receives the rerouted RR message with GUTI in step 10, the tAMF retrieves UE context from the oAMF in step 11.
+The NAS SMC also included an indicator to indicate the UE to perform horizontal Kamf derivation.
+The UE based on the indication received in step 9, will resume the old security context and verify the received NAS message.
+Case 2.b.ii The UE includes GUTI in RR in step 1.
+After the tAMF receives the rerouted RR message with GUTI in step 10, the tAMF retrieves UE context from the oAMF in step 11.
+The oAMF After obtains the security context from the oAMF, the tAMF performs the same as in Case 2.b.i.
+UE is required to support the capability to processes unprotected authentication request and ID request, as well as to resume the old security context.
+Impact on the initial AMF:Note: Impacts on UE and other NFs are not addressed here.
+The message flow for enabling NAS Security for AMF re-allocation with NAS re-route via RAN using AUSF is shown in Figure 6.4.2-1.
+The AUSF sends NAS_Sec_ID to the initial AMF/SEAF in the AMFRealloc_Security Context Response message.
+The Target AMF/SEAF sends the Key_Request message to the AUSF with the SUCI, NAS_Sec_ID, and Target AMF information (example, such as AMF Set ID).
+If the NAS_Sec_ID validation is successful, the AUSF determines to provide the new security context (anchor key Kseaf) for the Target AMF/SEAF.
+The SEAF derives the Kamf from the received Kseaf, assigns a slice specific ABBA based on received N-NSCI and provides ABBA and Kamf to AMF.
+The AUSF deletes the NAS_Sec_ID and SUCI after step 11.Step 13.
+The initial AMF having N14 with old AMF will act similar to Case 1-2.a.i.
+and so the AMF performs Subscription identification procedure with UE and continues with primary authentication.
+After a successful primary authentication, the initial AMF performs steps 4 to 15 same as in Figure 6.4.2-1.
+No impact (i.e. as solution requires to derives new Kamf from Kseaf).
+Thus, it can now proceed with setting up fresh security context and registration procedure can succeed.
+Figure 6.5.2.0-1: Redirecting UE to Target-AMFStep #2: Initial-AMF From this point onwards, UE only accepts ciphered/protected messages from the network.
+As part of "Security Mode Complete" message, UE also sends complete Registration Request to the UE, which includes Requested S-NSSAIs.
+Step #3: Initial-AMF then initiates Nudm_SDM_Get procedure with UDM to download UE's subscription data.
+The subscription data includes information about UE's Subscribed S-NSSAIs.- Initial-AMF invokes the Nnssf_NSSelection_Get service operation towards NSSF to retrieve Allowed NSSAI.
+The request to NSSF includes UE's Requested S-NSSAIs, Subscribed S-NSSAIs, current tracking area (TAI) etc.
+If network does not deploy NSSF, AMF finds Target-AMF Information by other means (e.g. local config).- A 5G-GUTI that is encoded for Target-AMF (set).
+An indication that UE needs to re-register to the network using 5G-GUTI provided in re-route assistance information.
+Following this, UE sends Registration Complete, and network releases ngAP/RRC connection.
+UE also needs to indicate its support of receiving re-route assistance information in Step #1.
+For legacy UEs which do not support such capability, registration accept is sent with following information.
+It accordingly proceeds with identity request/response followed by Primary authentication procedure.
+However, this solution does allow UE to get registered in Target-AMF, without the risk of running into infinite-loop of trying-and-failing to register.
+As for SM-Contexts, there is no point transferring those, as Target-AMF cannot anyway use them, since it does not support the S-NSSAIs supported by old-AMF.
+The target AMF is mandated to run identity request and perform primary authentication.
+How to solve the registration failure issue when RR is rerouted via RAN is still not solved.
+The UE and the network are required to run two registration procedures.
+The Figure 6.6.2-1 describes the AMF capability and slice isolation requirement-based UE Security handling during primary authentication as follows.
+Figure 6.6.2-1: AMF Serving Capability based Security handling during primary authenticationStep 3.
+The AUSF stores the received SNN and SUCI temporarily in its local memory.
+The AUSF sends to the UDM a Nudm_UEAuthentication_Get Request containing, SUCI, and SNN.
+The UDM/UDR performs SUCI deconcealment and authentication method selection as inclause 6.1.2.
+Further the UDM, determines, if there is any slice isolation required based on the available subscription information (ex., slice selection subscription data).
+If a slice isolation requirement information is available, then the UDM determines to provide the related information to the AUSF.Step 7a.
+As an alternative option 1, the Anchor Key is also provided.
+The AUSF verifies the received AMF_AUTN based on the UE authentication information locally stored.
+The AUSF sends to SEAF of the Target AMF, the Nausf_UEAuthentication_Authenticate Response containing authentication result, SUPI and Kseaf (the anchor key).
+Further the SEAF sends the ABBA parameters, authentication result as success, and Kamf key to the Target AMF as in the existing system.
+For 5G AKA, perform step 12 as specified inclause 6.1.3.2.0.Adaptations for Registration Mobility Update:Step 1.
+The initial AMF performs reroute via RAN as inclause 4.2.2.2.3 step 7B.Step 6.
+The initial AMF having N14 with old AMF will act similar to Case 2-2.a.i steps 1-4.
+The Target AMF on receiving the initial NAS message with 5G-GUTI finds it can contact the corresponding old AMF.
+The solution is formulated to work using the SA2 defined procedure specified inclause 4.2.2.2.3.
+The solution has impact on the primary authentication procedure (i.e. initiation of primary authentication and after the response verification at the AUSF).
+The required inputs specified as 'Inputs, Conditional Required' will be included and 'Inputs, Optional'(i.e.
+Impacts to NFs in serving network (i.e. RAN and AMF) and home network (i.e. AUSF and UDM) are listed below.
+AMF Impact: Send AMF slice serving capability as Unknown while invoking authentication service (based on SUCI and if no slicing information is available) to AUSF.
+If a reroute via RAN is determined, AMF facilitates security context availability for the Target AMF during primary authentication.
+The AUSF can send to the AMF/SEAF, the authentication result as success, SUPI, and AMF serving Capability Check Required indication.
+If the AMF determines to perform indirect AMF reroute via RAN, then sets the AMF service capability result as '0'.
+As an alternative, in addition the initial AMF can send the ngKSI in the Reroute NAS message.
+NOTE 1: The ABBA parameter usage TS 33.501specified the ABBA parameter value as '0x'.
+The UE uses the ABBA parameter provided by the SEAF in the calculation of KAMF as specified inclause A.7.1 ABBA parameter values.
+Target AMF discovery can be based onclause 4.2.2.2.3 steps 6a-b.Step 5a-b.
+The solution depends on AUSF to assist security handling for indirect AMF reallocation scenario to ensure the system availability.
+The solution is formulated to work using the existing SA2 defined procedures.
+The solution has impact on the primary authentication procedure (i.e. initiation of primary authentication and after the response verification at the AUSF).
+If reroute via RAN is required, facilitates security context availability for the reallocated target AMF.
+In RRC message 5, UE includes the S-NSSAI in the RRC part of the message along with the NAS payload.
+Note 5: Whether public key cryptography impacts the radio protocols is not addressed here.
+Solution requires provisioning of public key in the UE and private key in the network (gNB).
+this solution the 5G NAS security context is protected before being re-routed via RAN together with the Registration Request (RR) message.
+The protection utilizes the NSSF as a trusted NF by both the initial and the target AMF.
+The NSSF belongs to the operator who deploys different slices and is assumed to serve all the slices offered by the operator.
+NOTE 1: The details of key generation and key identifier generation on the NSSF can be specified in the normative phase.4.
+The NSSF uses one or more of the provided inputs in Step 3 to generate a key Kamfreal and a key identifier/token Kamfreal ID.
+The RAN forwards the complete Registration Request message, the protected 5G NAS security context container, the Kamfreal ID to the target AMF.11.
+The target AMF decrypts the protected 5G NAS security context container.
+If the 5G NAS security context container is also integrity protected the target AMF verifies the protected container.
+In this solution the 5G NAS security context is protected before being re-routed via RAN together with the Registration Request (RR) message.
+The protection utilizes the NSSF as a trusted NF by both the initial and the target AMF.
+The NSSF belongs to the operator who deploys different slices and is assumed to serve all the slices offered by the operator.
+The initial AMF sends the security context to the target AMF encrypted so that that the AMF key is not exposed to the RAN node.
+The REROUTE NAS REQUEST message needs to be updated to include the protected 5G NAS security context container and potentially other parameters.
+If the UE has a 5G NAS security context (Registration with 5G-GUTI) it includes a protected NAS container in the Registration Request message.4.
+The NSSF performs the steps 4b specified in clause 4.2.2.2.3 of.
+The initial AMF optionally performs horizontal Kamf derivation of Kamf-0 to generate a new Kamf-1.
+This step would ensure that the target AMF has no access to the Kamf-0 key used by the initial AMF.
+If the Initial AMF performs horizontal Kamf derivation then the initial AMF resets the corresponding uplink and downlink NAS COUNTs.7.
+The target AMF verifies the digital signature of NSSF in the token.
+The target AMF decrypts the ciphertext in the protected NAS security context container using the ephemeral encryption key.
+The target AMF verifies the MAC-tag in the protected NAS security context container using the ephemeral MAC key.10.
+The target AMF needs to initiate a new primary authentication with the UE to generate a new Kamf-2.
+This step would ensure that the initial AMF has no access to the new Kamf-2 key generated between target AMF and the UE.
+The NSSF needs to generate a token and provide it to the initial AMF.- This solution has impact on RAN and N2 interface.
+The REROUTE NAS REQUEST message needs to be updated to include the protected 5G NAS security context container and potentially other parameters.
+This solution uses DEREGISTRATION REQUEST message to trigger the UE to start a new registration procedure.
+As specified inclause 5.5.2.1, the de-registration procedure is used by the network to inform the UE to re-register to the network.
+"Upon receiving the DEREGISTRATION REQUEST message, if the DEREGISTRATION REQUEST message indicates "re-registration required".....
+Step 18: The NRF forward the 5G-GUTI to the initial AMF in the Selected_AMF_identity_response message.
+This solution reuse the existed DEREGISTRATION REQUEST message to trigger the UE to start a new registration procedure.
+As the N1 NAS signalling connection is released, so the UE can accept the unprotected NAS message.
+This case the iAMF cannot get the UE context from the oAMF.
+Therefore, the iAMF need to get the SUCI from UE and run the primary authentication and SMC procedure.
+Case 2.b.ii: tAMF and oAMF can communicate; iAMF and oAMF cannot communicate.
+The new 5G-GUTI point to tAMF, the tAMF need to get the SUCI from UE and run the primary authentication and SMC procedure.
+The case where UE has security context and registers with a 5G-GUTI to the initial AMF.
+The protection utilizes the AUSF as the trusted NF by both the initial and the target AMF.
+NOTE 1: The details of reroute security context generation at the AUSF can be specified in the normative phase.5.
+The AUSF responds with the reroute security context and an authentication parameter NAS_Sec ID.
+Similarly Steps 12-16 can be followed similar to Solution 9 and 10.7.
+The Initial AMF indicates the algorithm information in the Steps 8-9 used for the protection of 5G security context container.
+The target AMF needs to initiate a new primary authentication with the UE to generate a new Kamf-2.
+This step would ensure that the initial AMF has no access to the new Kamf-2 key generated between target AMF and the UE.
+The target AMF needs to run a new NAS SMC procedure with the UE to take the new Kamf-2 into use with the UE.
+The UE includes the complete Registration Request message (sent in step 1) in the NAS Security Mode Complete message to the target AMF.
+(ii) The NSSF need to be preprovisioned with a root key in an implementation specific way to support reroute security context generation.).
+By running a new NAS SMC procedure between target AMF and UE to take the new Kamf-2 key into use, forward security is provided.
+The target AMF also needs to perform an authentication request in order to produce its own security context.
+The REROUTE NAS REQUEST message needs to be updated to include the protected 5G NAS security context container and potentially other parameters.
+The initial AMF decides to reroute the RR to the Target AMF.Eventually the registration will fails after timeout.
+Later even if the UE tries registering again, the above procedure still applies and registration will never be successful, hence the UE is denied service.1.
+The UE sends an integrity protected Registration Request (RR) message including a 5G-GUTI.
+This step is skipped if no connectivity between the initial and old AMF.
+Otherwise, the initial AMF based on the received 5G-GUTI, fetches the UE context from the old AMF which assigned the 5G-GUTI.
+The initial AMF decides that NAS reroute via (R)AN is needed.
+Otherwise, the initial AMF notifies the old AMF that the registration of UE at the initial AMF fails.
+The old AMF then acts as if the UE context request has never been received in Step 2.
+The NAS security context including the NAS counts and keys change back to the values before Step 2. 7.
+The initial AMF reroutes the RR to the target AM via (R)AN.
+If the target and old AMF have connectivity, the target AMF fetches the UE context from the old AMF.
+If the target and old AMF have no connectivity, this step is skipped.
+There are 8 registration failure cases described below that can happen in the above procedure.
+After step 4, the UE and the initial AMF have established and activated the NAS security context containing Kamf'.
+Case 4: In step 8, the target AMF receives Kamf from the old AMF, and the target AMF decides to use Kamf.
+The target AMF will protect the subsequent outgoing NAS message based on Kamf.
+When the UE receives the NAS message, the integrity check will fail, as UE uses Kamf_new.
+Case 5: In step 8, the target AMF receives Kamf' and keyAMFHDerivation indicator from the old AMF, and the target AMF decides to use Kamf'.
+Then the target AMF sends a SMC, integrity protected based on Kamf', to the UE.
+The verification of SMC will fail at the UE, as the SMC is integrity protected based on Kamf', but UE uses Kamf_new.
+Case 6: The target AMF performs an authentication run and sends Authentication Request unprotected to the UE in step 9.
+The UE, however, will discard the Authentication Request, because the UE already has NAS security activated and will discard unprotected NAS messages.
+Then the initial AMF initiates Security Mode Control procedure (Step 4) with the UE to update the security algorithm to be used.
+After Step 4, the UE and The initial AMF has established and activated the NAS security context containing Kamf and the new selected security algorithm.
+Case 7: In Step 8 the target AMF receives Kamf from the old AMF.
+The target AMF decides to use Kamf and protect the subsequent outgoing NAS message based on Kamf.

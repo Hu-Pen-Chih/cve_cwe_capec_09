@@ -1,0 +1,325 @@
+The present document studies the security and privacy aspects of proximity based services in 5G system phase 2.
+'- How to enhance the system architecture to provide security/privacy protection for relayed connections.
+NOTE 3: For security/privacy protection aspects, coordination with SA WG3 is needed.
+Such preservation IP addresses) of user experience persistent across sessions and UE-to-UE Relays.
+The validity of the token can be associated with the current PC5 unicast link, particular target UE(s), for a particular period, etc.
+The token is sent protected over the secure PC5 link using the security keys established with the relay.3.
+These solutions are all based on IP routing functionality at the UE-to-UE Relay with a difference related to the proposed method for IP address/prefix allocation.
+The 5G ProSe Source/Target UE and UE-to-UE relay are provisioned with the discovery security materials, PC5 security policies and/or PRUK when they are in coverage.
+NOTE 1: 5GC NF(s) that provision PC5 security policies are to be determined during normative work.
+Protection of PRUK ID and RSC in DCR can be done same as described in.
+NOTE 3: 5GC NFs and internal signalling are not described in detail.
+The similar security procedure as Security for 5G ProSe Communication via 5G ProSe Layer-3 UE to-Network Relay as defined incan be reused.5a.
+On receiving the Direct Security Mode Complete message, the 5G ProSe UE-to-UE Relay verifies the Direct Security Mode Complete message.
+PC5 security establishment between the 5G ProSe Target UE and 5G ProSe UE-to-UE Relay is performed according to the procedure described in clause 6.3.2.2.
+The 5G ProSe Source/Target and UE-to-UE relay need to store security materials dedicated to the In-Coverage scenario.
+Apart from the PC5 signalling, additional user plane/signalling interactions with the network are required in this mechanism.
+The Source UE initiates the PC5 security link setup with UE-to-UE Relay (first hop) similar to the UE-to-network relay as defined in .
+The need for this new message can be decided during normative work.
+This solution addresses Key issue #2: Security of UE-to-UE Relay and Key issue #3: Authorization in the UE-to-UE Relay Scenario.
+This solution assumes the peer UEs retrieve authorization token and public key for token verifying from the Prose Application server.
+The method how the UEs retrieve tokens and public keys is application specific and not described in6.4.2 Solution details0.
+NOTE 1: The details regarding the ciphering algorithm for the token are not addressed in the present document.
+NOTE 2: The need for authorization token is not addressed in the present document.3.
+The 5G ProSe Source UE derives KNRP and other security material similar as the 5G ProSe UE-to-UE Relay in step5.8.
+The 5G ProSe UE-to-UE Relay responds a Direct Communication Accept message to the 5G ProSe Source UE to complete the PC5 connection establishment procedure.
+NOTE 1: Figure 6.5.2.1-1 shows the security procedure of the non-roaming for 5G ProSe UE-to-UE Relay services.
+In this figure, the source UE and the target UE and UE-to-UE Relay use a subscription of the same PLMN. 0.
+The source UE and the target UE is provisioned with the discovery security materials and Prose Remote User Key (PRUK) when it is in coverage.
+The UE-to-UE Relay is provisioned with the discovery security materials when it is in coverage.
+These security materials are associated with an expiration time, after which they become invalid.
+The UE gets the 5G PKMF address from the 5G DDNMF.
+NOTE 2: The detail of discovery procedure is not addressed in the present document.
+The source UE performs the discovery procedure and discover the target UE via UE-to-UE Relay.
+NOTE 3: The PRUK ID and RSC in DCR message can be protected by the same security mechanism as described in clause 6.3.5 of.
+The source UE and the UE-to-UE Relay perform the same authorization and key establishment procedure over User Plane as 5G ProSe UE-to-Network Relay.
+The source UE derives KNRP from its PRUK, RSC, KNRP Freshness Parameter 1 and the received KNRP Freshness Parameter 2.
+Successful verification of the Direct Security Mode Command assures the source UE that the UE-to-UE Relay is authorized to provide the relay service.
+The source UE responds with a Direct Security Mode Complete message to the UE-to-UE Relay as specified in.4a.
+The target UE responds a Direct Communication Response message to the 5G ProSe UE-to-UE Relay to perform the second hop PC5 security procedure.
+On receiving the Direct Security Mode Complete message from the target UE, the 5G ProSe UE-to-UE Relay verifies the Direct Security Mode Complete message.
+Successful verification of the Direct Security Mode Complete message assures the UE-to-UE Relay that the target UE is authorized to get the relay service.
+After successful verification, the 5G ProSe UE-to-UE Relay sends a Direct Communication Ack message to the target UE.7.
+The 5G ProSe UE-to-UE Relay sends the Direct Communication Accept message to source UE after received Direct Communication Accept message from Target UE.8.
+The source UE and the target UE establish a secure connection between them.
+The UE-to-UE Relay sends a Direct Security mode command message to the source UE.
+This message also include the received Nonce_2 and source UE's PC5 signalling security policy and be integrity protected using Krelay-int.
+EAP Success message also be included if received from the AMF.3.
+The target UE sends the Direct Communication Accept message to the 5G ProSe UE-to-UE Relay after received Direct Communication Ack message.
+The need for the new Direct Communication Response and Direct Communication Ack message is not addressed in the present document.
+NOTE 4: How to establish a secure connection between the source UE and the target UE is not addressed in the present document.
+After step 5b, the target UE sends the Link Modification Accept to the UE-to-UE relay.8b.
+The target UE activates the integrity protection before sending the Direct Security Mode message if the U2U relay integrity key KD-int has been derived.13b.
+The source UE verifies the integrity protection using the indicated integrity algorithm in chosen_algs and the generated integrity key.
+After the successful verification, source UE starts integrity and encryption protection before sending the Direct Security Mode Complete message.15.
+The target UE There are 4 different layers of keying material as shown in figure 6.6.2.2-1.
+It Nonces are exchanged between the UEs and used with the KD to generate a KD-sess (the next layer of keys).
+In other words, all the ProSe UEs can obtain the security materials without the assistance of network.
+The Discovery & Relay Selection procedure is performed between the peer UEs and the UE-to-UE Relay.
+The Source UE responds with a Direct Security Mode Complete message to the UE-to-UE Relay.7.
+The UE-to-UE Relay responds with a Direct Security Mode Complete message to the Target UE.11.
+The solution meets all the security requirements in Key issue #1 by achieving privacy protection, protection of messages and security materials provisioning.
+Steps 1-3 refer to the Relay Discovery Key Request procedure of UE-to-UE Relay.
+The 5G DDNMF of the Source UE/Target UE sends an authorization request to the PCF/UDM of the Source UE/Target UE or the ProSe App Server.
+The 5G DDNMF of the UE-to-UE Relay The ProSe Application Server 9.
+The UE-to-UE relay broadcasts the U2U Relay announcement message and protects it by using the corresponding Code-sending security parameters.
+This solution fulfils the security requirements of KI#3 based on the DDNMF/PKMF's authorization by reusing the Discovery procedure defined in clause 6.1.3.2 of.
+Once the authorization is passed, the 5G Prose End UEs and UE-to-UE Relay can perform UE-to-UE relay discovery.
+The solution addresses Key Issue #1: Security for UE-to-UE Relay discovery and Key Issue #3: Authorization in the UE-to-UE Relay Scenario.
+It largely reuses the mechanism of Prose Discovery defined into ensure the security of UE-to-UE Relay Discovery.
+The solution meets all the security requirements in Key issue #1 by achieving privacy protection, protection of messages and security materials provisioning.
+When the user-plane based security procedure for the UE-to-UE Relay discovery is used, the 5G PKMF takes the role of the 5G DDNMF.
+Steps 1-3 refer to the Discovery Key Request procedure of UE-to-UE Relay.
+Note 1: The RSC Note 2: If the UE-to-UE relay is roaming, the 5G DDNMFs in the HPLMN and VPLMN of the UE-to-UE Relay 4.
+The 5G DDNMF of the Source UE/Target UE sends an authorization request to the PCF/UDM of the Source UE/Target UE or the ProSe App Server.
+The 5G DDNMF of the UE-to-UE Relay The ProSe Application Server 9.
+The 5G DDNMF of the Source UE/Target UE returns the Code Security Parameters along with the CURRENT_TIME, MAX_OFFSET parameters and the chosen PC5 ciphering algorithm.
+The Source UE/Target UE stores the Code Security Parameters together with the RSC.10.
+The Source UE broadcasts the Solicitation Message and protects it by using the corresponding code security parameters.
+If the integrity check/ confidentiality check is passed, the Target UE responds to the solicitation message via a response message.13.
+On receiving the response message, UE-to-UE Relay(s) checks its integrity and confidentiality based on the security policies.
+This solution uses one set of discovery security material to protect the Solicitation/Response message by reusing the Discovery procedure defined in clause 6.1.3.2 of.
+When this is done, it is ensured that the network remains in control of the UE-to-UE relay secure communication.
+However, the password(s) when one or more of the devices are out-of-coverage.
+This option ensures that the security requirements can be fulfilled even in challenging operational cases.
+This prevents the target UE (or Source UE) from impersonating the UE2UE.
+The message flow in Figure 6.10.2-1 can be adapted to other message flows, e.g. relying on discovery messages.
+For instance, the S-UE can send a Discovery Solicitation message towards the T-UE through the UE2UE.
+The T-UE replies with a Discovery Response message towards the S-UE through the UE2UE.
+Next, S-UE and UE2UE can establish a secure PC5 interface relying on a PAKE.
+Next, UE2UE and T-UE can establish a secure PC5 interface relying on a PAKE.
+When the provisioning is done when a UE is in coverage, the UE is configured with one or multiple passwords "raw-passwords" or "password-derived tokens".
+The bitstring used as "password" in a PAKE is computed as the KDF of the "raw-password" and the associated metadata fields.
+In the case of an augmented PAKE, the "password-derived token" is derived from the "password" itself.
+As in other solutions, the parameters can be received from the 5G PKMF and 5G DDNMF when the UE is in coverage.
+When the target UE receives message in Step 2, the target UE starts the PAKE in Step 3 based on the received password hint.
+The secure exchange of data relies on a shared key Ks between two UEs result of the PAKE.
+Details related to the inputs to the KDF such FC value or other identifiers are left to normative phase.
+Note: Details on the optional authorization phase in Steps 4, 7, and 9 are left to normative phase.
+This solution allows authorizing the Source-UE, Target-UE, UE-to-UE relay based on the configured password information.
+Details parameters for relay discovery are not addressed in the present document.
+Details network function involved in relay discovery are not addressed in the present document.
+The 5G DDNMF Steps 4a-9a refer to Security procedure for Source UE5a.
+The 5G DDNMF of the Source UE sends an authorization request to the ProSe Application Server.
+The 5G DDNMF of the UE-to-UE Relay ProSe Application Server 9a.
+The 5G DDNMF of the Source UE returns the Code-Receiving Security Parameters, along with the CURRENT_TIME and MAX_OFFSET parameters and the chosen PC5 ciphering algorithm.
+The Source UE takes the same actions with CURRENT_TIME and MAX_OFFSET as described for the Monitoring UE in step 9 of clause 6.1.3.1 of thespecification.
+The 5G DDNMF of the Target UE sends an authorization request to the ProSe Application Server.
+The 5G DDNMF of the UE-to-UE Relay ProSe Application Server 9b.
+The Target UE takes the same actions with CURRENT_TIME and MAX_OFFSET as described for the Monitoring UE in step 9 of clause 6.1.3.1 of thespecification.
+UE1 establishes a secure per-hop PC5 unicast link with the UE-to-UE Relay using existing procedures.
+The details of handling of messaging via L2 UE-to-UE Relay (i.e., with adaptation layer) are not addressed in the present document.4.
+UE3 sends a Direct Security Mode Command message to UE1 via the Relay (i.e. over the direct PC5 unicast link to the UE-to-UE Relay).
+UE3 forms the KNRP-sess ID from the MSB of KNRP-sess ID received from the Relay in step 4, and its LSB of KNRP-sess ID.
+UE3 derives KNRP-sess from KNRP to create the e2e security context used with UE1 and NRPEK/ NRPIK as described in.
+UE3 adds an adaptation header including its LSB of KNRP-sess ID, and the info identifying UE1 as received with the DCR message.
+The UE-to-UE Relay retransmits the DSMC message to UE1 (over PC5 unicast link with UE1) including info identifying UE3 in the adaptation header.
+UE-to-UE Relay puts its Layer-2 ID as the source and UE1 Layer-2 ID as the destination.
+The UE-to-UE Relay keeps the association of UE3 LSB of KNRP-sess ID and its relay-specific LSB of KNRP-sess ID associated with UE3.
+When receiving a DSMC message from the Relay, UE1 extracts the Relay ID.
+UE1 forms KNRP-sess ID using LSB of KNRP-sess ID specified in the adaptation header and its MSB of KNRP-sess ID sent in step 2.
+UE1 derives KNRP-sess from KNRP to create the e2e security context used with UE3 and NRPEK/ NRPIK as described in.
+Figure 6.12.2.2-1: Privacy of Identifiers for End-to-End PC5 unicast link 0.
+UE1 and UE2 establish and end-to-end PC5 unicast link via the UE-to-UE Relay.
+Both UEs have a PC5 unicast link (also called per-hop link or management link) established with the UE-to-UE Relay.
+Privacy of IP address/prefix requirement can be configured on a per RSC and/or 5G ProSe service basis.
+(b) UE2 sends a Relayed Auth and Key Establishment Response message to Relay including UE1 user info, UE2 user info, and Key_Est_Info.
+The final response indicates to the relay the authentication is complete with the corresponding result.7.
+As in the UE-to-Network Relay scenario, it is assumed that PC5 signalling integrity security policy is set to "REQUIRED".
+Solution detailsSource UE triggers path switching, i.e. change of UE-to-UE Relay.
+The Source UE has obtained a list of candidate UE-to-UE Relay IDs (i.e. RIDs).5.
+The Target UE link ID is generated as described for the Source UE link ID in step 3.
+Target UE sends a Direct Communication Accept message protected using the new security context.
+Target UE includes the Source UE link ID from Source UE as received at step 3 in the message.
+Relay_2 receives the DCA message and forwards it to Source UE.
+Source UE verifies the security of the DCA message using the new security keys.
+A successful verification by source UE completes the establishment of the new PC5 unicast link used for path switching.
+For instance, an out-of-coverage source UE might attempt to use a solution for out-of-coverage when the UE-to-UE relay is in-coverage.
+The source UE builds correspondingly a Direct Communication Request based on the chosen out-of-coverage (in-coverage) solution and security parameters.
+Once this policy is evaluated and if the result is positive, the UE-to-UE relay will proceed executing the requested out-of-coverage (in-coverage) solution.
+Step 4-B, send a message to the core network to go on with an out-coverage solution.
+Note 2: The above steps can be repeated for the security establishment process and authorization between Target UE and UE-to-UE relay.
+This solution requires a policy to choose the In-Coverage or Out-of-Coverage solution to use.
+UEs are required to support both In-Coverage and Out-of-Coverage mechanisms if they intend to work under both scenarios.
+Therefore, U2U relay authorization can be executed during the U2U relay discovery key provision process.
+Otherwise this solution does not address the Key Issue #3.- Permit multiple roles in the restricted discovery request.
+A 5G U2U Relay PKMF can provision various discovery security materials based on a 5G ProSe UE's roles in U2U relay discovery procedures.
+Note 2: The U2U relay discovery security materials are used to protect U2U discovery messages.
+The direct discovery security materials are used to protect the direct discovery set in the U2U discovery messages.1.
+The request includes User Info ID, RSC, Security capability, and UE's roles in RSC-specified relay service.
+The discovery security materials related to U2U relay discovery are associated with the RSC.
+The 5G U2U Relay PKMF For example, a security policy can specify whether end-to-end protection needs to be enabled in relay discovery messages.
+The U2U relay authorization check is done by the PKMF during discovery security materials provision process.
+The PKMF checks whether a UE can play its claimed roles, and then provisions corresponding discovery security materials to the UE.
+IntroductionThis solution assumes that the discovery security materials used for direct discovery and U2U relay discovery are different.
+Therefore, U2U relay authorization can be executed during the U2U relay discovery key provision process.
+Otherwise this solution does not address the Key Issue #3.- Permit multiple roles in the restricted discovery request.
+The PKMF in this solution is also called 5G U2U Relay PKMF to distinguish it from other kinds of PKMFs.
+A 5G U2U Relay PKMF can provision various discovery security materials based on a 5G ProSe UE's roles in U2U relay discovery procedures.
+The request includes User Info ID, Security capability, and UE's roles in RSC-specified relay service.
+The discovery security materials related to U2U relay discovery are associated with the RSC.
+The 5G DDNMF/5G U2U Relay PKMF For example, a security policy can specify whether end-to-end protection needs to be enabled in relay discovery messages.
+This solution uses IPsec for the security between Remote UEs in Layer-3 UE-to-UE Relay scenario.0.
+The Source UE, Relay UE and Target UE discover each other, and then establish connections between them.
+This solution does not address the key issue of U2U relay discovery security.
+This solution applies to both Layer-2 UE-to-UE Relay and Layer-3 UE-to-UE Relay.
+Figure 6.19.2.1-1 illustrates the end-to-end security establishment procedure between the Source UE and the Target UE over the UE-to-UE Relay.
+There are various authentication and key establishment methods to be used between the Source UE and the Target UE over a UE-to-UE Relay.
+Hence, all the authentication is specified to be carried in a generic container called Auth_Key_Info in the following steps.
+In this step, the PC5 unicast link security can be established between the Target UE and the UE-to-UE Relay as defined in clause 5.3 of.
+The encryption key and integrity key are derived from the end-to-end protection key and used in the chosen confidentiality and integrity algorithms, respectively.
+Whether the Source/Target UE is authorized to receive the UE-to-UE Relay service;- Whether the UE-to-UE Relay is authorized to provide the UE-to-UE Relay service.
+Note 2: How and which entity associates UE’s ID with the U2U relay service is not addressed in the present document.
+Note 4: How to support U2U relay services across multiple PLMNs is not addressed in the present document.
+Note 5: The security materials provisioned to the UE by the network are associated with an expiration time after which they become invalid.
+If the UE does not have valid security materials, the UE needs to obtain fresh ones to receive or provide the UE-to-UE Relay service.
+If the UE is authorized to receive or provide UE-to-UE service based on UE-to-UE indication, PCF provides the security policy/parameters to the UE.
+The security policy/parameters of the Source/Target UE related to the UE-to-UE Relay service includes Hop-by-hop Security Indicator per RSC and End-to-end Security Indicator per RSC.
+It largely reuses the mechanism of UE-to-Network Relay Security Establishment procedure defined into ensure the security of UE-to-UE Relay Communication.
+It is not addressed in the present document about how the interface between PKMF and Prose Server is achieved.2.
+The Discovery & Relay Selection procedure is performed between the peer UEs and the UE-to-UE Relay.
+Note 3: Which identifier is used as a source UE/target UE ID is not addressed in the present document.4b.
+Once receiving the U2U Key Request message, the 5G PKMF of U2U Relay checks if the U2U Relay is authorized to provide U2U Relay service.
+The 5G PKMF of Source UE sends a U2U Key Response message that contains Knrp and Knrp freshness parameter 2.4c.
+The Source UE responds with a Direct Security Mode Complete message to the 5G ProSe UE-to-UE Relay.8.
+The UE-to-UE Relay responds with a Direct Security Mode Complete message to the Target UE.12.
+the peer UEs The Source UE and Target UE perform the IKEv2 protocol, which enables the end-to-end security in the UE-to-UE relay communication.3.
+After the IKEv2 authentication, the Source UE and the Target UE generate the E2E security keys.
+The Target UE responds with the E2E Direct Communication Accept forwarded by the Layer-3 U2U Relay.
+If the E2E PC5 link is needed, the E2E security is established after the hop-by-hop security.
+The IKEv2 protocol is performed between Source End UE and Target End UE to establish the E2E security.
+While still in network coverage, the source UE, target UE and the U2U relay get the discovery parameters.
+The source and target UEs can be provisioned with the security materials for PC5 security setup or end-to-end security setup.
+The Source UE, Relay UE and Target UE discover each other.
+This solution does not address the key issue of U2U relay discovery security.1b.
+U2U relay proceeds to setup PC5 link with target UE with the same protection scheme as the one between source UE and U2U relay.
+End-to-end link is established between source UE and target UE via U2U relay.
+The 5G ProSe U2U Relay only modifies the elements of the U2U discovery set.
+The direct discovery set is constructed by the target UE and is only interpreted by the source UE.
+The U2U Relay can use a single RSC (and the associated security materials) to relay direct discovery sets associated with the multiple ProSe services.
+The target UE protects the direct discovery set(s) using the discovery security materials associated with the RSC as specified in clause 6.1.3.2.3 of.
+NOTE 1: the protection mechanisms specified in clause 6.1.3.2.3 ofare reused for the direct discovery set and U2U discovery set protection.
+The details of how the protection mechanisms in clause 6.1.3.2.3 ofis applied to the U2U discovery message protection will be specified during the normative work.2.
+Announcement message protection by U2U Relay:NOTE 3: The direct discovery set, if its protection is enabled, is protected by the Target UE.
+The Relay UE includes them in the Announcement message without modification.
+The U2U Relay protects an Announcement message using the provisioned discovery security materials associated with the RSC as specified in clause 6.1.3.2.3 of.
+This solution fulfils all security requirements of the Key Issue #1.
+NOTE 1: the procedures for discovery security materials provisioning and protection mechanisms specified in clause 6.1.3.2 ofare reused for the U2U Relay Model B discovery.
+The details of how the protection mechanisms in clause 6.1.3.2.3 ofis applied to the U2U discovery message protection will be specified during the normative work.
+The source UE, target UE, and U2U Relay are provisioned with the following discovery security materials based on the procedure specified in clause 6.1.3.2.2 of.0b.
+The source UE, target UE, and U2U Relay are provisioned with discovery security materials associated with an RSC.
+The source UE protects a direct discovery set(s) (e.g. user info ID of target UE) using the discovery security materials associated with the ProSe code.
+Then, the source UE provides the protected direct discovery set(s) to the U2U Relay via a Solicitation message.
+The Solicitation message is protected as specified in clause 6.1.3.2.3 of.3.
+The target UE decrypts and/or verifies the received Solicitation message using the discovery security materials associated with the RSC.
+Then, the target UE protects the Response message using the discovery security materials associated with the RSC and sends the message to the U2U Relay.6.
+The source UE decrypts and/or verifies the received Response message using the discovery security materials associated with the RSC.
+This solution provides a mechanism to setup a connection between source and target UEs via the UE-to-UE (U2U) Relay.
+Relay solution when the U2U Relay is in coverage and is based on the L3 user-plane UE-to-Network Relay architecture specified in.
+The source UE performs a PC5 unicast link setup procedure with the U2U Relay.
+The PC5 unicast link setup procedure is based on the procedure specified in clause 6.3.3.2.2 of.3.
+IntroductionThis solution reuses the mechanism of unicast mode 5G ProSe Direct Communication security defined into setup the security of UE-to-UE Relay Communication.
+Under the condition of initiating UE's signalling integrity security policy is not 'NOT NEEDED', the DCR includes the Key_Est_Info.
+The message NOTE 3: It is not addressed in the present document about how the two UE’s authorise each other for direct communication.
+The security of the PC5 link relies on the provisioned/pre-configured security materials.
+Security keys for each PC5 connection can be generated without the assistance from the network.
+IntroductionThe PC5 link establishment procedure can be applied to both L3 and L2 Relay.
+In case of unauthenticated Remote UE, PEI is used to identify the UE in Remote UE Report.
+Figure 6.27.2-1: High-level procedure of PC5 link establishment for Emergency Service over UE-to-Network relay0a.
+Based on the regulation and the operator policy, there If the 5G ProSe Remote UE is USIM-less, this step is skipped.
+The 5G ProSe UE-to-Network Relay sets UP integrity protection to OFF.
+It is assumed that the SMF is able to resolve a PRUK ID into a SUPI.
+It is assumed the UE-to-network relay gets the regulation and the associated operator policy about emergency service from the UE-to-network relay's serving PLMN.
+In case of unauthenticated Remote UE, PEI is used to identify the Remote UE in Remote UE Report.
+This solution allows a Remote UE without a USIM to initiate emergency services with the network via a 5G ProSe UE-to-Network.
+This solution addresses Key Issue #1: Security for UE-to-UE Relay discovery and Key issue #3: Authorization in the UE-to-UE Relay Scenario.
+This includes for example Type of Discovery Message, RSC, User Info ID of the relay, etc.
+U2U relay discovery security policy can be provisioned or preconfigured in the Source UE.
+U2U relay discovery security policy specifies what security protection Security protection can be confidentiality protection, integrity protection, scrambling protection, or none.
+The U2U relay discovery security policy can also indicate that a preconfigured security policy will be used to protect U2U relay discovery message.
+The U2U relay control parameter can specify: - Message validity period: It specifies the validity time of this message.
+Usage forwarding frequency and stop forwarding parameter is not addressed in the present document.
+Message sender indicator indicates this message is generated by the Relay UE.- Direct discovery set obtained from the received U2U relay discovery message.5.
+U2U relay discovery security policy can be provisioned or preconfigured in the Source UE and Target UE.
+U2U relay discovery security policy specifies what security protection Security protection can be confidentiality protection, integrity protection, scrambling protection, or none.
+The U2U relay discovery security policy can also indicate that a preconfigured security policy will be used to protect U2U relay discovery message.
+The method of including security policies in U2U relay discovery messages can provide maximum security control flexibility for ProSe relay discovery scenarios.1.
+Message sender indicator indicates this message is generated by the Relay UE.- Direct discovery set obtained from the received U2U relay discovery message.5.
+This solution does not support Source/Target UE and Relay UE authorization during communication establishment.
+This authorization This solution addresses Key Issue #2, #3, and #5.
+There are various authentication and key establishment methods to be used between the Source UE and the UE-to-UE Relay.
+The Source UE wants to establish a secure PC5 unicast link with the UE-to-UE Relay.
+The Source UE sends the UE-to-UE Relay a Direct Communication Request message including Relay Service Code (RSC) and its Auth_Key_Info.
+The encryption key and integrity key are derived from the hop-by-hop protection key and used in the chosen confidentiality and integrity algorithms, respectively.
+A UE initiates the procedure by sending a Registration Request message to the network.
+In the meanwhile, the UDM checks the subscription information, called UE-to-UE indication, related to the UE-to-UE Relay service.
+In the Certificate-based approach, the UE generates a public and private key pair, and generate UE-to-UE_Auth_Info including the UE's ID and the generated public key.
+Note 4: How to support U2U relay services across multiple PLMNs is not addressed in the present document.
+Note 5: The security materials provisioned to the UE by the network are associated with an expiration time after which they become invalid.
+If the UE does not have valid security materials, the UE needs to obtain fresh ones to receive or provide the UE-to-UE Relay service.
+If the UE is authorized to receive or provide UE-to-UE service based on UE-to-UE indication, PCF provides the security policy/parameters to the UE.
+The security policy/parameters of the Source/Target UE related to the UE-to-UE Relay service includes Hop-by-hop Security Indicator per RSC and End-to-end Security Indicator per RSC.
+The 5G DDNMF Steps 1b-3b refer to the Discovery Key Request procedure of Source UE/Target UE.
+The Source UE wants to establish unicast communication with the Target UE via a UE-to-UE relay.
+The U2U Relay-2 responds with a Direct Security Mode Complete message to the Target UE.10.
+The U2U Relay-2 sends a Direct Security Mode Command message to the Source UE.
+This message includes the chosen PC5 security algorithm, the nonce 2.13.
+Note 3: How the security mechanism specified in clause A.7 ofis applied to DCR protection is not addressed in the present document.
+But how to pre-configure the long term credential and the long term key ID to the UE's (incl.
+SA2 has concluded to support discovery integrated into PC5 unicast link establishment procedure in the UE-to-UE Relay scenario.
+It largely reuses the mechanism of Restricted Discovery procedure and Direct Security Establishment procedure defined in.
+The 5G ProSe Source UE wants to establish unicast communication with the 5G ProSe Target UE via a UE-to-UE relay.
+The 5G ProSe Source UE includes source UE info, target UE info, Application ID, as well as Relay Service Code.
+The User Info ID of 5G ProSe Source UE/5G ProSe Target UE are protected by the code security parameters as defined in the.
+The 5G ProSe Target UE responds with a Direct Security Mode Complete message to the 5G ProSe UE-to-UE relay-2.8.
+The 5G ProSe Source UE responds with a Direct Security Mode Complete message to the 5G ProSe UE-to-UE relay-2.12.
+The 5G ProSe Source/Target and UE-to-UE relay need to store security materials dedicated to the In-Coverage scenario.
+Apart from the PC5 signalling, additional user plane/signalling interactions with the network are required in this mechanism.
+The Source UE initiates the PC5 security link setup with UE-to-UE Relay (first hop) similar to the UE-to-network relay as defined in .
+And the UE-to-UE Relay initiates the PC5 security link setup with the Target UE (second hop).
+The need for this new message can be decided during normative work.
+The Source UE sends Direct Discovery Request (DCR) with U2U_Dis_Info parameter to the Relay UE.
+The Relay UE sends Direct Discovery Request (DCR) with U2U_Dis_Info parameter to the Target UE.
+The Target UE replies with Direct Communication Accept message to complete the PC5 link establishment with the Relay UE.9.
+The solution does not address the End-to-End security requirement between the Source UE and the Target UE.This solution addresses Key Issue #5.
+The Source UE, Target UE and UE-to-UE Relay are provisioned with the hop-by-hop and end-to-end security policies for 5G ProSe UE-to-UE Relay Communication.
+Figure 6.33.2-1 illustrates the hop-by-hop and end-to-end security policy negotiation procedure between the Source UE, Target UE, and UE-to-UE Relay.
+The security policies can be configured based on UE-to-UE Relay service, UE resource constraints, operator policy, etc.
+The Source UE sends the UE-to-UE Relay a Direct Communication Request message.
+The new E2E keys are established by reusing the re-keying procedure enhanced for the UE-to-UE Relay reselection scenario.
+The new security keys are then used for the security of a new PC5 unicast link between the End UEs via the second relay.
+As in the UE-to-Network Relay scenario, it is assumed that PC5 signalling integrity security policy is set to "REQUIRED".
+End UE#1 allocates new MSB of a link reselection correlation (LRC) ID.
+a Link Modification Accept message which includes ack of new connection pre-keying, LSB of LRC ID and other parameters (e.g. identifier of selected Relay#2).
+End UE#2 sends to End UE#1 via Relay#1 a DSM Command message including LRC ID and security parameters, as per existing Re-keying procedure.
+a Re-keying response message confirming that End UE#2 is ready to use new keys in a connection via second relay.
+End UEs set up per-hop PC5 unicast links, if not already set up, with Relay#2, by using the procedure defined in , clause 6.7.2.
+End UE#1 sends to End UE#2 via Relay#2 an integrity protected DCR message including the LRC ID.
+The message is protected using the new keys associated from the new connection context.
+End UE#2 locates the new connection security keys based on LRC ID and verify integrity protection of the DCR message.
+The authentication and security establishment procedures are skipped over the new connection.
+End UE#2 activates a security context for the new connection using the new connection stored security keys.
+UE#2 sends a DCA to End UE#1 fully protected using the security context.
+IntroductionThis solution proposes to protect the privacy of KNRP ID shared between the End UEs.
+Newly allocated MSB of KNRP ID, associated with End UE#2, uniquely identifies KNRP in End UE#1.
+End UE#2 allocates LSB of KNRP ID, associated with End UE#1, that uniquely identifies KNRP in End UE#2.
+End UE#2 combines MSB and LSB of KNRP ID to form a new KNRP ID to be used when reconnecting with End UE#1.
+a Link Modification Accept message which includes LSB of KNRP ID and other parameters (e.g. identifier of selected Relay#2).
+End UE#1 combines MSB and LSB of KNRP ID to form a new KNRP ID to be used when reconnecting with End UE#2.
+UE#1 receives from End UE#2 a DCA completing the connection establishment.
+This solution addresses Key Issue #1: Security for UE-to-UE Relay discovery and Key Issue #3: Authorization in the UE-to-UE Relay Scenario.
+Figure 6.36.2.1-1 illustrates the high-level procedure of the proposed solution considering Scenario#1.
+U2U Relay sends a U2U Relay protected discovery message including RSC, U2U Relay User info ID and announcement timing info.
+End UE#2 (Monitoring) aligns its listening for Relay Announcement messages based on the received advertised Relay announcement timing info.
+End UE#1 sends a protected U2U Relay discovery message including RSC, and a protected direct discovery set from End UE#1.
+Note 6: The new procedure (step 2 and 4) needs to be aligned with stage 2 procedure is not addressed in the present document.
+The End UEs use the security material for E2E protection of the direct discovery set.
+The End UEs are also provisioned with relay discovery security parameters for Relay discovery message protection.
+The End UE#1 protects the PC5-S message using the per hop PC5 link security context and sends it to U2U Relay.
+Impact for the End UEs and Relay:Note: Further evaluation is needed.
+This solution addresses KI#1 Security for UE-to-UE Relay discovery and KI#2 Security of UE-to-UE Relay.
+NOTE 1: the security parameters and corresponding provisioning procedure will be decided in normative phase.
+When a UE-to-UE Relay receives the DCR message, it descrambles/decrypts, and integrity verifies it.
+If integrity verification succeeds, the UE-to-UE relay removes the relay indication, and constructs another DCR message (e.g. DCR1 or DCR2) as in step 1.
+The other one is used for protecting the U2U relay discovery message.
+Provisioning of discovery security materials for the direct discovery set reuses the security material provisioning mechanism for Restricted 5G ProSe Direct Discovery as specified in.

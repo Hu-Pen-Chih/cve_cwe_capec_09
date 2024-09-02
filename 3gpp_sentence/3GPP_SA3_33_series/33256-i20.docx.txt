@@ -1,0 +1,48 @@
+the first digit:2 presented to TSG for approval;y the second digit is incremented for all changes of substance, i.e. technical enhancements, corrections, updates, etc.
+A term defined in the present document takes precedence over the definition of the same term, if any, in TR 21.905 .A2X: as defined in.
+For the purposes of the present document, the abbreviations given in TR 21.905and the following apply.
+The UAV is authenticated based on the CAA-Level UAV ID and credentials associated to the CAA-Level UAV ID.
+The AMF initiated Re-authentication procedure is described in the clause 5.2.1.2, whereas the USS initiated Re-authentication procedure is described in the clause 5.1.2.4.1.
+For an AMF initiated re-authentication, the procedure starts from the step 2.
+The UAS NF resolves the USS address based on CAA-Level UAV ID or uses the provided USS address.
+Only authorized USS The UAS NF sends an Authentication Request to the USS.
+The USS replies to UAS NF with the Authentication Response message.
+The UAS NF sends the transparent container received in 4a to the AMF with the GPSI.4f.
+The SMF triggers a UUAA procedure after the determination in step 7 in the clause 5.2.1.1.
+The USS replies to UAS NF with the Authentication Response message.
+The UE responses the AMF with an Authentication message embedded in a transparent container over a NAS MM transport message.
+The USS sends a re-authentication request for the UAV to UAS-NF that includes GPSI, CAA-Level UAV ID, and an authentication message.
+It The USS The UAS NF determines whether the target NF is an AMF or an SMF.
+If the target NF is an AMF, the UAS NF further determines the target AMF for re-authentication and continues step 3a.
+If the target NF is an SMF, the UAS NF further determines the target SMF for re-authentication and continues step 3b.1.
+The UE's context contains identity mapping between the GPSI and the USS identifier that performed UUAA.
+The target NF (i.e., the target AMF or the target SMF) 3c.
+The UAS NF responds back to the USS indicating that authorization revocation request has been successfully initiated as inand the UAS NF 4a.
+An UAV is allowed to perform UUAA with the USS/UTM only after the UAV (UE) has completed successfully authentication with EPC.
+The UAV is authenticated based on the CAA-Level UAV ID and credentials associated to the CAA-Level UAV ID.
+The SMF+PGW-C decides to trigger the UUAA procedure as described in.
+The SMF+PGW-C forwards the transparent container to the UE over NAS MM transport messages.
+The UE response to the SMF+PGW-C with an Authentication message embedded in a transparent container over a NAS MM transport message.
+NOTE 2: The method of transporting messages between the SMF+PGW-C and UE is described in.
+The below description considers only the security related parameters (for full details of the flows see).
+The UE's context contains identity mapping between the GPSI and the USS identifier that performed UAA.
+The UE's context contains identity mapping between the GPSI and the USS identifier that performed UUAA.
+The UAS NF responds back to the USS indicating that authorization revocation request has been successfully initiated as inand the UAS NF 5.
+The UAS NF/NEF first verifies the request in step 1 is authorized.
+On the condition of the location services provided by AMF, the UE presence status is provided by reusing the Area of Interest mechanism.
+The UAS NF/NEF provides the UAV(s) location information or presence to the USS.
+When the UAV needs a new dedicated PDU session for connectivity to the UAV-C, the UE initiates a PDU Session Establishment procedure.
+When the UE wants to use an existing PDU session for connectivity to the UAV-C, the UE initiates a PDU Session Modification procedure.
+The pairing information includes the CAA-level UAV IDs of the requesting UAV and identification information of UAV-C to pair.
+It is performed by the USS, and is not in scope of2.
+The SMF invokes the authorization procedure with the USS via UAS-NF.
+The USS informs the SMF via the UAS NF of the authorization results.
+When the UAV needs a new dedicated PDU session for connectivity to the UAV-C, the UE initiates a PDN Connection Session Establishment procedure.
+When the UAV needs to use an existing PDN connection for connectivity to the UAV-C, the UE initiates a PDN Connection Modification procedure.
+The pairing information includes the CAA-level UAV IDs of the requesting UAV and identification information of UAV-C to pair.
+It is performed by the USS, and is not in scope of2.
+The USS informs the SMF+PGW-C via the UAS NF of the authorization results.
+The UAV pairing authorization can be revoked by the USS at any time.
+Besides, the paired UAV-C can be replaced by a new UAV-C by the USS at any time.
+Unicast mode A2X Direct Communication is used by two UEs that directly exchange traffic for the A2X applications running between the peer UEs.
+This clause specifies the security requirements and the procedures of the Remote ID broadcast communication.

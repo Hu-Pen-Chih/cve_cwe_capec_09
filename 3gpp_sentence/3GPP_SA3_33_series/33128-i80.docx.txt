@@ -1,0 +1,130 @@
+Such national laws and regulations define the extent to which capabilities in the present document are applicable in specific jurisdictions.
+IETF : "Internet Protocol".3: "3G security; Lawful interception architecture and functions".3: "S1 Application Protocol (S1AP)".3: "Multimedia Messaging Protocol.
+OMA-TS-CPM_Conv_Function: "OMA CPM Conversation Functions".3: " Telecommunication management; Charging management; Diameter charging applications".3: "NG-RAN; NG data transport".
+W3C Recommendation: "XML Path Language (XPath)".928: "ADMF Logic for Provisioning Lawful Interception (LI) ".3: "Alphabets and language-specific information".
+GeneralThe high-level architecture that defines the necessary interfaces is specified in.
+Any alternative profile needs to ensure that LI reliability, security and completeness requirements as specified inare met.
+Details of the IRI messages can be found in Annex A of the present document.
+responses and updates are represented as XML following the IdentityResponseDetails type definition (see Annex E).IdentityResponseDetails contain IdentityAssociation records.
+In the case of ongoing updates, the presence of the AssociationEndTime indicates the SUPI to 5G-GUTI identity disassociation.
+Table 6.2.2.2.8-1: Payload for AMFPositioningInfoTransfer recordThe present clause provides the LI requirements for NG interface-based handovers which occur for a target UE.
+The LTEV2XServicesAuthorization provides information on the authorization status of the UE to use the LTE sidelink for V2X services.
+Defined inclause 9.3.1.147.Table 6.2.2.2A.6-1: Structure of the LTEV2XServicesAuthorization typeTable 6.2.2.2A.7-1 contains the details for the TargetNSSAIInfo type.
+The FiveGProSeAuthorizationIndication provides information on the authorization status of the UE to use the 5G ProSe services.
+The V2XUEAuthorizationIndicator indicates whether the UE is authorized to use Sidelink for V2X operation.
+Derived from the IEs defined inclauses 9.3.1.146 and 9.3.1.147.Table 6.2.2.2A.10-1: Enumeration for V2XUEAuthorizationIndicatorTable 6.2.2.2A.11-1 contains the details of the FiveGProSeAuthorizationIndicator type.
+ESTABLISHMENT ACCEPT to the UE and the 5GSM state within the SMF remains in the PDU SESSION ACTIVE (seeclause 6.1.3.3 and 6.4.1).
+This applies to the following cases:- MA PDU Session establishment over second access type.
+In the different PLMNs (roaming UE).- modification request and includes MA PDU session information IE set to MA PDU session network upgrade allowed.3.
+SMF sends a PDU SESSION MODIFICATION COMMAND to the UE that includes the ATSSS IE (clause 6.4.2.3).5.
+Packet header information reporting includes the following two IRI messages:- Packet Data Summary Reporting (PDSR) in the form of PDSummaryReport records.
+Note that in approach 2, the MDF2 generates these IRI messages containing PDHeaderReport and PDSummaryReport records without receiving the equivalent xIRI from an IRI-POI.
+In 5G packet core network, the UDM provides the unified data management for UE.
+Details for this interface are not considered in the present document and are for further study.
+MME received a CELL TRAFFIC TRACE message from the RAN for the target.- MME sent a deactivate trace message to the RAN for the target.
+This information is derived from the Subscription Based UE Differentiation Information IE defined inclause 9.2.1.140.Table 6.3.2.2A.12-1 contains the details for the S1Information type.
+This information is derived from the S1 SETUP REQUEST and S1 SETUP RESPONSE.
+Seeclauses 9.1.8.4 and 9.1.8.5.Table 6.3.2.2A.13-1 contains the details for the MMEServedGUMMEIList type.
+This information is derived from the Served GUMMEI List IE of the S1 SETUP RESPONSE.
+This information is derived from the Served GUMMEI List IE of the S1 SETUP RESPONSE.
+This information is derived from information present in the INITIAL UE MESSAGE defined inclauses 9.1.7.1.Table 6.3.2.2A.16-1 contains the details for the BBFTunnelInformation type.
+This information is derived from information present in the Tunnel Information IE defined inclauses 9.2.2.3.Table 6.3.2.2A.17-1 contains the details for the LTENTNTAIInformation type.
+Table 6.3.3.1-5 shows the minimum details of the LI_X1 ActivateTask message used for provisioning the MDF3.
+The details of the messages for single-access PDU sessions are provided in clauses 6.3.3.2.2, 6.3.3.2.3, 6.3.3.2.4 and 6.3.3.2.5.
+As defined inclause 5.9.4, GUAMI consists of <MCC> <MNC> <AMF Region ID> <AMF Set ID> <AMF Pointer>.
+Consequently, the UDMCancel Location xIRI in such case is only generated if this option is supported by the serving network.
+As defined inclause 5.9.4, GUAMI consists of <MCC> <MNC> <AMF Region ID> <AMF Set ID> <AMF Pointer>.
+These IRI messages The HSS provides the support functions in the mobility management, session setup and user authentication and access authorization.1.
+Table 7.3.1.2-2 defines the details of the LI_X1 ActivateTask message used for the LTF provisioning for the Triggered Location service.
+The "TaskDetailsExtensions" in the LI_T2 "ActivateTask" message carries the positioning parameters mapped from information the LTF receives from the ADMF over the LI_X1.
+MDFCellSiteReport consists of a sequence of cellInformation as described in the following tables.
+The UserLocation type is derived from the data present in the UserLocation type defined inclause 5.4.4.7.
+The ECGI type is used to report the E-UTRA Cell Identity.
+Table 7.3.3.2.29-1: Definition of type IPAddrTable 7.3.3.2.30-1 contains the details for the TNAPID type.
+The TransportProtocol indicates the transport protocol used to connect to the 5GS.
+The LocationPresenceReport type is used in the case the information is obtained from an AmfEventReport (clause 6.2.6.2.5) with event type Location_Report or Presence_In_AOI_Report.
+Table 7.3.3.2.47-1: Definition of type LocationPresenceReportTable 7.3.3.2.48-1 contains the details for the AMFEventArea type.
+The SIPLocationInfo type is used to report location information derived from the P-Access-Network-Information or Cellular-Network-Info header of a SIP message.
+UEReachability is derived from the UeReachability type defined inclause 6.2.6.3.7.Table 7.3.3.2.66-1: Enumeration for UEReachabilityTable 7.3.3.2.67-1 contains the details of the RMState type.
+CMState is derived from the CmState type defined inclause 6.2.6.3.10.Table 7.3.3.2.68-1: Enumeration for CMStateTable 7.3.3.2.69-1 contains the details of the PresenceState type.
+The Cell Global Identification (CGI) type is used to report base station identification.
+The ESMLCCelInfo type is used to identify the current cell information of the target UE as known by E-SMLC.
+Derived from the information found intable 6.2.2-2.Table 7.3.3.2.74-1: Structure of the ESMLCCellInfo typeTable 7.3.3.2.75-1 contains the details for the GERANPositioningInfo type.
+The UTRANPositioningInfo type is used to indicate the usage of each positioning method that was attempted to determine the location estimate, either successfully or unsuccessfully.
+Derived from the data found inclause 7.4.32.Table 7.3.3.2.76-1: Structure of the UTRANPositioningInfo typeTable 7.3.3.2.77-1 contains the details for the EPSLocationInformation type.
+The MMELocationInformation type contains the information related to the user location relevant for the MME.
+Derived from the data found in MME-Location-Information parameter fromclause 7.3.115.Table 7.3.3.2.78-1: Structure of the MMELocationInformation typeTable 7.3.3.2.79-1 contains the details for the SGSNLocationInformation type.
+Table 7.3.3.2.80-1: Structure of the UserCSGInformation typeTable 7.3.3.2.81-1 contains the details for the LAI type.
+The RAI type is composed of the PLMNID and the Location Area Code and the Routing Area Code.
+The CSGMemebershipIndication indicates the UE is a member of the accessing CSG cell.
+REQ (as defined inclause 8.4.3), that contains a non-local target ID, from the non-local MMS Proxy-Relay.
+The record additional location information).The -1@LI-PS-PDU.pSHeader.timeStamp field the timestamp field of the xIRI).
+This record additional location information).The PTC media contents are structured in a CC payload as formatted in clause 5.5.3 of the present document.
+The IRI-POI present in the NEF Each event will be based on PDU session between NEF and target UE, except for Unsuccessful Procedure event.
+NEF releases the SM Context for NIDD on NEF as described inclause 5.2.2.4.
+AFs providing services based on SUPI could, as an alternative to triggering, be directly provisioned by the LIPF as part of service-specific provisioning.
+LI_X1, LI_X2 and LI_X3 interfaces specified below in the present document.
+In both cases, the present document specifies the stage 3 for the LI_HI1 and LI_HI2 interfaces.
+As an alternate deployment option, LMISF-IRI This clause does not apply to such alternate deployment option.
+The xIRIs are generated at the BBIFF-C/BBIFF and are sent over LI_X2_LITE interface to the LMISF-IRI.
+The second point is telling that the UE is an inbound roamer with home-routed based roaming.
+SMF receives an Nsmf_PDUSession_UpdateSMContext request from the AMF with a new UE location.
+The contents of xIRI N9HRPDUSessionInfo record is shown in table 7.10.3.3-1 below.
+service request.- New UE location due to tracking area updates or routing area updates.
+When BBIFF is separated into BBIFF-C and BBIFF-U, these user plane packets are captured at the BBIFF-U.
+In order to enable the BBIFF-U to do that function, the BBIFF-C triggers the BBIFF-U over the LI_T3 interface.
+The second point is telling that the UE is an inbound roamer with Home Routed based roaming (with a specific DNN, if applicable).
+The third point is telling that the PDU session is established for IMS services.
+The fourth point is telling that the IMS signalling related QoS Flow is established.
+If the received ActivateTask includes an APNs, the APN used for the PDN connection matches the one in the received ActivateTask.
+The BBIFF-U/BBIFF The record that stores the SIP message is referred to as LI_X2_LITE_S record.
+For IMS-based voice services, if media interception is required, the LMISF-IRI sends a trigger for the same to the BBIFF-C/BBIFF over the LI_T1 interface.
+When the IMS session is completely released (e.g. all session-legs are released), the LMISF-IRI sends a trigger to the BBIFF-C/BBIFF to stop the media interception.
+The "div" PASSporT with those identities in the "div" claim is not received in the SIP INVITE request from the S-CSCF.
+- The "div" PASSporT with those identities in the "div" claim is received from the SIGNING AS.
+Either IBCF or Telephony AS, is interacting with the VERIFICATION AS.
+In both cases, the present document specifies the stage 3 for the LI_HI1, LI_HI2 and LI_HI3 interfaces.
+This clause defines protocol and procedures to support the LI for IMS-based services.
+A target non-local ID is identified distinctly through the provisioning.- IMPU.- PEIIMEI.When service scoping is applicable, additional target identities MCPTT ID for PTC).
+The LI for redirected sessions in the VPLMN are handed as LI for session terminations.
+This includes the LI for STIR/SHAKEN when signature is signed or verified in an IMS session involving a target as described in.
+When service scoping applies, LI for voice-mail is provided if and only if "voice" service type is included as a part of LI provisioning.
+IRI-POI/CC-TF IRI-POI/CC-TF stores (locally) the SIP Call Id to associate the subsequent SIP messages received on the same session for a target match.
+When the CC-POI is triggered by a CC-TF, the CC-TF sends the CorrelationID to the CC-POI over the LI_T3 interface in the ActivateTask message.
+The details of any needed interactions between those LI functions are not defined in the present document.
+The enumerated value of "voice" or "messaging" in the service type field.
+The enumerated value of "voice" or "messaging" in the service type field.
+The E-CSCF provides the IRI-POI functions when the target is registered for the emergency services.
+The MGCF or IBCF provide the IRI-POI functions for such a case.
+IMS user.- IMS session to a target is redirected to an outbound roaming (with LBO) IMS user.
+- The-IRI-POI in the IMS signalling Functions meets the criteria mentioned infor providing the IRI-POI functions.
+The CSP is required to send a notification to the LEMF when the media interception is required but not available for the interception.
+The VoIPRoamingIndication indicates the type of roaming in use when the target is in a roaming state.
+An IMS session to a target is redirected to a user in the CS domain.
+The H.248: Add Context is sent when the SIP message that contains the SDP offer is handled.
+In the latter case, the trigger to perform media interception is sent when the response SIP message is handled.
+The H.248: Add Context is sent when the SIP message that contains the SDP offer is handled.
+This happens at the same time the first trigger (LI_T3 ActivateTask) is sent.
+The DeactivateTask message(s) that the CC-TF sends to the CC-POI - Media interception of an IMS session ends.
+If two LI_T3 ActivateTask messages were used (asymmetric media stream case), then two LI-T3 DeactivateTask messages are required.
+The two triggers provide the information necessary to identify the media in two directions of the media flow.
+When the CC-TF is aware of this, it would have used the value "NotDetermined" as the PayloadDirectionAssignment field.
+The CC-POI The CC-POI Clause 7.12.6.2 describes how the CC-POI identifies the incoming and outgoing media packets.
+The RemoteSDP address provides the SDP information (e.g. codec information) expected by the remote end of the media flow.
+The media packets sent to that remote end of the media flow are based on this SDP information.
+In this case, the LIPF The MDF and LEMF perform protocol level correlation between intercepted signalling and media.
+LI_T3 ensures that the SDP in the intercepted SIP signalling or in LI_X3 matches the IP/UDP destination IP-address and port for every intercepted RTP stream.
+The RCS server receives a SIP SUBSCRIBE request from a target’s contact with the Event header set to "presence.winfo".
+IRI-POI in the RCS Server A user is considered registered for RCS when the RCS Server has an active context for the user.
+Where generation of CC for RCS services is required, the following clause applies.
+The NWDAF that provides the IRI-POI functions is referred to as RE-NWDAF in the following two sub-clauses.
+Indicates the registration status of the UE in both EPS and 5GS as known at the NF where the POI is located.
+This type is derived from the UE status IE defined inclause 9.11.3.56.Contains a list of TACs that are forbidden.
+The RRCEstablishmentCause type is derived from the RRC Establishment Cause type defined inclause 9.3.1.111.
+The EPSAttachType provides information on the attach type used by the UE.
+Derived from the enumerations inclause 9.9.3.11.Table 8.5.5-1: Enumeration for EPSAttachTypeTable 8.5.6-1 contains the details of the EPSAttachResult type.
+Derived from the enumerations inclause 9.9.3.4B.Table 8.5.7-1: Enumeration for EPSSMSServiceStatusTable 8.5.8-1 contains the details of the EstablishmentCause type.
+The TraceRecordType provides information on the type of Trace record being reported.
+Table 8.5.9-1: Enumeration for TraceRecordTypeTable 8.5.10-1 contains the details of the TraceDirection type.
+(normative):The XSD schema describing the extensions used for LI_X1 is given in the file urn_xsd which accompanies the present document.
+Drafting GuidanceThis annex provides drafting guidance for contributors wishing to propose changes to the present document.

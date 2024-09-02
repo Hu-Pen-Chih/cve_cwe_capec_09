@@ -1,0 +1,140 @@
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+Primary authentication is initiated by the serving network as a response to a UE action such as a Registration Request.
+The serving network contacts the home network in order to retrieve authentication vectors as well as the authentication method.
+Subsequently, the attacker observes whether a successful AKA run is performed, and the registration request is accepted by the network.
+This attack only applies to scenarios where the SUCI calculation is to be performed by the ME.
+If so, the attacker can link a UE observed in one location with a UE observed in another location.
+In case this linkability attack occurs, traceability of a subscriber becomes possible.
+The attacker observes that the UE under attack is receiving a response to a registration request.
+This allows to locate a UE in different cells and therefore allows correlation.
+Thus, it represents a breach of the user's untraceability, thus, this attack compromises privacy.
+Fraudulent Nudm_SDM_Get service 5.3.2.1 Key issue detailsThis attack only applies to scenarios where the SUCI calculation is to be performed by the ME.
+AK The attacker could leverage the feedback from the network side and conduct an activity monitoring attack to break subscribers' privacy.
+This solution addresses the key issue #4.1 Protection of SQN during AKA re-synchronisations.
+The AUSF runs a new authentication procedure with the UE according to clauses 6.1.3.1 or 6.1.3.2 depending on the authentication method applicable for the user.
+Since this message is encrypted, the attacker cannot get the content of this message, and cannot initiate a linkability attack.
+The procedure of the proposal is illustrated in the figure 6.2.2-1.
+Like UE, the AUSF derives the encryption key KE and the integrity key KM from the session anchor key KAUSF.
+Further the AUSF verifies the MAC using the integrity key KM, and if the verification is successful, decrypts the message using the encryption key KE.7.
+The AUSF sends FAIL_CAUSE and the SUPI of the UE to the SEAF.The solution requires changes to the serving network for 5G AKA.
+IntroductionThe authentication response message has the uniform format to protect the user privacy.
+Figure 6.2.3.2-1: Authentication procedure for 5G AKAThe above authentication response message with the same format is then sent to the AMF/SEAF.
+If the AMF/SEAF determines the HRES* is correct, it sends a Nausf_UEAuthentication_Authenticate Request message containing the parameter RES* to the AUSF.
+Otherwise, the AMF/SEAF sends a Nausf_UEAuthentication_Authenticate Request message containing the AUTS to the AUSF.
+The AUSF then sends a Nudm_UEAuthentication_Get Request to the UDM containing the AUTS.
+If the verification of AUTS passes, the UDM updates the SQN and generate a new AV, and then send it back to the AMF/SEAF.
+For MAC failure, the UDM sends the confirmation result back to AMF.
+The USIM verifies the freshness of the 5G authentication vector by checking whether the AUTN can be accepted.
+If the USIM detects a MAC failure, then the USIM returns a synchronisation failure message (AUTS) consisting of a random number.
+The SEAF sends to the home network a Nausf_UEAuthentication_Authenticate Request with a synchronization failure indication.
+If the MAC-S verification is successful, then the home network knows that the failure corresponds to a synchronization failure.
+Otherwise, the home network concludes that the failure corresponds to a MAC failure.
+The USIM informs the user of potential attack when counter reaches a pre-defined threshold.
+The UE sends the newly defined 5GMM Cause and the encrypted authentication failure cause to the AMF within the authentication failure message.5.
+The AMF sends the Enc(Cause) and RAND to the AUSF through Nausf_UEAuthentication_Authenticate Request.7.
+The UDM decrypts the Enc(Cause) by using the method of decrypting the SUCI, and obtains the specific authentication failure cause.
+The UDM determines the subsequent procedures (e.g. re-authentication or notifying the AMF of the authentication failure cause) based on the decrypted authentication failure cause.8b.
+If the authentication failure cause is MAC failure, the UDM sends the decrypted authentication failure cause to the AUSF through Nudm_UEAuthentication_Get Response.10.
+If the 5GS or the UE does not support the SUCI mechanism, the solution cannot work.
+The vendor can provision a list of Root certificates into the UEs, the length of the list depends on the capability of the UE.
+When the certificate(s) needs to be changed or updated, then the update can be pushed to UEs, like a software update.
+Each UDM is provisioned to have stored certificates for all authorized UEs, and each UE to have the UDM's certificate.
+Note 2: It is not addressed here for the associated security requirement(s) for UDMs on storage and processing the keys/certificates.
+The UDM retrieves the corresponding subscription information for the UE including the UE_PUB_Key.3.
+(Note: The authentication failure message has the same size regardless of the 5GMM cause.
+The UE sends the encrypted authentication failure message with 5GMM cause to the AMF.7.
+The UDM uses the UDM_PRI_Key to decrypt the authentication response message or the authentication failure message.
+The UDM determines the subsequent procedures as described in TS 33.501 .2.
+For the UDM, if the SUPI is invalid, the UDM encrypts the registration reject message using UE_PUB_Key and sends it to the AMF.
+The AMF sends the encrypted registration reject message to the UE.Note: The authentication procedure includes the AUSF.
+The solution fulfils the security requirements from Key Issue #2.1: "The 5G system supports mechanisms to mitigate the linkability attacks".
+The solution fulfils the security requirements from Key Issue #4.1: "The 5G system supports mechanisms to mitigate the attacks of SQN during AKA re-synchronisations".
+Note 2: It is not addressed for the impact to the visited network.
+IntroductionCurrent usage of ECIES for concealment of SUPI can be expanded to accommodate MESSAGE_TIME and SUPI.
+The MESSAGE_TIME represents the UTC-based time when the message is sent.
+Maximum allowed size of cipher text from concealment of protection scheme output is digits.
+The value of MAX_DELAY is not addressed here to avoid replay attack within the timer buffer.
+UDM need to compare the received MESSAGE_TIME and the current time.
+The rest of the known SUCI generation scheme is not touched.
+With the new MAC key, the computation of the SUCI is continued as specified in TS 33.501 .
+The USIM always performs the computation of the key KSUCI, even in case of SUCI calculation in the ME.
+Step 0: SQNms is shared from UE to UDM in registration request message.
+USIM computes XMAC and compares this with received MAC from AUTN.
+Step 12: In case of MAC failure cause value, UDM updates SEAF with MAC failure for the Authentication procedure.
+Rest of the procedures of how MAC failure is treated remains the same (as described in [V] & [W] 5.4.1.3.6 & 5.4.1.3.7 item c.).
+In case of Synch failure, a new Authentication vector is generated in UDM and the AKA challenge is sent to UE.
+Below figure 6.2 shows the concealed cause value in AUTSCAUSE generation at step 7 in USIM and related 5GS procedures.
+The USIM needs to conceal a MAC or Sync cause value.
+The solution is proposed to solve Key Issue #2.2: SUCI replay.
+If the timer T is running for the SUCI 1 then the UDM initiates authentication procedure as described in sub clause 6.1.3 of .
+That is, the SUCI received subsequently will be compared with the SUCI in the DU.
+If the same, the received SUCI will not be discarded and will be processed further.
+If they are different, the public key in the SUCI is applied to judge whether the SUCI is a replay attack.
+UDM removes the DUs whose time is before 60s in the message queue according to the timestamp.
+Note 1: It is not addressed whether the proposed scheme is subject to the poisoning attack.
+The components in the UDM used for anti-replay attack are shown in the following figure.
+If MAC is incorrect, the HN sends the Registration Reject message and terminates the authentication procedure.
+Figure 6.2.12.2-1Binding to the random numbers of both parties is needed, as this is required for the authentication property.
+Random, enc_SQN and MAC are required if capability indicator is received.
+If Random, enc_SQN and MAC are deleted by attackers, the attack will be detected.
+Based on SUPI, UDM decrypts enc_SQN to acquire SQN using the corresponding long-term key.
+The integrity protection is also verified through comparing MAC and MAC'.
+If verification is successful, UDM stores the Random related to the SQN.
+In UDM side, the SQN will be used for AUTN calculation.
+After that, if the same SQN is received, UDM checks the freshness of Random.
+Otherwise, UDM will discard the message and regard it as replayed message.
+: Whether the solution works for the Registration Request with a 5G-GUTI is not addressed.
+EvaluationThe selected symmetric algorithm used in this contribution needs more evaluation to avoid security issue.
+Figure 6.3.2.2-2 shows the procedure of mitigating the SUPI guessing attacks, the IMSICV are stored at the UE and the UDM/ARPF.
+The SEAF invokes the Nausf_UEAuthentication service by sending a Nausf_UEAuthentication_Authenticate Request message containing the SUCI to the AUSF.4.
+The UDM determines whether the SUPI is stored in the database.
+If the SUPI is found in the database of the UDM, the UDM determines whether the Check Value is stored in the database as well.6.
+Upon reception of "200 OK", the AUSF sends "201 Created" to AMF/SEAF with UEAuthentictionCtx containing authentication vector in the Nausf_UEAuthentication_Authenticate Response message.
+Upon reception of "404 Not Found", the AUSF sends "404 Not Found" to AMF/SEAF with "USER_NOT_FOUND".
+NOTE 1: As MACS is calculated using SQNMS, this ensures that a fresh input is used for the calculation of AK in a re-synchronisation.
+The calculation of the AUTS parameter for re-synchronisation is described in clauses 6.3.3 and 6.3.5 of.
+This solution addresses the key issue #4.1.f6* is the symmetric encryption function used to encrypt SQNMS using AK as input key.
+The figure in clause 6.3.3 ofis modified to the figure below.
+SUPI Type identifies the type of the SUPI concealed in the SUCI.
+(GCI)6.4.3.3.0 GeneralThe Nausf_UEAuthentication_Authenticate Request message contains either:- SUPI, as defined in.
+If the serving network is not authorized to use the serving network name, the AUSF responds with "serving network not authorized" in the Nausf_UEAuthentication_Authenticate Response.
+The Nudm_UEAuthentication_Get Request sent from AUSF to UDM includes the following information:- the serving network name.
+NOTE 2: SQNMS is not considered for Authentication vector generation on purpose.
+Figure 6.4.3.3.3-1 shows the failure case of Authentication procedure (considering example of 5G AKA).
+In case SUCI was included in the Nudm_UEAuthentication_Get Request, UDM will include the SUPI in the Nudm_UEAuthentication_Get Response.
+The AUSF stores the XRES* temporarily together with the received SUCI or SUPI.
+(according toAnnex A.5) and KSEAF from KAUSF(according toAnnex A.6), and replacing the XRES* with the HXRES* and KAUSF with KSEAF in the 5G HE AV.7.
+If the verification of the AUTN fails, then the USIM indicates to the ME the reason for failure.
+The ME responds with NAS message Authentication Failure only with a CAUSE value indicating the reason for failure (as SQN failure/mismatch).
+AUTS is not calculated by the UE and not shared to network.10.
+Sync failure during AKA challenge sends only failure cause and no AUTS is sent to the network.
+The solution protects the sequence number in 5GS and ensures the freshness of the SUCI generated as current as the last successful primary authentication.
+UDM stores SQNMS temporarily until the success or failure of the authentication is known.
+AMF/SEAF sends AUTN, RAND value to UE in NAS Authentication Request message.6.
+UE includes AUTS provided by USIM in Authentication failure message to AMF/SEAF.9.
+Otherwise, UDM/ARPF proceeds as specified in TS 33.501in case of a synchronisation failure.
+A potential attack on recording RAND values could estimate the number of RAND values stored on the USIM by trial-and-error.
+Such an attack can be carried out with control of RAND and AUTN.
+This can be achieved, if SQNMS is never sent in Authentication failure.
+Instead USIM calculates AUTS during the registration step using a newly generated RANDMS value.
+The new RANDMS will be used only for AUTS calculation and sent to home network along with AUTS (i.e. with the Registration request message).
+In the home network, after deconcealing SQNMS (from AUTS), RANDMS will be deleted and SQNMS is stored temporarily in UDM for future use.
+Figure 6.4.5.2-1: depicts the solution of SQNMS shared in Registration request in AUTS from USIM to HSS.
+At USIM, new RANDMS is generated and SQNMS retrieved (fetch the highest previously accepted sequence number anywhere in the array).
+AUSF forwards the same content in Authentication Get Request message to UDM.5.
+The Authentication get response message is sent with the newly generated 5G AV.8.
+In USIM(UE), MAC will be verified followed by it, the SQN will be checked against the correct range.10.
+Failure case: Authentication failure message is sent from UE to SEAF with only new failure cause for sync failure.
+SEAF forwards the failure message to AUSF and AUSF forwards it to UDM.
+UDM begins to re- synchronize using SQNMS received at step 4.
+SQNHE is updated with SQNMS.Figure 6.4.5.2-2 depicts the procedure of UE triggered service request.
+Authentication request is sent from SEAF to AUSF with SUCI or SUPI, SN-name, AUTS and RANDMS.5.
+At UE, SUCI is then generated from SUPI, Conc(SQNMS) and RANDSQN.
+The SUPI type is marked as SUPI plus SQNMS (e.g. value 4).
+At the home network UDM/ARPF/SIDF, after SUCI de-concealment, SUPI, Conc(SQNMS) and RANDSQN are retrieved.
+Further, SQNMS is retrieved from Conc(SQNMS) (similar to step 1 ofclause 6.3.5).
+UDM/ARPF retrieves with SUPI the existing SQNHE and generates an authentication vector AV.5.
+At UE, for a failure case, if there is synchronization failure, then pre-agreed AUTS or freshly generated dummy AUTS value is sent.
+AUSF provides (RAND, AUTN) to AMF/SEAF, which will send another challenge to UE.
+This fresh challenge cannot have SQN synchronisation failure anymore, because UDM has synchronized SQNHE and SQNMS already.
+For key issue #4.1, solution #4.1 is chosen to be described in an informative annex as an optional to deploy solution.

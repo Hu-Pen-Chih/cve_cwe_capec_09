@@ -1,0 +1,235 @@
+NOTE 2: Key issue 2 in TR 23.700-07is assumed to not require any study from a security perspective.
+The network providing initial registration and/or access to the UE for UE Onboarding.
+Unique UE identifier: Identifying the UE in the network and the DCS and is assigned and configured by the DCS.Void.
+- It is assumed for the case where non-USIM credentials are provisioned for PNI-NPN, the non-USIM credentials are of an EAP method type.
+The objective of Key Issue #4 in TR 23.700-07is twofold, UE onboarding and then remote provisioning of non USIM credentials for SNPN and PNI-NPN.
+This Key Issue aims at studying the corresponding security implications related to the provisioning.
+For PNI-NPNs, only credentials for secondary and slice-specific authentication need to be considered.
+An unauthorized UE Unprotected provisioning of credentials NOTE 1: The entity granting the authorization is not addressed in the present document.
+NOTE 4: The end points for the protection in the above requirement is not addressed in the present document.
+NOTE 6: Further requirements are not addressed in the present document.
+This key issue aims to analyse the potential security impacts from supporting IMS voice and IMS services in SNPNs.
+It is assumed that the AAA server is some existing solution.
+The assumed architecture is described in TR 23.700-7 , clause 6.8.2.2.
+The SNPN includes a complete 5GS SNPN network and the CdP is the Credential provider (AAA server in this case).
+The AUSF acts as EAP authenticator and interacts with the AAA to execute the primary authentication procedure.
+The shift of the AAA being the AAA server will result in an impact on the key hierarchy.
+The AMF selects an AUSF based on the SUCI presented by the UE as specified in TS 23.501 .5.
+The UDM provides the AUSF with the UE SUPI and the applicable authentication method for the UE.
+In this case, the UDM indicates to the AUSF to run primary authentication with credentials owned by a certain CdP.
+The UDM provides the AUSF also with the address of the CdP if required.
+CdP UE ID is also provided if available in the subscription data.
+Based on the indication from the UDM, the AUSF interacts with the CdP to execute the primary authentication procedure.
+The AUSF derives the CdP-UE ID from the SUPI unless received from UDM.
+The AUSF uses a AAA-P/IWF to interact with the CdP. 7.
+The AMF sends the MSK indicator to the UE in a NAS message 12.
+Relay of new MSK indicatorKAUSF is derived from MSK instead of EMSK.NoneUE and AUSF are impacted by the use of a new key hierarchy option.
+As a consequence of this, the CdP could use this to compromise security mechanisms based on KAUSF.
+Because of this, a the CdP needs to be trusted by the SNPN.
+This solution addresses the key issue #1 - Credentials owned by an external entity.
+It supports the use of any key generating EAP method to authenticate UE by an external entity consisting of a AAA server (AAA-E).
+Such consideration allows to eliminate impact on UE side and minimize impact on core network components.
+To maintain the key hierarchy on the UE side, this proposal requires AAA server to be able to derive KSEAF from EMSK according to .
+The SEAF sends to the AUSF Nausf_UEAuthentication_Authenticate Request message, including the SUCI and the SN-name (the serving network name).5.
+The UDM sends to the AUSF the Nudm_UEAuthentication_Get Response, which also includes the SUPI and any additional information that 7.
+An intermediate entity (e.g., AAA-P) forwards the authentication request to the AAA-E. 8.
+The AAA-E and the UE performs an EAP authentication that is selected by the AAA-E. 9.
+The AUSF selects a UDM also using the SUCI provided by the AMF as specified in TS 23.501 .
+The UDM resolves the SUCI to the SUPI before checking the authentication method applicable for the UE.
+The UDM can obtain the common subscription data or individual subscription data based on the SUPI.
+The UDM determines that primary authentication is to be performed using EAP-TTLS based on subscription data or by interpreting the realm part of the NAI.
+The UDM provides the AUSF with the UE SUPI and the applicable authentication method for the UE.
+In this case, the UDM indicates to the AUSF to run primary authentication using EAP-TTLS.
+The UDM provides the AUSF also with the address of the CdP if required.
+CdP UE ID is also provided if available in the subscription data.7.
+Such EAP-Request message, denoted as EAP-Request [EAP-TTLS, ServerHello, ServerCertificate, ServerKeyExchange, CertificateReuest*, ServerHelloDone], is encapsulated in a Nausf_UEAuthentication_Authenticate Response message.
+The UE authenticates the AUSF by validating the server certificate included in the EAP-Request message received in step 11.
+The UE needs to be provisioned with certificates of a trust anchor to validate the AUSF server certificate.
+If the TLS server authentication is successful, then the UE replies to the AMF/SEAF with EAP-Response [EAP-TTLS] in an Authentication Response message.
+This EAP-Response message is denoted as EAP-Response [EAP-TTLS, ClientCertificate*, ClientKeyExchange, CertifiateVerify*, ChangeCipherSpec, Finished].
+The AMF/SEAF forwards to the AUSF the EAP-Response [EAP-TTLS, ClientKeyExchange, ChangeCipherSpec, Finished] message in a Nausf_UEAuthentication_Authenticate Request message.
+The AUSF verifies the client certificate if received in step 14.16.
+The UE runs EAP-TTLS phase 2 towards the AAA-H as specified in RFC .
+After successful authentication, an EMSK is established from the keying materials obtained in step 16.
+The AUSF derives the KAUSF from the EMSK as described in 33.501(using the 256 msb of the EMSK as KAUSF).
+The AUSF also derives KSEAF from the KAUSF as defined in Annex A.6 of.
+The AUSF sends to the AMF/SEAF an EAP-Success message along with the SUPI and the KSEAF in a Nausf_UEAuthentication_Authenticate Response message.
+Upon receiving the EAP-Success message, the UE derives an EMSK from the keying materials obtained in step 16.
+The UE further derives the KAUSF and the KSEAF according to.
+The AUSF* also interfaces with the third-party using the N12* interface.
+Therefore, when legacy AAA server is used, the UE needs to know that KSEAF is derived from KAUSF/MSK instead of KAUSF/EMSK.
+The function can be collocated with NSSAAF, or AUSF.Figure 6.5.2-1: Network Access Authentication2.
+The PAF finds AAA according to AAA address, translates SBI message to AAA protocol, and sends the EAP trigger message to the AAA.
+If the authentication successes, the AAA derives MSK and EMSK, the AAA sends EAP success message and MSK with AAA protocol to the PAF.8.
+The SEAF sends Authentication Request message to the UE, the authentication procedure is finished.
+The SEAF derives the KAMF according the KSEAF.The UE, AMF, AUSF and UDM are impacted.
+If it is agreed to have an unique network entity, PAF The evaluation of the solution is not addressed in the present document.
+This solution addresses Key Issue #1 "Credentials owned by an external entity".
+The AUSF is taking the role of a AAA proxy towards the AAA server of the service provider holding the credentials.
+The AUSF verifies the response and selects the UDM e.g. based on pre-configuration or based on the Routing ID.
+The AUSF sends to the UDM the NAI of the UE and the result of the authentication, similar to clause 6.1.4.1a of .
+Subscription is owned by the AAA-Server, i.e. SUPI and authentication credentials.6.7.1 Introduction1.
+The UE sends to the SEAF a Registration Request message, including the SUCI which is constructed from the UE SUPI.
+The AUSF sends to the UDM the Nudm_UEAuthentication_Get Request, including the SUCI and the SN-name.
+If the SUCI is not constructed using the null-scheme, the UDM invokes the SIDF located within the UDM to de-conceal the SUCI.
+NOTE 1: Whether such a SUCI calculation using non null scheme is needed at the UE is not addressed in the present document.
+The details on SUCI calculation, if needed, are not addressed in the present document.6.
+The exact message format of this authentication request depends on the interface over which the request is sent.
+Upon receiving the EAP-Success message, the UE derives the KAUSF accordingly based on one of the three options in use.
+The UE has been provisioned with default UE credentials;The architecture of this solution is illustrated as Figure 6.8.1-1.
+The UDM invokes the SIDF to de-conceal SUCI to gain SUPI.5.
+The AUSF derives KAUSF from the MSK, and derives the KSEAF from the KAUSF.11.
+The AMF returns the Registration Response to the UE, including EAP success, ngKSI and ABBA.
+The UE has been provisioned with default UE credentials;The architecture of this solution is illustrated as Figure 6.9.1-1.
+In general, in order to gain access to the Provisioning Server (PS), the UE sends a registration request to the onboarding SNPN.
+The onboarding SNPN retrieves an authentication vector from the DCS, and then authenticate the UE with the authentication vector.
+After successful authentication, the onboarding SNPN can provide access of the PS to the UE.2.
+The UDM invokes the SIDF to de-conceal SUCI to gain SUPI.5.
+If the authentication method chosen is 5G AKA, the authentication procedure specified in clause 6.1.3.2 ofis used.
+If the authentication method chosen is EAP-AKA', the authentication procedure specified in clause 6.1.3.1 ofis used.
+In this solution, the DCS is assumed to be pre-configured with the PS address for each onboarding SUPI.
+The UE sends a registration request to the onboarding SNPN acting as onboarding network.
+The UE includes an onboarding indication and an anonymous SUCI as described in clause B 2.1.2.2 of.2.
+The AUSF interacts with the DCS in order to have the DCS perform primary authentication.
+In this case the UE ID from the certificate would act as SUPI.
+The AUSF sends a success message to the AMF including keying material, the SUPI and the PS address.
+This solution proposes an indicator to communicate how the UE derive keys.
+The AMF sends the PS address to the UE over the established secure NAS connection.
+This implies that there is mutual trust between AUSF and DCS.
+Relay of potentially needed indicator for how the UE Relay of onboarding indicator.
+AAA-SThe evaluation of the solution is not addressed in the present document.
+The DCS also maintains these credentials so that primary authentication can be performed between the UE and the DCS.
+The following call-flow shows the entities and the high-level steps involved in the UE onboarding.
+This implies that there is mutual trust between ON and DCS.
+The function can be collocated with NSSAAF, or AUSF.Preconditions: - UE has been provisioned with unique ID, and default credential.
+In case that the UE is in automatic selection model, the UE Procedures: 1. RAN broadcasts onboarding information.
+The onboarding information includes indication for onboarding support, and SNPN identity of the O-SNPN and SNPN identity of the connected SO-SNPN.3.
+The UE sends the Registration Request message to the SEAF, containing SUCI.
+The UDM de-conceals the SUCI to SUPI, and gets the unique ID.
+The UDM checks whether the unique ID is provisioned, if not, the UDM rejects the registration.
+If the UDM has been provisioned with the related default credential, the UDM retrieves default credential and authentication method according to unique ID.
+After successful authentication, the UE and SEAF derive KSEAF and KAMF.
+The UE and the RAN perform AS SMC procedure to activate AS security.
+Preconditions: - UE has been provisioned with unique ID, and default credential.
+The UDM de-conceals the SUCI to SUPI, and gets the unique ID.
+The UDM checks whether the unique ID is provisioned, if not, the UDM rejects the registration.
+The AUSF sends SBI message containing the DCS address and EAP trigger (e.g. EAP-TLS start) message to the PAF.10.
+The UE and the RAN perform AS SMC procedure to activate AS security.
+The UE has activated both NAS and AS security with O-SNPN, the UE can establish a secure g. PDU session) via UP.
+Either a list of possible O-SNPNs is known before onboarding, or the UE has a screen and the user selects the SO-SNPN.
+When the UEs are deployed without a provisioned subscription, it provides a solution on how UE subscription/credentials are afterward provisioned to the UEs.
+The UE is provisioned with some default UE credentials and a unique UE identifier at the manufacturing time.
+The unique UE identifier is assumed to be unique within the DCS.
+A configuration NOTE 2: Primary Authentication is not performed in this solution.2. Configuration PDU session: UE obtains limited connectivity to the Provisioning Server.
+In the Configuration PDU Session Establishment Request, the UE includes DCS identity and optionally includes PS identity, SO-SNPN identity, or both.
+The PDU session establishment authentication/authorization is performed as described inclause 4.3.2.3 and inclause 11.1.2.
+Secondary authentication with DCS is triggered by the SMF during PDU Session establishment.
+As secondary authentication is EAP-based, any EAP method can be used for secondary authentication to DCS.
+The UE is provisioned with some default UE credentials and a unique UE identifier at the manufacturing time.
+The unique UE identifier is assumed to be unique within the DCS.
+The UE registers to O-SNPN for onboarding by including an indication in the Registration Request, indicating that the registration is for UE onboarding.
+During the registration procedure, the UE provides the UE-specific information, e.g. corresponding identity (encoded in SUPI format) to the network.
+The user An authentication using non-AKA (e.g. EAP-TLS) based method is performed.
+The UE performs the one-way authentication of O-SNPN based on O-SNPN's certificate.
+In the Configuration PDU Session Establishment Request, the UE includes DCS identity and optionally includes PS identity, SO-SNPN identity, or both.
+The PDU session establishment authentication/authorization is performed as described inclause 4.3.2.3 and inclause 11.1.2.
+Secondary authentication is triggered with the DCS by the SMF during PDU Session establishment.
+Alternatively, the AMF (SEAF) can use a dedicated AUSF for onboarding.
+Steps 13-14: If the TLS server authentication is successful, the UE replies with EAP-Response/EAP-TLS in the Authentication Response message.
+The response message does not include the TLS Certificate, and TLS_certificate_verify message as the network authentication of the UE is not required.
+During the Registration procedure, UE authenticates the network with one-way primary authentication of O-SNPN using an appropriate EAP method, e.g., EAP-TLS.
+The mutual authentication required between DCS and UE is provided as part of the secondary authentication.
+All key hierarchy and derivation remain the same as defined in 33.501 .
+Mutual authentication between DCS and UE is provided via secondary authentication.
+UE is allowed to set up a PDU session but with only limited connectivity.
+To mitigate any security issues, the AUSF, SMF, and UPF can be isolated on a distinct network slice dedicated to UE onboarding.
+It assumed that the UE and DCS can trust the Onboarding network.
+This implies that the onboarding network has performed mutual authentication between the entity connected to the DCS and the DCS.
+Therefore, it implies by the transitive property that the UE can trust the onboarding network.
+The solution assumes, the AUSF and DCS has proven the mutual trust.
+The prove of mutual trust can be achieved by, but not limited to, authentication mechanism, authorisations schemes, token schemes, certification etc.
+The trust between DCS and AUSF can also be achieved by business agreements and other out of band solutions.
+The AUSF initiates the authentication by sending an EAP message to the DCS.7.
+The UE has been provisioned with default UE credentials from DCS;3.
+After the success of authentication with DCS, the PS provisions the SNPN credential to the UDM and UE, respectively.
+Figure: 6.16.2.1-1: UE onboarding and provisioning for SNPN with the interaction between PS and DCS(authentication via UP)2.
+The AMF sends Nudm_UECM_Get Request with the Universal UE ID to UDM.3.
+Upon the receipt of the Nudm_UECM_Get Request, the UDM sends Nudm_UECM_Get response with the PS address to AMF.
+Upon the receipt of the Nudm_UECM_Get Response from the UDM, the AMF sends Registration accept, containing PS address, to UE.6.
+The PS identifies the DCS address via UE Universal ID and forwards the authentication material to the DCS.8.
+A mechanism of UE onboarding and provisioning for SNPN with the interaction between PS and DCS is described in the Figure 6.16.2.2-1.
+After the success of primary authentication, the PS provisions the SNPN credential to the UDM and UE, respectively.
+The format of SUPI and PEI can refer to[x] clause 2.2A and 6.4, respectively.
+The AMF sends Nausf_UEAuthentication_Authentication Request, containing UE Universal ID and SN-Name, to the AUSF.4.
+The AUSF executes the Primary Authentication by sending EAP request, containing UE Universal ID, to the PS.8.
+The PS forwards the Authentication Request, containing UE Universal ID, to the DCS.10.
+If the authentication successes, the DCS sends an Access accept containing EAP success to the PS.12.
+The evaluation of the solution is not addressed in the present document.
+This solution address Key Issue #5 Roaming-related security mechanisms for SNPNs.
+SEPPs are also assumed to be located between Home SP and V-SNPN for control plane messages protection.
+Step 1: obtaining access token from Home SP for service access Figure 6.18.2-1: NF Service Consumer in V-SNPN obtaining access token before NF Service access3.
+The NF Service Consumer in V-SNPN requests the service from a NF Service Producer of Home SP.
+The NF Service Consumer includes the access token obtained from the NRF in step 1 in the Service Request.
+The NF Service Producer of Home SP verify the token as follows:The NF consumer in V-SNPN includes SNPN ID in access token request.
+SNPN.This solution meets the requirements of KI#5.In this solution one-way authentication including 5G key hierarchy is executed.
+A O-SNPN can get a certificate from well know certificate authorities, which are trusted by the ecosystem.
+The CI role can be delegated to companies which can handle this like for the case of eSIM.
+In this case the device manufacturer just needs to install the set of relevant root CA certificates on the UE.
+Thus, security does not rely on the UE authorizing the O-SNPN as part of primary authentication.
+In this case HNI and scheme output can be set to empty strings.2.
+AMF / SEAF forwards request to AUSF.NOTE 2: Decision of whether UDM needs to be involved can be taken during normative work.5.
+AMF sends Equipment Identity Check Request to the EIR using PEI as input parameter.
+However, a UE, which wants to use unauthenticated access for onboarding needs to support Identity Request/Response message.15.
+The actual provisioning of the Subscriber profile is executed subsequently and outside the scope of this solution.
+This means an adversary can register any number of UEs and exhaust the resources in the onboarding network.
+To mitigate the overload risk, the O-SNPN can utilize Equipment Identity Check and authorize onboarding UEs based on its PEI.
+This also implies that the UE provider needs to provide the PEI's to the OSNPN prior to onboarding.
+A successful authentication has been performed among the UE, the Onboarding Network and the DCS.
+If the verification of UPU-MAC-IAUSF is successful, the UE updates its stored parameters with the received parameters in PS Update Data.10.
+NOTE 4: If PNI-NPN credential is certificate, what is included in UPU data is not addressed in the present document.
+A successful authentication has been performed among the UE, the Onboarding Network and the DCS.
+The PS sends a Provisioning_Request message to the UDM, including SUPI and Provisioning Data.
+The details of the CounterUPU is specified in clause 6.15.2.2 of.
+The expected UPU-XMAC-IUE allows the UDM to verify that the UE received the UE Parameters Update Data correctly.
+The UDM invokes Nudm_SDM_Notification service operation, which contains UE Parameters Update Data, UPU-MAC-IAUSF, CounterUPU within the Access and Mobility Subscription data.
+If the PS requests an acknowledgement, it temporarily stores the expected UPU-XMAC-IUE.
+Upon receiving the Nudm_SDM_Notification message, the AMF sends a DL NAS Transport message to the served UE.
+The AMF includes in the DL NAS Transport message the transparent container received from the UDM.9.
+The UE generates the UPU-MAC-IUE as specified in Annex A.20 and include the generated UPU-MAC-IUE in a transparent container in the UL NAS Transport message.
+The UDM sends a Provisioning_Response message to the PS, including result code of the provisioning operation.
+NOTE 2: How UDM in SO-SNPN gets provisioning data is not addressed in the present document.
+NOTE 4: If PNI-NPN credential is certificate, what is included in UPU data is not addressed in the present document.
+The DCS and UE derive a provisioning key which is used to protect the profile from the Provisioning Server.
+The DCS deconceals the SUCI to a SUPI and verifies the authentication request based on the username.
+After a successful NAS SMC procedure, the AMF sends the Registration Accept including the address of the Provisioning Server. 10.
+The UE performs a normal PDU Session Establishment procedure to gain IP connectivity.12.
+The DCS provides the provisioning information Onboarding SUPI and Provisioning Key KPro to the Provisioning Server.
+The selection for the Provisioning Server NOTE 2: The solution introduces a new interface between the DCS and the PS.15.
+The Provisioning Server provisions the new profile to the UE via the IPSec tunnel.
+Figure 6.23.2-1: Secured Initial access for onboarding based on credentials owned by external entity0.
+The default UE ID together with DCS domain name can take NAI format (e.g., 9abcdefghi@DCSdomain).
+The UE sends a registration request to the onboarding SNPN acting as onboarding network.
+The UE includes a Subscription unique onboarding identifier (SUOI) which consists of Onboarding SUPI, Timestamp and the digital signature.2.
+The EAP success and other information received from step 8 can be provided to the UE in a NAS SMC similar to the 33.501.
+Need to construct subscription unique onboarding identifier using onboarding SUPI (i.e., default UE ID), time stamp and digital signature.
+The scope of the solution is limited to cases, in which the subsequent onboarding are executed using a restricted PDU session.
+During UE onboarding the O-SNPN can execute primary authentication and verify the UE default certificate without involvement of a DCS.
+The UE sends a Registration Request including a SUCI to the network.3.
+Based on the received SUCI the AUSF concludes that the UE wants to execute authenticated access and selects a corresponding EAP-TLS method configured.
+The AUSF returns response message including EAP Success message, KSEAF and SUPI.
+The UE and PS establishes a secure connection utilising an industry specific protocol.
+The same protocol is utilised to provisioning the UE specific credentials to the UE.
+The actual provisioning of the subscriber profile is executed subsequently and outside the scope of this solution.
+This solution provides the options to authenticate a UE without interaction with a DCS by using already standardised methods inin the context of SNPN.
+It enables the UE and O-SNPN to mutually authenticate and hereby establish a security context, which might be further utilised for provisioning.
+This can be achieved without involvement of the DCS; i.e., without the need for integration between the O-SNPN and DCS.
+An unique user identifier within the DCS domain in NAI (Network Access Identifier) format.
+The O-SNPN:- obtains the root or any intermediary CA certificates that can used to authenticate the UE from the DCS during the authentication procedure.0.
+For the Profile<A> protection scheme: type1.rid0.schid1.hnkey15.ecckey<ECC ephemeral public key>.cip<encryption of user1>.mac<MAC tag value>@example.com3.
+The AUSF selects DCS based on the SUCI and requests information that is necessary to authenticate the UE.
+It is assumed that there is a prior business relationship and a secure connection established between the AUSF and the DCS.
+The root or any intermediary CA certificates that can be used to authenticate the identified UE's certificate5.
+The UE authenticates the O-SNPN with the certificates given in step 0, and the O-SNPN authenticates the UE with the certificates provided in step 5.
+The AUSF sends the authentication result including the keying material, the SUPI and the PS_Address to the AMF.
+NOTE 1: Further conclusion(s) are not addressed in the present document.
+Solution #18 describes necessary changes to the token-based authorization procedure as currently specified in.

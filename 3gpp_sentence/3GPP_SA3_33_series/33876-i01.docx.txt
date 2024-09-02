@@ -1,0 +1,144 @@
+the second digit is incremented for all changes of substance, i.e. technical enhancements, corrections, updates, etc.
+IETF RFC :"Internet X.509 Public Key Infrastructure -- HTTP Transfer for the Certificate Management Protocol (CMP)".
+IETF: Certificate Management Protocol (CMP) Updates,GS-NFV 006 : "Management and Orchestration; Architectural Framework Specification".
+IETF RFC : "Transport Layer Security (TLS) Extensions: Extension Definitions".848: "Study on Security Impacts of Virtualisation".
+IETF RFC : "Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile".
+IETF draft-ietf-lamps-nf-eku-00: "X.509 Certificate Extended Key Usage (EKU) for (JOSE) and CBOR Object Signing and Encryption (COSE)"IETF RFC : "Automatic Certificate Management Environment (ACME)".
+IETF draft-ietf-acme-authority-token-tnauthlist-12: "TNAuthList profile of ACME Authority Token"IETF RFC : "Support for Short-Term, Automatically Renewed (STAR) Certificates in the Automated Certificate Management Environment (ACME)".
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+It will increase the implementation and deployment complexity when several automated certificate management protocol and procedures are defined.
+If the NF cannot obtain a certificate, and the certificate enrolment procedure is not secured, the following problems may occur:2.
+If certificate enrolment parameters are tampered, the CA issues an incorrect certificate.
+Otherwise, NF communication can be disrupted in the middle of operation due to an unhandled certificate expiry.
+Building the legitimacy and credibility relies on a trust chain of CA hierarchy, which specifies the CA hierarchy and their transitive trust relationship.
+Based on the chain of trust, each CA can be verified by a trusted source.
+This transitive trust relationship enables TLS entities in 5G SBA to obtain their own certificates and verify the certificate of other TLS entities.
+Due to the lack of trust chain, the TLS entity in SBA cannot verify the credibility of SBA certificates sent by other TLS entities.
+There is a risk that the clients are not updated accordingly, creating a security vulnerability.
+Lean Network Function designs based on micro-services type of software architectures are aiming to optimize the use of resources.
+Intensive demand of revocation status checks can generate a severe impact in service availability by downgrading the performance of the Network Function.
+This type of cases will lead to inconsistent status in NRF and reduce the service availability.
+To gain operational control over such distributed microservice architecture, a service needs to be identified.
+In SBA Network Function (NF) instances offer services to other NFs or NF instances.
+After registration, the NRF maintains NF profiles of available NF instances and their supported services.
+A malicious or compromised NF instance can send a rogue CSR message using a compromised NF Instance Id.
+Thus, same UUIDs would be used for various NF instances, including the potential malicious or compromised NF.
+Different slices allocated to different slice customers Generally, network slices need to rely on operator-provided services for automated certificate management services.
+There are also several approaches to address access control and authorization of NFs for slicing in SBA.
+The framework in deployment where different 3rd party slices co-exist and interoperate.
+Table 6.0-1: Mapping of solutions to key issuesThe solution addresses key issue 1.
+The solution presents an overall architecture and the building blocks of an automated Certificate Enrolment and MAnagement Framework henceforth referred to as CEMAF.
+For some of the building blocks, the details are left out and deferred to potential other solutions addressing different key issues.
+This would not incur big impact on NFs since they are expected to already support such protocols.
+OCSPis HTTP based and CMPv2 can be encapsulated in HTTP messages .
+On the one hand, the CeEF needs to be able to interact with enrolling NFs that are yet to be provisioned by operator certificates.
+How trust is initially established and the credentials used to secure the enrolment procedures with the CeEF are deferred to other solutions.
+Solutions addressing key issue #2 will provide the means to realize this block.
+Solutions addressing key issue #3, #5 and #6 will provide the means to realize this block.
+Observe that trust establishment This solution is a high-level description of the building blocks of a complete certificate management framework, here denoted by CEMAF.
+The solution does not propose any technical requirements and all the details for the building blocks have been left to other solutions.
+This solution addresses Key Issue 1: Single certificate management protocol and procedures.
+CMP also provides revocation support with the operation of Revocation Request/Response, Revocation Announcement and CRL Announcement .
+And many details of the CMP protocol have been left open or have not been specified in full preciseness which increases burden on interoperability.
+Furthermore, automated scenarios for a machine-to-machine communication are not covered sufficiently.
+So relevant information for the NF needs to be pre-provisioned out of band in CA/RA for NF's CMP certificate request validation.
+The support and usage of the optional protection field of type PKIProtection is required by this profile.
+The sender field contains the identity of the NF as EE.
+The recommended procedures for handling of the transactionID given in IETF RFCare followed.
+If no specific profile is given, the provisions of IETF RFCand IETF RFCapply.
+The generated certificate is transferred to the NF in the certifiedKeyPair field of the CertResponse field.
+Using both ExtraCerts and caPubs fields will increase the complexity of implementation.
+The extraCerts field of the PKIMessage carrying the Certificate Confirm request and Confirmation response is omitted.
+Support for RA/CA initiated HTTP requests (i.e., announcements) is not mandatory.
+NOTE 2: Further details on the CMPv2 profiling will be addressed during normative work.
+Based on the proposed trust chain in this solution, the SBA entities can verify their obtained certificate and establish the TLS connection.
+Based on the CA trust chain, the certificate of SBA entities can be verified.
+The solution addresses Key Issue #4: Trust Chain of Certificate Authority Hierarchy.
+A CA serves as the trust anchor in a chain of trust within a security domain.
+The root CA generates the self-signed certificate as the root certificate.
+All certificates in this security domain are signed by the root certificate directly or indirectly.
+The receiver checks to ensure that the sender's certificate is not expired.
+Considering that the sender's certificate is signed by the intermediate CA, the receiver tries to get the intermediate CA's certificate.
+Once the intermediate CA's certificate is obtained, the receiver uses the intermediate CA's public key to verify that the sender's certificate is properly signed.
+Then, the receiver attempts to verify that the intermediate CA's certificate is trusted.
+If the mutual TLS for authentication of NF is used, both SEPP TLS clients/servers perform the following procedure.2.
+Then, the receiver attempts to verify that the SEPP TLS client/server CAB's certificate is trusted.
+Considering that the SEPP TLS client/server CAB 's certificate is signed by the root CAB, the receiver tries to get the Root CAB's certificate.
+In a successful transaction, the receiver will come to a self-signed root certificate that the receiver implicitly trusts.
+At this point, the receiver verifies the identity of sender, builds the chain of trust to the sender, and the inter-domain SSL/TLS handshake can proceed.
+Based on the proposed trust chain in this solution, the SBA entities can verify their obtained certificate and establish the TLS connection.
+Based on the trust chain, the certificate of SBA entities can be verified.
+The solution addresses Key Issue #4: Trust Chain of Certificate Authority Hierarchy.
+A CA serves as the trust anchor in a chain of trust within a security domain.
+The root CA generates the self-signed certificate as the root certificate.
+At this point, the receiver verifies the identity of sender, builds the chain of trust to the sender, and the intra-domain SSL/TLS handshake can proceed.
+The receiver (i.e., SEPP TLS client/serverA) checks to ensure that the sender's (i.e., SEPP TLS client/serverB) certificate is not expired.
+Considering that the sender's certificate is signed by the SEPP TLS client/server CAB, the receiver will get the SEPP TLS client/server CAB's certificate.
+NFs are expected to regularly check the status of their own certificates.
+When to do this regularly could be left to implementation or based on a configuration parameter controlled by the operator.
+Typically, an NF could check its own certificate status after a failure of TLS tunnel establishment.
+To achieve this role successfully, the CMNE communicates with the CA/RA and NRF.
+CMNE is informed by the CA/RA about NF certificate status change, or the CMNE 2.
+For VNF lifecycle management event triggered by Virtualization orchestration, CMNE transfers this information to the CA/RA for further actions.
+It is assumed that the OAM configures the NF profile during the NF initialization phase.
+In this case, the OAM can help to evaluate the NF profile for its integrity.
+The NF provides the signature of the parameters in NF profile in certificate enrolment request to build trust.
+Alternatively, if the certificate request only covers some parameters from the NF profile, the OAM signature can be limited to these parameters.
+The CeEF/CA verifies the received parameters, including the NF profile signature.
+If the verification is not successful, the CeEF/CA sends a failure response.
+How to verify the signature of OAM is left to implementation.
+e.g., as proposed in step 0, OAM obtains the certificate from CeEF/CA, and then CeEF/CA can verify the OAM signature by verifying the certificate.
+This solution addresses KI#2 and KI #8 by enhancing the integrity of NF identifier during the certificate enrolment.
+In addition, when the certificate of the NF is renewed, this certificate needs to be updated in the NRF.
+The NF consumer sends the Nnrf_NFDiscovery_Request message to discover an NF producer for the service.
+NRF determines a required candidate NF producer list as specified in.
+it If multiple NRFs are required to discovery a NF producer, NRF can forward the request to other NRFs as specified in.
+This solution assumes that the NRF can determine the mapping between the certificate and the NFp.
+This functionality is not defined as part of NRF role in any otherThe NRF can maintain this mapping locally or indirectly in/through another network entity.
+Though this can be left to implementation, it does incur additional impact on the NRF.
+If an automated enrolment protocol is used by the NF to fetch the certificate, the NF E.g., "ir" or "cr" messages in CMPv2.
+The CA validates the purpose of the certificate with predefined policies and adds the purpose in the certificate (EKU extension).
+The CA sends the certificate with purpose information in EKU extension field to the NFc.
+The NFc initiates a TLS connection with SCP, which requires mutual authentication.
+The SCP validates the TLS client authentication, including the purpose of the certificate and allows the TLS connection.
+NRF register the NFp profile, which contains the OCSP stapling information, i.e., the latest status of the EE certificate.
+If the status of the EE certificate is OK, the NFp is considered in the response.
+the solution introduces additional signalling between the OCSP responder and the NFp corresponding to the updates of OCSP stapling information.
+Thus, trust needs to be pre-established between operator CA and eventually involved 3rd party CAs.
+Secure mutual TLS connection is established between the 3rd party certificate administrator and NSCOF function.
+This solution introduces certificate management (CM) proxy functionality to verify the NF identities, and facilitates the initial trust establishment between NF and CA/RA.
+The description shows the steps by which an entity in the NF receives an end-entity certificate.
+The identities of NF end-entity (got from previous steps) are registered to CA/RA. 6. CA/RA provides authentication credentials to the CM proxy.
+CM proxy provides the NF about enrolment information and authentication materials.
+The enrolment information includes enrolment protocol, CA/RA details and registered NF identities in step 5.
+For example, if TLS is used as a transport layer protection between NF and CM proxy.9.
+Authentication credential received in step 7 is used to authenticate the origin of CSR from the end entity to the CA/RA.
+NF end-entity identities (e.g., FQDNs to be presented in the certificate) are registered by CM Proxy to CA/RA without having impact on CA/RA.
+The CA/RA can validate the certificate enrolment request based on local policies and registered identities.
+The solution does not cover the initial trust for the CM Proxy.
+This solution has no impacts on NFs, CAs or on any existing signalling procedures.
+The CUO described in this solution can be implemented independently as part of operator's management and orchestration framework.
+Therefore, the CA has an enough period of time to process the simultaneous certificate update before the expiration date.
+All the aspects above depend on CA/ PKI subscribers' policies and NF/CA internal implementations.
+If needed some guidance can be added in the normative phase to clarify this.
+The solution depends on the preconfigured policy and internal implementation of the NF/CA, and does not have standards impact.
+These map directly to the CEMAF reference point architecture illustrated in Figure 6.1.2.2-1.
+The ACME client maps to the NF, and the ACME server maps to the CeEF and to the CeMF.
+The same ACME server can be used for both the CeEF and CeMF, or different ACME servers could be used.
+At 2/3rds of the certificate lifetime, the certificate will be renewed.
+The support of SBA certificate profile as specified inby ACME has not been addressed in the present document.
+RFCsection 8 covers the 3 TLS validation methods (DNS, HTTP, TLS-ALPN) in detail.
+This involves ensuring the account key is kept secure and not shared, and the digital signature is created using a secure algorithm and trusted implementation.1.
+DNS Spoofing: An attacker This can be mitigated by using DNSSEC (DNS Security Extensions) to ensure the authenticity of DNS responses.3.
+Man-in-the-Middle (MitM) Attacks: An attacker This can be mitigated by using secure communication protocols such as HTTPS/TLS to encrypt the communication and prevent interception.
+The operator CA/RA verifies the message protection according to the selected initial trust security mechanism (e.g., pre-shared key, certificate, etc.).
+In particular, the solution is based on solution #3 which provides initial trust between NF and operator CA.
+This certificate issued by the operator CA can be used to protect the process of requesting the certificate signed by the 3rd party CA.
+The conclusion for KI#1 proposes to pursue CMP as selected protocol for the enrolment procedure.
+It is agreed to propose the Solution #3 as the basis for the normative work.
+This can be implemented without any impacts to NFs, CAs, or on any existing signalling procedures.
+It is concluded that the update/renewal of certificates could be handled by the CMPv2 protocol as concluded in clause 7.1.2.
+Therefore, no normative work is needed, and this aspect of the overall framework could be left to implementation.
+Two solutions have been proposed to establish the trust chain of Certificate Authority Hierarchy.
+Certificates revocation proceduresTwo solutions have been presented in the study:For certificate revocation, it is agreed to pursue CRL in the normative phase.
+Such checks can be based on locally stored information or by querying other network entities such as OCSP/CRL servers.

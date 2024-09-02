@@ -1,0 +1,41 @@
+Figure 4-2: Example scenario of support of Layer-3 multi-hop UE-to-UE RelayThe security architecture and procedures for 5G ProSe are specified in TS 33.503 .
+Editor’s Note: This clause contains all the key issues identified during the study.
+Failure to provide security (and privacy) protection of these messages information manipulation or information leakage.
+Unsecured message exchange in multi-hop UE-to-UE Relay scenario will open vulnerability to allow different attacks such as information manipulation or privacy leakage.
+Relay PKMF.Intermediate Relay derives K*NRP from UP-PIRK using RSC and nonce2, the same way as Remote UE PKMF.
+Intermediate Relay derives a session key using K*NRP and security keys using the session key.
+The Intermediate Relay verifies the security of the Direct Security Mode Command with the generated security keys.
+Relay verifies the security of the Direct Security Mode Complete with the generated security keys.
+The Intermediate Relay sends a DCA message to the Remote UE confirming successful establishment of multi-hop relayed connection.
+The announcing 5G ProSe U2N and the monitoring 5G ProSe Remote UE performs protected relay discovery as specified in clause 6.3.2.3.2 ofand clause 6.1.3.2.2.1 of.
+The intermediate U2N needs to be provisioned with U2N discovery security material to understand RSC being announced by the Announcing U2N.4.
+The discoveree 5G ProSe U2N is provisioned with the relay discovery security materials from its HPLMN as specified in clause 6.1.3.2.2.2 of .
+ofwith the additional information (e.g. hop count) required for multi-hop U2N relay and protects the message with relay discovery security material obtained from step 0a.
+The forwarded message is protected by the intermediate relay discovery security material that the intermediate U2N #1 obtained from its HPLMN from step 0b.
+The forwarded message is protected by the intermediate relay discovery security material that the intermediate U2N #2 obtained from its HPLMN from step 0b.
+The security procedure for multi-hop 5G ProSe UE-to-Network Relay communication is described as follows.
+After successful verification, PC5 security context is also set up between the Remote UE and the target 5G ProSe UE-to-Network Relay.
+The U2N security container is protected by the PC5 security context between the Remote UE and the target 5G ProSe UE-to-Network Relay.
+The Intermediate Relay and the U2NW Relay follow the procedures in 6.3 ofto establish the secured PC5 link.
+Editor’s Note: It’s FFS how security is established between Remote UE and Intermediate Relay when there are more than one Intdermediate Relays.
+Editor’s Note: It’s FFS whether step 4/6 can interact with network directly when Intermediate Relay has network coverage.
+Editor’s Note: It’s FFS whether step 4/6 are needed with UP-based solution.
+TBD.This solution addresses security requirements for communication scenarios in Key Issue #1 (as defined in clause 5.1) .
+Figure 6-6: Example scenario of multi-hop UE-to-Network RelayAuthorisation procedure for Remote UE access Network via multi-hop Relay (s) as described in clause 6.6.3.
+The Intermediate Relay verify the solicitation message by using the discovery security material associated with the PLMN ID of Remote UE and RSC.
+The Remote UE For the selected Intermediate Relay, the Remote UE initiates the link establishment procedure.
+The discovery security materials contain a Discovery User Integrity Key (DUIK) for the integrity protection of Relay Discovery Announcement.
+Editor’s Note: Which HPLMN provision the discovery security materials associated with RSC to the Remote UE, Intermediate Relay and UE-to-Network Relay is FFS.2.
+The discovery security materials contain a Discovery User Integrity Key (DUIK) for the integrity protection of Relay Discovery Solicitation and Relay Discovery Response.
+The 5G ProSe Remote UE protects a Relay Discovery Solicitation using the discovery security materials associated with the RSC as specified in clause 6.3 of.
+Then, the 5G ProSe Remote UE broadcasts the Relay Discovery Solicitation.
+The Intermediate UE-to-Network Relay processes the received Relay Discovery Solicitation using the discovery security materials associated with the RSC as specified in clause 6.3 of.
+ofwith the Intermediate UE-to-Network Relay taking the role of the 5G ProSe UE-to-Network Relay.
+In this solution, the existing mechanism to establish security in U2U scenario as specified in clauses 6.6.3 and 6.6.4 ofis used as baseline.
+The steps 4-5d in clause 6.3.3.2.2 ofand the steps 3-16 in clause 6.3.3.3.2 ofare not triggered by the DCR from the Multi-hop U2U Relay.
+The Direct Communication Security Request message is protected by reusing the protection method defined in clause 6.3.5 of.
+Editor’s Note: Alignment with SA2’s conclusion about the procedure is needed.
+This solution addresses the first, second, and third security requirements in the key issue #2 regarding the multi-hop UE-to-UE (U2U) Relay communication.
+This solution assumes the architecture and procedures proposed in the solution #3 of TR 23.700-03 .
+For PC5 link security, this solution proposes to reuse the security procedure specified in clause 6.2 of.1.
+PC5 link establishment among 5G ProSe UE-to-UE Relays:- The RSC is included in the DCR message.2.

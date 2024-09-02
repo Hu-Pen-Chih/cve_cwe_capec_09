@@ -1,0 +1,110 @@
+the second digit is incremented for all changes of substance, i.e. technical enhancements, corrections, updates, etc.
+The present document studies the security aspects of enablers for network automation for the 5G system based on the outcome of TR 23.700-81 .
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+The user consent for UE data collection is not addressed in the present document.
+The existing security mechanisms in SBA are reused as much as possible.
+ADRF (Analytical Data Repository Function) is being enhanced to store AI/ML models to facilitate the distribution and sharing of those models amongst NFs.
+Moreover, the ADRF itself cannot be considered as a fully trusted entity storing the sensitive AI/ML data models.
+By this requirement it is only assured that specific data can be collected by and/or reported to an analytics function.
+The NWDAF containing MTLF generates a security context for protecting the ML model information using a logical function or named network function NKGC.
+The security context consists of an encryption key Kenc, an integrity key Kint, and the corresponding security algorithm(s) for encryption and integrity protection.
+The NWDAF containing MTLF uses the encryption key Kenc and integrity key Kint.
+Note 1: Key handling such as key refresh and revocation is outside of the scope of this solution and not addressed in this solution.4.
+NRF sends an access token along with MTLF ID using existing procedures per.
+MTLF knows the NF instance IDs of the AnLF as per existing procedures in 23.288 (e.g. through OAM).b.
+MTLF uses it is signing key to generate the credentials, e.g., a JWT token or a certificate.
+NOTE 2: One-time credentials can be used to limit the number of accesses from the consumer NF.
+ML model storage is done using existing procedures ine.g.-using Nadrf_MLModel_StorageRequest containing the ML model.
+The metadata with respect to each model Those attributes are known by the NF producer via the OAM system.
+In case of successful verification ADRF provides the NFc a URI to download the model as a service response.
+The ADRF determines if the ML model file for the Analytics ID(s) requested is already stored.
+NWDAF containing AnLF sends Nnwdaf_KeyProvision_Request to the NWDAF containing MTLF with the input parameters Analytics ID(s), Notification Correlation ID.
+The NWDAF containing AnLF is authorized by the NRF to contact the NWDAF containing MTLF and to retrieve the security context.
+It is assumed that NWDAF containing AnLF authorization is already performed.8.
+The NWDAF containing AnLF subscribes to ADRF using Nadrf_MLModelManagement_RetrievalTrainingUpdate_Subscribe service operation containing input parameters Trained ML Model ID per Analytics ID.9b.
+The NWDAF containing AnLF sends Nadrf_MLModelManagement_RetrievalTrainingUpdate_Unsubscribe with Subscription Correlation ID as input parameters.13.
+ADRF sends Nnwdaf_MLModelTrainingUpdate_Unsubscribe to ADRF with the Subscription Correlation ID as input parameter.
+NWDAF containing MTLF removes the security context for the ML model.
+The key management of the security context for the ML model is performed by the NWDAF containing MTLF.
+The NWDAF containing MTLF generates for new ML model requests a new security context with respective validity time.
+The security context requires a key management with a validity time to indicate when the security keys and thus the storage in the ADRF expires.
+The OAM or operator's AF sends a request/subscription to the NWDAF for NF anomalous behaviour analytics using either the Nnwdaf_AnalyticsInfo_Request or Nnwdaf_AnalyticsSubscription_Subscribe service operation.3a.
+Figure 6.6.2.3-1: NF anomalous behaviour analytics provided by NWDAF using security logs obtained from OAM 1.
+The OAM or operator's AF sends a request/subscription to the NWDAF for NF anomalous behaviour analytics using either the Nnwdaf_AnalyticsInfo_Request or Nnwdaf_AnalyticsSubscription_Subscribe service operation.3.
+OAM then collects all the requested information along with the security logs from the NFs and provide it to NWDAF.4b.
+The derivation of output from input depends on the algorithms used or the policy present.
+NF Service producer registers the model specific information including the model metadata when registering its profile in the NRF.
+This information includes the Model Info/Analytics ID; and allowed NF Type, NF Instance Id and Interoperability indicator of consumers with respect to a particular model.8b.
+[Optional] ADRF sends a confirmation with the details of the NFc which is authorized to consume a particular identified model.10-11.
+NFc requests an access token from NRF to consume the model retrieval service of ADRF, and receives an access token in response.
+The ADRF additionally verifies if the request to retrieve the model is coming from the same NWDAF AnLF which has been authorized by the NRF.
+Step 8: NWDAFp send Nnf_EventExposure_Subscribe message to NF to collect data.
+In this solution, NRF is used as the authorization server to determine whether the requested data is allowed to provide.
+IntroductionThe solution describes various anomalous NF behaviour event related data collection and the related anomalous NF behaviour analytics exposure procedure.
+When a request for analytics information is received, the NWDAF determines whether triggering new data collection is needed.
+The NF notifies the NWDAF (e.g., event specific inference data) by invoking the Nnf_EventExposure_Notify service operation.
+NOTE 1: The Anomalous NF behaviour analytics related implementation logic can be up to Operator's implementation and it is out of7.
+IntroductionThe steps of the procedure depicted in Figure 6.10.2-1 are explained below.
+Figure 6.10.2-1: Model sharing between NWDAF containing MtLF and NWDAF containing AnLF from different vendors0a.
+It is assumed that the NRF verifies the vendor ID of the NFp.
+The NFc request a token from the NRF indicating the analytics ID.
+If the check is successful, then the NRF issues a token that includes the vendor ID of the NFc.8.
+The NFp validate the token and can perform further authorization using the vendor ID specified in the token.
+The NFp provides the URL3 received from the ADRF to the NFc if the model is stored in the ADRF.
+If the model is stored in the NFp, then the NFp provides the location of the model in the NFp (URL4).13.
+The NFc performs some operations considering the interoperability ID on the protected ML model such as decryption and integrity check.
+The solution focuses on the ML model downloading via URL case.
+NF Service producer e.g., NWDAF containing MTLF registers its NF profile in the NRF with Analytics ID(s) and Interoperability ID(s).
+NWDAF containing MTLF triggers the ADRF storage service, with Model address in MTLF(URL1), Analytics ID and Interoperability ID in the message.
+NF Service consumer e.g., NWDAF containing AnLF retrieves the target model via the URL2 together with the token2.
+If authorization is successful, ADRF grants the NWDAF containing AnLF to retrieve the stored Model.
+Alignment withon the overall procedure and usage of vendor ID is not addressed in the present document.
+NOTE 4: If only interoperability indicator is sufficient for ensuring authorization of ML Model is not addressed in the present document.
+This solution resolves Key Issue #3: Security for AI/ML model storage and sharing.
+The NF producer also provides the ADRF with Interoperability ID together with the stored ML Model.
+NWDAF containing AnLF performs Nnwdaf_MLModelProvision (Analytics ID, Vendor ID, token1,) service operation to NWDAF containing MTLF to retrieve ML models for the Analytics ID.7.
+NF Service consumer e.g., NWDAF containing AnLF retrieves the target model via the URL1 together with the token1.
+NWDAF containing MTLF verifies the token1 to check if the NF Service consumer e.g., NWDAF containing AnLF is authorized to access the stored model.
+If authorization is successful, NWDAF containing MTLF grants the NWDAF containing AnLF to retrieve the stored Model.8.
+Figure 6.13.2-1: High-level procedure for authorization of ML sharing by NWDAF containing MTLFAssumption: The NRF can verify the Vendor ID of the NWDAF containing AnLF.
+NWDAF containing MTLF determines the ML model can be stored in ADRF.
+NWDAF containing MTLF discovers and selects ADRF via NRF and stores the selected ADRF instance ID for the Model.
+NWDAF containing AnLF performs discovery and selection procedure for NWDAF containing MTLF via NRF.
+The scenario is NWDAF in visit network collecting data from multiple home operators, DPCF performs a secure multi-party computation process.
+Step 6: NWDAF1/NWDAF2 collects data from other NFsStep 8: DPCF1 initiates secure multi-party computation process with DPCF2 in other home operators network..
+Step 9: DPCF1/DPCF2 returns the processed data to NWDAFCNOTE 2: The participant operators need to agree on secure MPC scheme.
+This solution requires a new network function and requires the participant operators agree on the secure MPC scheme.
+The solution addresses KI#2 on authorization of selection of participant NWDAF instances in the Federated Learning group.
+When server NWDAF requests access token, NRF also checks if the server NWDAF is on the permitted-server-NWDAF list.
+When new permitted server NWDAFs are introduced, the list needs to be updated.
+This solution addresses Key Issue #2 (Authorization of selection of participant NWDAF instances in the Federated Learning group).
+NF(NWDAF AnLF or MTLF) Service Consumer sends a request to the NRF to receive an access token to request NWDAF MTLF (FL Server) services.
+NRF, after verifying, generates an access token and sends it to the NF(NWDAF ANLF OR MTLF) Service Consumer.
+The NF(NWDAF AnLF OR MTLF) Service Consumer initiates an NF service request to the NWDAF MTLF (FL Server), which includes the access_token_nwdaf.
+NRF authenticates both NWDAF MTLF (FL Server) and NWDAF(FL consumer, e.g., AnLF) based on one of the SBA methods described in clause 13.3.1.2 of .
+The NWDAF MTLF (FL Server) requests service (local model updates) from the NWDAF MTLF (FL Client).
+The request also consists of CCA_NWDAF so that the NF Service Producer(s) authenticates the NF(NWDAF ANLF OR MTLF) Service Consumer (e.g., NWDAF).
+NWDAF MTLF (FL Server) can select which Federated Learning task it wants to create by verifying the access token presented by the NWDAF AnLF.
+The solution fulfils the following requirements of KI 1.2:6.17.1 IntroductionAs per KI#2, both server NWDAF and client NWDAF need to be authorized for FL procedure.
+The Interoperability indicator indicates a list of NWDAF providers (vendors) that are allowed to retrieve ML models from the NWDAF containing MTLF.1.
+The Server NWDAF discovers Client NWDAFs from NRF based on FL selection criteria e.g. Federated Learning capability, Interoperability ID, Analytics ID, etc.
+Server NWDAF requests tokens for each of selected Client NWDAFs from NRF, with Analytics ID, Vendor ID and FL capability included in the request.
+NOTE 2: Inclusion of the vendor ID in the access token request is not addressed in the present document2.
+The Server NWDAF sends FL request to the Client NWDAF(s) with the obtained token.
+Each Client NWDAF checks whether the server NWDAF is authorized based on the token and decides whether to join the FL group.5.
+Authorization of selection of participant NWDAF instances in the Federated Learning group.
+This solution also proposes that FL model sharing is authorized based on the Interoperability ID.
+Step 4: NRF authorizes the request of the NWDAF FL server based upon the information registered in Step 1.
+Step 6: The NWDAF FL server sends the service requests to the NWDAF FL clients with the respective access tokens received in Step 5a.
+Step 7: NWDAF FL clients can start the FL process for a given request in case of successful access token verification.
+The solution assumes that user consent for model training is provided for the NWDAF FL member as per(table 6.1.6.3.20-1).
+Figure 6.20.2-1 Network Data Collection and analytics procedure for cyber-attack detection1.
+The NF notifies the NWDAF (e.g., event specific inference data) by invoking the Nnf_EventExposure_Notify service operation.6.
+The NRF 2 issues token according to the preconfiguration based on serving PLMN ID.
+- Authorization at data and analytics level is enforced by the roaming entry NWDAF producer.
+The parameters used by NWDAF service consumer to request/subscribe to the services provided by NWDAF producer are defined in TS 23.288 , clause 6.1.5.
+Accordingly, the operator authorization policies can be configured locally in the NWDAF producer.
+The server NWDAF includes the desired Analytics ID in the access token request.
+The NRF checks whether the server NWDAF is authorized to include the client NWDAF in the FL group for this Analytics ID.
+If the server NWDAF is authorized, the NRF will issue an access token with the Analytics ID included.
+Storage of the model in encrypted format can be required by the trust model established to store and share AI/ML models.

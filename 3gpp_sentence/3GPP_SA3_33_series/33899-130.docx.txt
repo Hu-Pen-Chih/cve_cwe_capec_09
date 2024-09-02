@@ -1,0 +1,1307 @@
+Access security for small data session 5465.14.3.2 Key Issue #14.2: Security for data over the small data interface.
+the third digit is incremented when editorial only changes have been incorporated in the document.
+The e., user information transfer) traffic demand resulting from the support of existing services such as Internet access, voice, and multimedia communication.
+In addition, new services such as Internet of Things (IoT), cloud-based services, industrial control, autonomous driving, mission critical communications, etc., are emerging.
+Such services Those requirements differ dramatically from the ones that defined current network traffic and service models and pose great challenges for existing networks.
+Practical attacks against privacy and availability in 4G/LTE mobile communication systems.
+Definitions, symbols and abbreviationsExample: text used to clarify abstract rules by applying them literally.e.
+The condition when personally identifiable information (PII) is irreversibly altered in such a way that personal information can no longer be identified directly or indirectly.
+Confidentiality: The property that data is not disclosed to system entities unless they have been authorized to know the data.
+The collective aspect of a set of attribute values (i.e., a set of characteristics) by which a user is recognizable or known.
+Editor’s note: Authentication function and derivation of keys Subscription: A Subscription describes the commercial relationship between the subscriber and the service provider, cf.
+Management Security deals with security related to management plane and deployment scenarios.
+This enables flexible MM and SM function placement without impacting security.
+Furthermore, introduction of a seperate security anchor helps reduce security configuration complexity between network entities/functions.
+- Termination of security for UE-CN signalling in security anchor can thwart some persistent DoS attacks (e.g. paging attack, ).
+Enabling UP integrity protection Also only certain bearers would need the UP integrity protection, not all the bearers between the two endpoints.
+In all of the above, regulatory requirements need to be taken into account.
+The present key issue covers integrity protection for signalling between the UE and appropriate endpoints in the network.
+In LTE, signalling is integrated protected between UE and AN, and between UE and the CN.
+Futhermore, some NAS signalling messages have to be exchanged between the UE and the MME before NAS security activation.
+For example, the very first attach request is sent before NAS security activation.
+Additionally, there are opportunities to attack the keys when re-synchronization is required.
+But if the UE could recognize the public key signatures from genuine networks, this requirement could be met.
+- Key issue #7.1 "Subscription identifier privacy" discusses the leakage of permanent subscription identifiers, such as IMSI, on the radio interface.
+But if the UE could recognize the encryption public keys of genuine networks, this requirement could be met.
+The present key issue covers authentication, confidentiality and integrity for control plane traffic between appropriate entities in the access network and core network, respectively.
+In LTE, interfaces betweenAN and CN are protected for signalling transfering.
+If Integrity is not used, the attacker can modify the signalling, especially during initial attach procedure.
+In LTE, the interfaces betweenAN and CN are protected for the security of user messages.
+The NextGen Core network will not mandate to use user plane integrity protection between UE and CN.
+Editor's Note: This key issue has been added for completeness so that an explicit decision can be made.
+There is no equivalent in EPS as network domain security inis explicitly limited to control plane traffic.
+The 3.3-002] The g. signalling to transition from idle mode to active mode, to run AKA and establish a security context).
+The definition of session and flow in this context need to be clarified, e.g. how do they map to SA2 and RAN definitions.
+Negotiation mechanism for cryptographic algorithms can facilitate the introduction of new algorithms in 5G lifetime.
+Editor's Note: it is ffs whether this entity needs to be trusted by the serving network or home network or both.
+The additional layer of security needs to provide protection against eavesdropping, unauthorized modification of messages, theft of service and impersonation.
+In particular, it needs to be explained how it fits in the unified authentication framework.
+This also is indicated to the UE in an integrity protected signalling message.
+It thus addresses the threat of an attacker inserting quantities of rogue data on an established traffic channel.
+This solution can address part of Key Issue #1.13: Security Implications to Achieve Low Latency, in particular the risk of attacks on vulnerable network edges.
+The mechanism can be used to request a UE report on data transmitted/received, which can then be compared with the report from the network edge.
+Allowing the report to run between the UE and home network would provide assurance to the home network of billing integrity in vulnerable roaming scenarios.
+Other keys for integrity and confidentiality of C-plane (Krat_cp_i, Krat_cp_c) signalling and U-plane (Krat_up_i, Krat_up_c) messages are derived from Krat_cp and Krat_up, respectively.
+Figure.5.1.4.4.2-1: Key hierarchyThis solution addresses Key Issue #1.3 and Key Issue#1.4.
+The security policy could be decided by the security policy control function or other elements.
+The security policy is determined from security requirement A and requirement C. Figure 5.1.4.5.2.2-1: User Plane security policy and key derivation at per-session granularity1.
+UE provides security requirement A, which would be the service specific that UE wants to use.
+This step It is assumed that this message is carried via an access function.
+Security policy control function sends policy response back to SM with the security policy.7.
+Confidentiality protection algorithm identity and integrity protection algorithm identity are included in the security policy.10.
+Note that KUP could also be generated after mutual authentication between UE and CP-AU.
+In this case, UE retrieves the KUP after receiving the session ID and security policy.12.
+The description of the architecture assumes that MM and SM are deployed separately and co-locates the SM with the UP entities.
+This key AUSFCN-SM/UP: the core network node(s) that terminate the SM and perform the signalling for UP and carrying the UP.
+If there is a need for the key at the H-SEAF, then the H-SEAF needs to request the key from the AUSF.
+Figure 5.1.4.6.2.1.2-1 provides the architecture for the roaming case when a key is held in the AUSF.
+The request includes the UE identity that is associated with KH-SEAF in the H-SEAF and an indication of security termination at H-UP-GW.
+The H-SMF determines whether the NG-UE is allowed to create a home terminated service session based on the NG-UE subscription profile.17-1 – 17.3.
+The H-SEAF, upon the receipt of the key request, checks whether it has a valid security context (KH-SEAF) for the NG-UE.
+If the H-SEAF does not have a valid KH-SEAF, the H-SEAF sends a key request to the AUSF.
+The H-SMF install the KH-UP-GW at the H-UP-GW.A key hierarchy for the NextGen system is shown in Figure 5.1.4.6.2.2-1.
+The following subclause contains some possible procedures involving the security anchor.
+The handover procedure is described based on that of LTE (i.e., S1-based HO).
+The source AN sends a Handover Required message to the source CN-MM.
+The source CN-MM sends a Forward Relocation Request to the target CN-MM.
+Editors’ note: It is FFS whether handovers that support a change of SEAF will be needed.
+If the target CN-MM has a cached key for the UE, it removes the cached key.
+The SEAF derives a fresh key for the target CN-MM and sends it to the target CN-MM. 5.
+The target CN-MM derives a key for the target AN and sends it to the target AN along with the handover request message.
+The target AN sends the handover request acknowledgement message to the target CN-MM.
+In case the target AN rejects the handover request, it 7.
+The target CN-MM sends a key acknowledgement message to the SEAF to indicate that the key derived for the target CN-MM is in use.
+The target CN-MM sends a forward relocation request to the source CN-MM. 9.
+The source CN-MM sends a handover command to the source AN.
+The handover command contains the information on the target CN-MM and target AN with which the UE can derive the corresponding keys.
+The UE derives the key for the target CN-MM and based on which, derives the key for the target AN.
+The UE further derives the subsequent keys (RRCenc, RRCint) to protect RRC messages and user plane traffic.
+As well as key hierarchy, key derivation also includes similar process to that of SAE/LTE.
+A diagram of key derivation for the subsequent keys in the key hierarchy for NextGen system is shown in Figure 5.1.4.8.2.3-1.
+Each key is derived by inputting its upper layer key and parameters into KDF (Key Derivation Function).
+Keys used in different access technologies address the key issue #3.4 and solution #3.3.
+Also, a control plane key for the NAS signalling protection is proposed.
+For the above architecture, NAS entry function could be located in the MM.
+Definitions on the ARPF, AUSF, SEAF could be found in the security area #2 "authentication".
+Next, UE and the Network could execute an authentication and key agreement procedure.
+After the successful authentication, both UE and AUSF/SEAF share the Next Generation key (i.e. KNG).
+But for session management, there are already many options on how to trigger the update of PDU session during handover in SA2.
+In summary, the user plane path would be updated because of the change of user plane termination point based on new PDU session establishment procedure.
+Section 6.6.1.2.3 and Section 6.6.1.2.4 elaborated call flows about the establishment of the new TUPF for different SSC modes always triggered by the CP functions.
+Until the MM receives the PDU Session Request containing UE ID, the source SM would start the security context update work for the new session.4.4.
+Target SM generated Ks2 for the new session based on the final security policy and the K-up.
+The ARPF stores UE’S profile and the security related information of the UE.
+If the authentication is successful, the entity will forward the attach request to the corresponding entity or the entity in the dedicated network.
+The MM initiates the MM SMC Procedure to negotiate the algorithms and activate the security.
+If the initial attach indicates that the SM procedure needs to be executed, the MM will forward the Session Management Request to the SM.
+If the initial attach does not contain SM procedure, then UE will send Session Management Request to SM some time later.11.
+The SM performs the rest of SM procedure or the rest of the attach procedure.
+The solution presented in this paragraph aims at achieving this goal.
+It proposed the use of secrecy codes to provide both confidentiality and reliability of user data.
+The calculated hash value is sent back to the UE in NAS SMC message which is integrity protected (but not ciphered).
+The UE can check whether the attach/TAU request is modified or not by comparing its calculated hash value with the received hash value.
+AMF sends Attach reject/TAU reject/Identity request message including H2, NONCE1, NONCE2, and signature.
+The present solution specifically addresses signalling between the UE and the NG core over the NG1 interface.
+Different types of signalling are carried over NG1, e.g. Mobility Management (MM) signalling and Session Management (SM) signalling.
+This means that the same confidentiality and integrity protection mechanisms are applied irrespective of the type of signalling, e.g. MM or SM.
+It is then routed further to the entity that processes the corresponding type of signalling, e.g. SM or MM entity.
+In this case, the NAS security termination has to communicate the verified master identifier to the signalling entities that process ID_MM or ID_SM for comparison.
+This information about the slice However, user identity privacy Editor's Note: The above paragraph has been included for completeness.
+"Each DSS needing to authenticate this subscriber receives a key K’, derived from K in a one-way fashion.
+No DSS K’ could be derived just once for any DSS, or could be refreshed periodically.
+The solution would still require a round-trip to the core of the visited network, so would be incompatible with ultra-low latencies (<1 ms).
+The core functionality and physical design of the NextGen USIM component against a Common Criteria protection profile.
+Figure 5.1.4.21.2-2: NETWORK CONFIGURATION ENABLING THE UP-STF in the RAN.The AMF/SMF For this reason, the UP-STF needs to register towards the AMF/SMF.
+The UP Security Keys negotiation contextually to a DNN request).- Flexibility of UP-STF location based on static configuration options.
+- Untrusted RAN deployments (e.g. scenario #2) can be made secure natively without the usage of VPN protocols like IPSec.
+And this central unit could be assumed to reside in a secure location.
+Solution 22.1For this case, the solution is largely identical to the one in LTE, i.e. security terminates in a PDCP layer in a monolithic gNB.
+The same platform security requirements as for the eNB in LTE would apply.
+Solution 22.2The complexities of dedicated backhaul link security in the way of TS 33.310could be avoided when terminating UP security in a central unit.
+The need for an additional user plane security gateway is avoided (cf. solution 1.23).
+The user plane security termination point resides in the central unit.
+Solution details Two solution variants apply, depending on the AN architecture.
+The RAN architecture will support several deployment scenarios as described in TR 38.801clause 5.
+Futhermore, this option enables a packet inspection at the RAN node (though limited to the transport header and IP header) if needed.
+This packet processing incurs substantial performance penalty especially on the high-rate traffic.
+"... an additional layer of security on top of whatever security is provided in the access network is required.
+This additional layer needs to extend between the UE and an entity considered trusted by the core network.
+"The N3IWF exchanges signalling messages over IP with one or more control plane functions in the NG core.
+For simplicity, for the purposes of the present solution we subsume these control plane functions under the name Core Control Function (CCF).
+The CCF, in general, includes Mobility Management Function (MMF), Session Management Function (SMF), Security Anchor Function (SEAF), and Security Context Management Function (SCMF).
+Editor's Note: This solution does not take a stance on whether reference points This is for SA2 to decide.
+Editor's Note: it is ffs whether N3IWFis located in serving network or home network or both.
+Protocol aspects: The additional layer of security between UE and N3IWF is provided by IPsec.
+Rules for such a determination can be found in TSs 33.402 and 23.402.
+The UE initiates IKEv2 with the N3IWF.UE sends the IKE_AUTH request to the N3IWF by including Identity of the UE in the IDi payload.
+The realm part of the identifier is used by the N3IWF for routing to the SEAF in the CCF.
+The SEAF sends K_NG-PDG to the NG-PDG in an Auth Response (Identifier, K_NG-PDG) message, together with EAP Success message if EAP authentication was performed.
+The N3IWF sends an Auth Request (Identifier, Indication of whether AUTH payload included) message to the SEAF part of the CCF.
+The N3IWF uses this key to complete the authentication of the UE within IKEv2.
+The UE and the N3IWF complete the establishment of an IPsec security association.
+IP packets protected between the UE and the N3IWF can now be exchanged between the UE and the NG core.
+The SCMF derives NAS keys from the anchor key MSK and delivers the NAS keys to the MMF and SMF, as appropriate.
+It would have the downside, though, of double protection, by IPsec and by NAS security.
+The details of this architecture are specified in the TR 23.799.
+AccessEditor’s Note: UE and non- 5.1.4.27.2 Attach and UE Authentication Procedure via Untrusted non-3GPP Access2.
+The normal IKEv2 signaling initiates as per RFC (IKEv2) and RFC (EAP-only authentication in IKEv2).
+The N3IWF behaves as EAP authenticator and retrieves the identity of the UE (step 2d).
+When the EAP-based mutual authentication procedure is successfully completed, AUSF The security-context 5b.
+In turn, the AMF At this point, N3IWF creates a UE context which store UE-specific information such as UE identity, security context, etc.7.
+An IP address (or set of IP addresses) of N3IWF node(s).- using DHCP configuration.3.
+CP Functions Derives key material and retrieves Authentication Vectors for generating key material from Authentication Entity e.g. AAA or HSS.
+Authentication Entity also generates UE-CP Security association which is installed by CP-Functions.11.
+UE generates UE-CP-SA using Authentication vectors received as part of Authentication Request13.
+The N3IWF processes the EAP request and Authentication response over NG2 to the CP Functions.
+However, in this solution, KDF can be updated in a comfortable way.
+Firstly, KDF can be added in UE and different NEs at different time.
+Secondly, when KDF algorithm addition is complete in two devices, the devices could use a suitable KDF to generate communication keys after KDF negotiation procedure.
+Finally, when all the devices have been added suitable KDF algorithm completely, all of them could use a suitable KDF.
+During the whole updating period, solution ensures that there is no communication barriers because of partly updating.
+The gNB selects one KDF used to derive KRRCenc and KRRCint.
+So, the solution indicates the UE in AMF in AV, not in NAS SMC.
+Figure 5.1.4.29.2.5-1: UE sends Attach/TAU Request message to SEAF, the UE network capability included in Attach Request/TAU message will include the ARPF-KDFs supported by UE.
+AUSF sends Authentication Data Response message for transiting RAND and AUTN’ to UE.
+SEAF sends Authentication Request message to UE for transiting RAND and AUTN’.
+Security:The KDFs supported by UE in the first Attach/TAU request message However, solution#1.13 has solved the problem.
+So, the negotiated KDF will not be tampered by an attacker.
+The upgrade infects little about protocol, and could update the devices one by one without any communication barriers.
+During the updating period, e.g. gNB has been updated, and UE has not done, UE could still communication with gNB with former KDF.
+The solution makes two elements using a suitable KDF easily and cheaply.
+UE has not done, other NEs have updated the KDF: UE will negotiate an old KDF with other NEs.
+The communication overhead is based on the additional length of the message.
+The selected KDF is returned by NE in AS/MM/SM SMC message or AMF in Authentication Information Response.
+Meanwhile, selected ciphering/integrity protection algorithm by eNB is indicated by 2 IEs (2 octets) in SecurityAlogrithmConfig.
+The NG (R)AN selects the appropriate AMF based on the NSSAI provided by the UE (ref.
+The AMF uses the algorithm selected by the SPCF to derive KNAS_MMint and KNAS_MMenc, the integrity and encryption keys for NAS Security.
+The UE derives KNAS_MM, KNAS_MMint and KNAS_MMenc keys using the parameters received from the AMF.The AMF derives KAN from KSEAF.
+The AMF uses the algorithm selected by the SPCF to derive KNAS_MMint and KNAS_MMenc, the integrity and encryption keys for NAS Security.
+The UE derives KNAS_MM, KNAS_MMint and KNAS_MMenc keys using the parameters received from the AMF.The AMF derives KAN from KSEAF.
+The UE then sends the NAS-SM Security Mode Complete(NAS_SM-MAC) to the SMF via the AMF.
+Figure 5.1.4.32.2.3-1 Message flow for UP security mode command procedure of non-roaming scenarioThe SMF derives KUP, the key for UP protection.
+This functional split requires a new key hierarchy and a corresponding security and key derivation procedure.
+In addition, the generation of keys for network slicing in NextGen Systems is also required to be addressed by this key hierarchy.
+The USIM user verification should be extended to enable the following:The specification of additional, secure user verification methods.
+The AUTHENTICATE command as specified inis currently suitable for this purpose.
+The solution is based on the assumption that the SEAF is collocated with the AMF.The AMF is the termination point for NAS security.
+Now, how the KCN is derived after authentication is not in scope of this solution.
+The mechanisms described here work regardless of whether for example the KCN is derived from a higher level key (KSEAF) or directly like the KASME.
+In that case, such an additional input parameter is needed for cryptographic separation.
+For example in case it is a nonce generated by the target AMF, it needs to be provided to the UE.
+However this would not be needed for a parameter that is available to the UE by other means such as an AMF public identifier-like parameter.
+In the legacy systems, the security context is transferred unaltered to the target MME.
+In case an algorithm change is required at the NAS level, then the new algorithm is taken into use by a NAS SMC procedure.
+Changing the used algorithm at the NAS protocol layer does not have any effect on the AN keys.
+However, changing the main NAS context key render the current AN keys outdated.
+The target AMF sends a handover requet including the new AN key and all relevant security parameters such as the UE capabilities.
+For idle mobility the key change indication would be then provided to the UE during the NAS SMC procedure.
+Abusing terminology, the term MMF is used here to refer to the non-SEAF role part of the AMF.
+Now from the UE perspective, an AMF could endorse the role of the SEAF, the role of the MMF or both.
+In Variant 1, when the UE authenticates first with a particular AMF, that AMF endorses both roles.
+Such an AMF will be henceforth referred to as the SEAF AMF (or SEAF for short).
+If a UE is re-authenticated by other than SEAF AMF, then the new AMF becomes the SEAF and a new KSEAF is taken into use.
+The serving AMF will always have the CN key (key used for deriving the NAS keys).
+The SEAF will maintain the SEAF context based on the KSEAF and the serving AMF the CN security context.
+Observe that it is possible that the SEAF is also the serving AMF.
+In the remainder of the description, such an identifier is referred to as the SEAF ID.
+Mind that the old AMF in the included figures The UE sends a registration request.
+The UE registration The target AMF decides to run a new authentication leading to the establishment of a new KSEAFand a new KCN.
+and 3.b illustrate the difference with respect to the variants described in clause 5.1.4.36.2.2.
+In Variant 1 (step 3.a), the target AMF becomes the SEAF for this UE and a new KSEAF is established.
+This scenario would not require any interaction with the SEAF and is similar to the legacy mechanism as illustrated in Figure 5.1.4.36.2.3.2-1.
+Figure 5.1.4.36.2.3.2-1: CN key transfer during AMF changeThe target AMF sends a context request to the source AMF which does reply accordingly.
+The context includes the additional SEAF ID parameter which identifies the SEAF.
+Step 4: The UE sends the NAS security mode complete to the network.
+This solution addresses key issues #1.21, #2.7, #8.1, and #8.3.The steps are as follows:2.
+The AMF receives the request and checks whether this UE is behaving normally and whether the service can be granted.
+The AMF also sets a timer and a counter in order to detect the next service request.
+The AMF will then deny access to the specific service and/or tell the UE to refrain from asking further services for a period of time.
+The flow will look as follows: Figure 5.1.4.z.2-2: Service request and deny flow4.
+It also allows different network slices to have the PDCP in different locations.
+This solution is based on the assumption that SEAF is collocated with AMF.The AMF is the NAS security termination point in the 5G network.
+The old AMF derives a new key KAMF* according to KAMF.7.
+If the new AMF decides to achieve forward security in step 7, it performs a re-authentication procedure with the UE.
+As a result of the re-authentication, a new key KAMF* is produced between the new AMF and the UE.
+The UE sends NAS SMP to the new AMF.TbaFigure 5.1.4.41.2-1depicts a UP security negotiation call flow.
+The description of call flow could be found below the figure.gNB is preconfigured with allowed CP security capability and allowed UP security capability.
+There The allowed lists for CP security The allowed lists for UP security are optional ordered.
+SMF sends the security policy, authorized QoS profile and session ID to the AMF in N11 interface.
+NULL ciphering algorithm is selected if ciphering is not used or is not allowed.
+Some bearers based on content/QCI So a solution to enable integrity protection per bearer basis and dynamically activate it is necessary.
+The trigger conditions Step 2: UE and gNB starts RRC integrity configuration for RRC radio bearers as currently defined.
+UE and gNB enable UP integrity on the DRB if it is enabled for the life of DRB.
+If UP integrity is enabled based on trigger conditions, steps 4a to 7 are executed.
+When trigger conditions are met, UE and gNB exchange RRC Connection Reconfiguration for the particular radio bearer(RB) to start integrity protection.
+The gNB starts integrity protection on downlink(DL) radio bearers or starts checking integrity protection and filtering if it is set on downlink (UL) radio bearer.
+The solution offers a method to start and stop UP integrity on per DRB basis.
+This would depend on how the SEAF is realized and the procedures used for establishing and refreshing the KCN.
+Variant 2 does not preclude the introduction of a standalone SEAF in the future.
+This key is established via a successful authentication and is used to derive the NAS protocol protection keys, i.e. KNASint and KNASenc.
+The choice of the cryptographic algorithms applies to all the NAS connections indiscriminately.
+In other terms, it is assumed that there is no NAS connection-specific security negotiation.
+For each NAS connection a separate pair of NAS COUNTs, one for each direction, is maintained.
+The NAS COUNTs would then be handled in a similar manner to how it is done in the legacy mechanism.
+However, since the security keys are shared and to avoid key stream reuse, a mechanism for cryptographic separation is required.
+In the security context, each NAS COUNT pair is associated to a unique NAS CONN ID value.
+The new parameter is used as the differentiator when interacting with the NAS security function to indicate which NAS connection each message belongs.
+To keep track of unallocated NAS CONN ID values, an additional parameter is needed.
+The NEXT NAS CONN ID parameter is initially set to 0 and is incremented whenever a new NAS connection is set up.
+Each time a new NAS connection is created, it is allocated as identifier the current NEXT NAS CONN ID value.
+The solution does not address the case where the NAS connections are not terminated in the same AMF.
+Editor’s Note: Whether KAUSF is equal to CK||IK is FFS.The KSEAF is kept in the SEAF and will not be sent out.
+The KgNB is derived from the initial KAMF, so that KgNB can be independent to NAS keys.
+The NG-UE generates and stores KSEAF in the security context after authentication procedure.
+Step 4: The Serving AMF sends NAS Security Mode Command (CP algorithms) message to the NG-UE to performs NAS SMC procedure.
+The SEAF derives KgNB from the KSEAF, and derives initial NH (NCC=1) from KgNB for KgNB vertical derivation.
+The source AMF derives KAMF* from the KAMF in the NG-UE security context.
+Furthermore, it is assumed that UP security is terminated in the RAN.
+However, the negotiation procedure described below could be easily adapted to cases where UP security is terminated in a UPF.
+The service access model in Next Generation systems is based on the PDU session concept.
+A PDU session represents and e2e UP service-specifc channel between the UE and the DN.
+Editor’s Note: It is ffs whether downgrade attacks are possible, and if yes, how to protect against them.
+The UE sends a PDU session establishment request possibly including the security preferences.
+In such case, it might be not needed that the UE indicates its preferences in the initial message.
+The AMF sends an SM Request with a PDU Session Establishment Request message possibly including the UE security preferences.
+However, as described in the previous step, such preferences are not necessarily needed if already included in the subscription profile.
+This does not preclude the case where the policy is coming from the Home Network.
+The AMF sends to the RAN an N2 PDU Session Request Message including the security preferences or decisions for this session.
+Finally, the RAN runs the resource setup procedure for this PDU Session.
+Between the UE and the SMF, EAP messages are sent in a SM NAS message over N1 and N11 interfaces.
+The SMF further communicates with the external DN-AAA over NG4 and NG6 via the UPF.
+In-order to provide uninterrupted protection for EAP messages between the UE and the external DN-AAA, all intermediate hops need to be secured.
+This is based on the interim agreement for key issue #1.11 which proposes NDS/IP for signaling messages between network functions.
+The UE proceeds with the establishment of IKE SA with the N3IWF by initiating the IKEv2 signalling procedure according to RFC and RFC .
+Once the IKE SA (phase 1) is initialized, the UE sends an IKE_AUTH request message to the N3IWF.
+N3IWF constructs the N2 -Request message based on the received UE identifier and the VID and forwards it to the selected AMF.7.
+AMF then requests AUSF to authenticate the UE by sending the Key Request, including the UE identifier to AUSF over AAA interface.9.
+The AUSF derives KSEAF and includes it in the Key Response message to SEAF.
+If a successful EAP-AKA’ was performed in step 8, the AUSF also includes the EAP-Success payload in this message.
+If the N3IWF received an EAP-Success payload in N2-Response in step 10, the N3IWF sends the EAP-Success to the NG-UE.
+If the AUTH payload is successfully verified, the N3IWF sends an IKE_AUTH response containing an AUTH payload generated using KN3IWF, to the UE.15.
+The N3IWF sends the NAS SMC received from the AMF in step 10 to the UE over the IPsec SA.17.
+The N3IWF forwards the NAS registration accept to the NG-UE over IPsec SA.
+If the “Existing PDU session” is used here, the UP protection policy Therefore, the new data transmission will not impact the existing data protection.
+The following figure 5.1.4.50.2-1 illustrates the UP protection policy determination procedure, based on PDU session establishment.
+SMF receives Subscription data (the authorized PDU type(s), authorized SSC mode(s), Default QoS profile) from UDM.
+If the Subscription Data does not include Default UP protection policy, SMF sets the default session-based UP protection policy.
+After receiving the PDU-CAN Session Establishment request from SMF, PCF sets the session-based UP protection policy.
+Note: Similar to how SMF dynamically determines the policy for some services (e.g. QoS in IMS), UP security policy can be dynamically determined by PCF.7.
+PCF sends the PDU-CAN Session Establishment response including session-based UP protection policy, to SMF.9.
+AMF sends N2 PDU Session Request, including PDU Session ID, session-based UP protection policy to (R)AN.5.1.4.51.1 Introduction0.
+NAS security context (at least including NAS Keys and Integrity/Encryption algorithms in the ME/USIM and user’s subscription data in the UDM (or in AUSF)).
+If the AMF(SEAF) dosn’t have UE’s default security context, it will send a request message to AUSF/ UDM(ARPF) to retrieve the UE default security context.
+In this request message, it includes UE permanent ID (e.g. IMSI), the current Serving PLMN ID and the current used RAT information.
+Authentication aspects related to the support of multiple access network by NextGen have been also considered in .
+This study area Subscription authentication would need to be used over different accesses.
+The secondary security association between the UE and the RAN (cf.
+There is no real authentication between the UE and the RAN.
+Firstly, the USIM provides a secure storage for the permanent identifier and credentials.
+TR 22.862 states explicitly that "The- Credential types related to networks could also be studied.
+Furthermore, if the EUTRA needs to be supported with the alternative authentication methods, the LTE-like interface towards the radio network would need to be supported.
+The SCMF receives a key from the SEAF that it uses to derive further (e.g., access-network specific) keys.
+The SCMF In the roaming case, the SCMF resides in the visited network.
+Nothing in the above definitions is meant to limit the deployments of these functions in a virtualised environment.
+The SPCF provides the security policy based on service application applicable to security policy negotiation e.g. UP protection negotiation.
+The present key issue is assumed to start from the observations in TR 23.799and TR 22.864 .
+But it is meant to go further in defining methods how this support for a variety of access networks and authentication mechanisms can be achieved.
+It appears that NextGen system intends to minimize the dependencies between access and core networks allowing more flexible evolvement of both.
+The term ‘serving network name’ is used for this set of input parameters.
+Ki might leak to an attacker for a number of reasons, e.g.:b.
+hacking of the communication channel over which Ki is transported from SIM vendor or subscription manager to mobile operatord.
+The attacker does not need to set up a false base station, or man-in-the-middle, or anything like that.
+But we can make sure that the attacks would be much harder in practice.
+This key issue deals with the types of subscription credentials and identifiers that are used to access Next Generation system.
+Equipment related credentials and identifiers are dealt with in a separate key issue (Key Issue # 2.4).
+For the purposes of the present TR, the definitions of identifiers in clause 3.1 apply.
+"The g. in a factory), and their credentials for network access security.
+Therefore, the network can trust the IMSI reported by the UE.
+However, the IMEI reported by the UE to network is not authenticated.
+In LTE and earlier generations, equipment identifier referred to the IMEI of the device whereas subscription identifier refers to the IMSI stored in the UICC.
+It the IMEI, was not considered an identifier that could be used in authenticating the equipment to the network.
+However, there is a requirement from GSMA that IMEI be securely implemented in the terminal.
+Furthermore, the IMEI is used for tracking stolen phones in the Equipment Identity Register (EIR) operated by the GSMA.
+There are currently mechanisms to cryptographically associate an identifier to equipment, for example, based on the 802.1AR DevID manufacturing certificates or TPM generated cryptographic identifiers.
+Then, the authentication for these IoT devices will be addressed by the network.
+Furthermore, it is envisioned that a large number of devices (e.g. IoT devices) are expected to be supported and serviced by NextGen networks.
+This requirement needs to be revisited if a UE triggered authentication mechanism is considered for NextGen.
+This authentication model doesn’t wholly capture the evolved business and new services of next generation network.
+When the user buy a device in order to access to the service cennectivity, user passcode).
+This aspect also depends on the key management hierarchy for network slice.
+E.g. a visited network could properly authenticate the subscriber, but then not even bother sending the Attach Accept message.
+But we can make sure that the attacks would be much harder in practice.
+Clause 5.2.3.2.1 lists a number of ways in which the original shared secret key might leak to an attacker.
+Many of the possible leakage points (points a – e) arise from the initial provisioning process.
+There are two alternative entities that could initiate the key exchange protocol:2.
+It also depends on the details on the protocol design that are ffs.2.
+The "statefulness" could be managed by using the database that the HLR maintains with information for each subscription.4.
+The UICC then simply sends this back to the HSS in the return message.
+This requires less exposure of the HSS to possible malicious attack.
+"Tracking of a user across different services without the user’s consent shall be prevented.
+Solution details Several specifications for this solution have been developed by the GSMA, called "Mobile Connect" .
+Using a USIM, K1 UE sends message 2 to CP-AU, which contains BPUB and a MAC computed using K1.
+CP-AU verifies the MAC, decodes BPUB, and derives the same symmetric key KDH from APRIV and BPUB with Diffie-Hellman procedure.
+However, solution 2.1 does not also address key issue #3.1Under these assumptions, also solution #2.24 applies.
+Solution #2.24 has the same effect as solution #2.6 in that it mitigates also active attacks.
+(Also note that a number of other solutions e.g. #7.2 assume that the UE knows a public key for the serving network).
+, the attacker knows long-term secret key K used in AKA.
+Hence the tehnical pre-conditions to achieve solution 2.6 would also permit solution 2.10.
+This analysis does not affect solution 2.2, which is meant to prevent passive attacks.
+AKA* (as defined in solution #2.22)can be provided in a uniform way.
+The issue of EAP-AKA vs UMTS AKA has already been discussed for EPS in Rel-8, cf.
+TR 33.821, clause 7.2.2, and, as a result, UMTS AKA was selected, which was later enhanced to become EPS AKA.
+EAP messages and EPS AKA message could be transported over a NextGen-version of the NAS protocol in a uniform way.
+Identity exchangesIf the identifier is a (concealed) IMSI then the SEAF canonically transforms it into a NAI.
+If the identifier is a NAI then the SEAF does not transform it.
+In general, EAP methods In a NextGen setting, EAP-AKA' would have two roundtrips between SEAF and AUSF, while EPS AKA would have one.
+If statelessness is considered a performance advantage then EPS AKA For EPS AKA, strictly speaking no AUSF would be needed.
+Computation effortEditor's Note: text tbaMMF extracts the identifier and forwards it to SEAFSEAF and AUSF exchange one round of authentication request / response message.
+Editor's Note: it is ffs whether 3rd-party authentication centres will be available in NextGen, based on service requirements.
+If the authentication method is EPS AKA, the authentication procedure stops here.
+The authentication procedure stops when the UE receives an EAP Success message.
+After the completion of the authentication procedure SEAF has an intermediate key available.
+It will be used by the SCMF for deriving further keys.
+SCMF derives keys for protection of NAS signalling and forwards them to MMF via the SEAF.
+From that point onwards, DIAMETER AVPs as in S6a could used between AU and AAA (but this is within the remit of CT4).
+If the AUSF determines, based on the NAI, that the authentication method is an EAP method, it acts as an EAP server.
+From that point onwards, DIAMETER AVPs as in S6a could used between AU and AAA (but this is within the remit of stage 3).
+If the AUSF determines, based on the NAI, that the authentication method is an EAP method, it acts as an EAP server.
+(This then implies, according to the assumption for Alternative 1b, that the access network is non-)A UE using aSEAF forwards NAI unchanged.
+(Variant: UE includes IMSI and SEAF transforms it canonically into NAI.
+AUSF decides, based on NAI, that EAP method of choice is EAP-AKA‘.
+EPS AKA does not occur at all in this alternative, so SEAF acts according to the EAP framework.
+SEAF acts depending on the DIAMETER AVP(s) in the received response.
+However, this proof provided by EAP-AKA' and EPS AKA* cannot guarantee the subscriber's continued involvement in any communication following the completion of the authentication procedure.
+o For services like wireless broadband access and VoLTE, AKA has been proved to be an applicable way for authentication and key distribution and negotiation.
+and It is expected that the initial deployments of next generation systems will be an overlay system.5.2.4.8.1 Introduction This solution addresses key issue # 2.1.
+The SEAF operates as a "pass-through authenticator" and forwards the EAP messages from the NextGen UE to the AUSF and vice versa.
+The New Radio (NR) access technology relays the EAP messages from the NextGen UE to the SEAF and vice versa.
+The NextGen UE performs the mobility management and session management procedures, after successful authentication and security association establishment procedure.
+Editor’s note: The protocol stack needs to be revisited based on the progress in other working groups.
+The NextGen UE performs the RRC connection establishment procedure with the NR.3.
+The SEAF initiates the EAP authentication procedure by requesting the authentication credentials from the ARPF.
+The EAP Authentication is performed between the UE and the AUSF.
+The number of EAP message exchanges between the UE and the AUSF and AUSF and the ARPF, depends upon the EAP Method.
+At the end of the successful authentication procedure, the SEAF obtains intermediate key (MSK) from the AUSF.
+The NR further derives the request key to protect the AS messages and also UP packets, based on configuration.
+Editor’s note: In this example, at what step authorization is performed by the network is FFS.Editor’s note: Interface NGx needs to be defined.
+EAP Success/Failure and exchange of the Authentication Root Security Key (ARSK) over AU-SCKM interface.
+The identity information can be sent by using means outside EAP.
+In theory, the first identity presented by the UE could be abbreviated or encrypted identity as long as it identifies the AAA Server.
+Afterwards, the SCMF/SEAF initiates the Diameter EAP application with the AUSF.
+The UE sends an Attach (or an equivalent) with the identity, and the SCMF/SEAF initiates the EAP conversation with the AUSF.
+exchangeThe EAP authentication methods have different number of round-trips but they all run end-to-end authentication between the UE and the AUSF.
+Similar deployment model in which EAP was terminated in MME was considered in TR 33.821.
+This solution assumes that it would be beneficial to specify only one AKA variant for Next Generation.
+In figure 5.2.4.9.2.4-1, the AUSF is terminating the EAP-AKA' conversation and requesting AKA AVs from the ARPF.
+EAP-AKA' Request and Response messages are exchanged between AUSF and UE.
+Figure 5.2.4.9.2.4-1: EAP method specific signalling – EAP-AKA' Variant p3.2: EAP-TLS Alternative authentication methods are being discussed in the co-called "Factory" use case .
+The EAP framework provides means to use alternative methods with different types of credentials.
+This variant assumes that the authentication is done using existing third party credentials and identity management system.
+The protocol itself includes the TLS version number, so in theory any TLS version above 1.1 could be used.
+[aa] with the target to published as RFC during the beginning of .
+Figure 5.2.4.9.2.4-3 demonstrates the EAP-TTLS handshake done between UE and AUSF.
+During the handshake phase the server is authenticated to the client using server certificate, and requires a root of trust (i.e. certificate authority, CA).
+In version 1, an extension to TLS, called TLS/IA , is utilized.
+TLS/IA provides an extended handshake which guarantees that the TLS handshake endpoint and the authentication endpoint are one and the same.
+This eliminates attacks against tunnelled protocols for inner authentication that generates session keys.
+During the data phase, the client is authenticated to the server using an authentication method encapsulated within the secure tunnel.
+EAP-TTLS allows legacy password-based authentication protocols to be used against existing authentication databases.
+The UE learns the presence of a local ER Server and its domain either as specified in RFC or through some other means outside ERP.
+If the visted network had a local implementation of the EAP method (e.g. EAP-AKA), it could inform the home network about this.
+Placing the EAP server in the visited network has the disadvantage of the HPLMN not knowing the result of authentication.
+In particular, the solution does not affect the authentication behaviour of the UE, compared to EAP AKA’.
+The SEAF informs the AUSF-HN that it has a local EAP server (AUSF-VN) supporting EAP-AKA*.
+Returning only one authentication vector at a time is already recommended in EPS.
+However, EAP AKA also increases the control of HN for authentication, and consequently the HN can be sure that the UE is involved in authentication.
+Similar properties can also be added when delivering the security anchor key through any other authentication methods.
+If chosen, this optimization This optimization Otherwise, the home control of authentication is lost.
+Secure storage and processing requirements for device credentials and identifiers within the NG-UE is covered in key issue 5.y.
+This decision CP-CN retrieves from AUSF the information necessary for performing the equipment identifier authentication.
+This step can be skipped if the CP-CN has all the information necessary for performing the equipment identifier authentication.
+However, these require further specification work and might not be compatible with CMPv2 profile in .
+Figure 5.2.4.10.2-2: EIR check after equipment identifier authenticationCP-CN decides to perform EIR check and sends Identity Check Request message including the authenticated equipment identifier.
+Editor’s Note: This solution does not address the case of malicious UE that keeps changing its ID.
+The procedure for handling Illegal UE repeated authentication This solution is effective only against signalling measures due to massive attaches.
+The following summarizes the functionalities offered by MASA in a modular form.
+It captures how these modules deliver MASA solution and the details of each of these modules.
+Initial authentication is triggered when the serving network sends an Identity Request message asking the UE for the subscriber permanent identifier, IMSI.
+Home Operator can authorize services as soon as it authenticates the subscriber.
+MASA provides a mechanism for full concealment to equipment permanent identifier, IMEI, even during Initial attach.
+If included, NG-UE recovers the SNID and SNPK and save them to be used to validate error messages received from the serving network..
+If validation passes, AUSF/ARPF validate the freshness of the message by checkeing the COUNTER received in the IARBlock as listed in next step.
+Generate RANDHN to be used with COUNTER and “K” to derive KIASenc + KIASint keys which will be used to secure Initial Authentication Response.
+Note: Protocol goals and how they are achieved are ffs in the evaluation section.
+SEAF uses the received UE Security Capabilities to decide on security parameters with the UE.
+Home network ID and Home network public key can reside either in the UICC or in the UE.
+Generate IAS Encryption and Integrity keys using RANDHN, COUNTER and ‘K’.
+The following subsections describe how MASA supports the use of existing 4G USIM.
+This section describes the delta from the overall solution as described in Clause 5.2.4.12.2.
+It could be interpreted as Rel-99 or later USIM and it could be argued as Rel-8 or later USIM.
+As it is well known, the capabilities of the in-field 4G USIM depends on the operator configuration and enabled features, etc.
+Rel-8 USIM supports the storage of a HN public key but it depends on the operator configuration.
+In this case, the HN PuKey is being stored in the ME and updated either through OTA or at the HN operator counter.
+SEAF includes the security parameters that SEAF agrees with to use with UE based on the UE security capabilities that was received from the AUSF/ARPF.
+If validation passes, then the NG-UE decrypts the inner block of the IAS using KIASenc to recover the rest of the material.
+NG-UE validates the security parameter agreed upon and selected by the access network.
+When AUSF/ARPF receives the Authentication and Data Request from the SEAF, AUSF/ARPF retrieves the IAR message.
+AUSF includes the following information in the Auth & Data Response:KIASenc + KIASint Received COUNTER and RANDHN.
+Key steps are as follows:SEAF send Identity Request message to NG-UE.
+The following clauses avoid details that are being described in the main section of MASA solution details.
+UE includes its UE security Capabilities for NAS, gNB-CP, UP-GW and other parameters.
+In many LTE implementations, the MME acquires the IP address of the S/P-GW via the infrastructure DNS server.
+SEAF communicates the all protocols agreed upon security parameters to the NG-UE inside the IAS message.
+The SEAF communicates the security capabilities for UP agreed upon with the UE to the UP-GW during the NG-UE bearer setup.
+UE is configured with 5G (e)UICC with ‘K’ key, the Home Network ID, and its associated public key.
+NG-UE performs the following: Request the (e)UICC application to generate required security material for initial authentication, RANDUE, , COUNTER, KIARenc, and KIARInt.
+AUSF/ARPF SEAF gNB-CP recovers gNB-CP protocol agreed upon security parameters and save it as part of the NG-UE current context.
+NG-UE validates the authenticity of the IAS and authenticates the network as per MASA.
+In addition, the UE saves all protocols agreed upon security parameters as part of its context.
+SEAF then sends the IAS message to UE.UE validate the received COUNTERUE is the same as the one was included in the respective IAR message.
+Utilize the USIM to validate the TOKENSYN based on RANDSYN, COUNTERHN, and “K”.
+It achieves mutual authentication and security key exchange in an efficient way with a single round trip.
+MASA provides mutual authentication as described in details in goal 2.3 below in as ingle round trip.
+MASA solution utilizes the strength of the (e)UICC symmetric keying technology which has proven strong reliability for many years.
+The only attack that has been documented on this technology was carried by an agency that belongs to a super power.
+MASA achieves this by encrypting the IMSI with a public key of the home network.
+It seems the home network public key is not used for any other purpose in MASA.
+e.g. solution 7.3 in security area#7 or the proposal for EAP-AKA in untrusted access in S3-64.
+As a consequence, the IMSI is encrypted with a public key in every Attach request, which is very costly.
+Both sides generate random numbers for freshness, namely UE generates RAND1, RAND2, and HSS generates RAND (as part of AKA).
+Under the assumptions above, one can find authentication protocols that are well understood, and even standardized.
+IMSI and RAND1seem, according to the description part of both, the inner and the outer block of IAR.
+So, MASA seems a convoluted mix of AKA and something new.
+It is assumed that Kser is preconfigured within ME device for the UE side.
+The Kser is preconfigured only in the ARPF residing in a 3rd party system as described in clause 5.2.1.2.
+The KNG could be generated in the similar way of Kasme.
+The MAC2 could be used for the network to authentication the UE for service provider connectivity based on Kser.
+In key issue 2.5, it requires the next generation system support non-AKA authentications.
+It can maintain a revocation list for different types of certificates, including PKI-based certificate or Identity-based IDs.
+For Identity-based cryptography, if RFC is used for key generation, the revocation list need include the revoked ID, its PVT and expiration time.
+Operator can either revocate an ID or just revocate a PVT of a given ID.
+To use the Identity-based Signature in mutual authentication, UE and network need to exchange information related Identity-based public keys.
+Since RFC is considerred for Identity-based public and private key generation.
+So the overhead over air interface mainly consist of PVT and and its expiration time associated with the PVT.
+The overhead of ID is not considered since it is exchanged in other authentication methods also.
+The size of PVT is related to the strength of security.
+Table 1 shows the measured computing power for signature computing and signature validation.
+AUSF stores the Identity-based keys and parameters, including ID_AUSF, PVT, SSK and KPAK.
+RSF stores those UE identities that have been revoked by the operator.
+The RSF is used to determine whether an UE is allowed perform mutual authentication with AUSF or not.
+If an identity is included in the list, AUSF RSF could be co-located with AUSF or accessed through a non-standardized interface from AUSF.
+We also assume UE has been provided with Identity based credential, including ID_UE, PVT, and SSK specific to the UE.
+It is used by AUSF to generate signatures duringmutual authentication with UE.
+In case an identity of UE is revocated, the operator adds the UE ID and PVT in the revocation list on the RSF.
+It is provisioned to UE and AUSF by the KMS together with SSK, PVT, and KPAK etc.
+The use of hash function can follow the Annex A of RFC .
+UE generates a random number RAND_P and further derives K’ = KDF(K, RAND_P, RAND_S).
+UE derives Authentication Key AK and Key Derivation Key based on RFC for EAP-PSK .Step 7: RSF validate the ID_UE according to its revocation list.
+Step 8: RSF send back the validation results to the AUSF.
+UE generates a random number RAND_P and further derives K’ = KDF(K, RAND_P, RAND_S).
+AUSF authenticates the UE based on the MAC_P received from the message.
+Step 10: AUSF sends the third message of EAP-PSK to UE with a MAC_S for authentication and other fields required by EAP-PSK.
+Step 11: UE authenticates the AUSF with MAC_S received and derive session key with RAND_P and KDK derived previously.
+Step 12: UE sends the last message of EAP-PSK to AUSF to finish the EAP-PSK authenticatin procedure.
+In this way, we can greatly reduce the number of authentication messages and the size of the authentication message received by the authentication unit.
+UE 2generates a random number denoted by RAND 2, and computes its DH public key A2 by A2=gRAND 2 mod p2a.
+Upon receiving the message, the authenticator first verifies the aggregated signature (Sig1_AG).
+The aggregation node forwards the message (ID_AU, B, A_Vec, Sig_AU, …) to IoT UE28a.
+Upon receiving the message, the authenticator first verifies the aggregated signature (Sig2_AG).
+It In this proposal, we design use an IBS-based mutual authentication scheme between the remote UE and the network over a relay.
+The IBS-based mutual authentication scheme can achieve end-to-end authentication between the remote UE and the network.
+It can also help the network to identify an UE which is connected to the network via another UE.
+Editor’s note: it if ffs how network element other than the authenticator uniquely identifies the remote UE.
+Solution details In the proposed solution, we assume that both the remote UE and the network are pre-provisioned with IBS credentials.
+All the entities, including remote UE, relay UE and authenticator, belong to the same Key Management Server (KMS).
+Editor’s note: The relationship between remote UE and relay UE need to be clarified.
+The CA’s certificate or public key needs to be pre-configured in the operator’s AAA/HSS or CP-AU/CP-CN.
+It can also be stored with the (IMEI, device Certificate) binding in the repository.
+bindingThe mutual authentication has been performed between the network and the NG-UE.The NG-UE returns the equipment identifier response to the SEAF/CP-CN.
+This message includes the IMEI and the signature of the IMEI.
+This response The AUSF/ARPF inquires the device certificate using the IMEI from the (IMEI, device certificate) binding repository.
+Editor’s Note: It is FFS whether the binding between the IEMI and device certificate can be cached in the AUSF/ARPF or not.
+The SEAF/CP-CN uses the CA’s public key to verify the device’s certificate.
+If the verification is successful, the SEAF/CP-CN uses the public key in the device certificate to check the signature.
+The equipment identifier is authenticated if the signature check is successful.
+bindingThe mutual authentication is performed between the network and the NG-UE.The NG-UE sends the equipment identifier response to the SEAF/CP-CN.
+This message includes the IMEI and the signature of the IMEI.
+This response The AUSF/ARPF inquires the device public key using the IMEI from the (IMEI, device public key) binding repository.
+Editor’s Note: It is FFS whether the binding between the IEMI and device public key can be cached in the AUSF/ARPF or not.
+The NG-UE sends Attach Request to the CN-MM and include its Identity.4.
+The AUSF translates the NG-AIR into a request to the ARPF.
+The ARPF generates the authentication vector in the same way as for EPS AKA inand returns it to the AUSF.
+This assumption is believed to be fulfilled when the expected authentication response XRES is pseudo-randomly generated, e.g. as in MILENAGE or TUAK.
+The AUSF then returns an authentication vector AV* in a Next Gen Authentication Information Answer (NG-AIA).
+The SEAF understands from the NG-AIA that it includes AV*, not AV.
+It can happen that the UE sends an incorrect RES where, however, the RES1 part is correct.
+The SEAF would then present itself to the UE as an MME.
+When the subscriber is not present in the visited network, the SEAF cannot generate a correct Authentication Confirmation message, but it has already received KASME.
+This then implies that the AUSF has to act in a stateful way only for a small fraction of the total number of authentication runs.
+EPS AKA* provides increased home control, but the home operator can decide, for which roaming partners increased home control is needed.
+Editor's note: the overhead of key revocation and key lifetime management need to be taken into account.
+Solution #2.2 adds a Diffie-Hellma key exchange to the key establishment over the radio interface.
+Solution #10.2 consists in encrypting keys in authentication vectors or security contexts transmitted between core network entities using the public key of the receiving entity.
+The present solution consists in applying solution #10.2 in addition to solution #2.2.
+In this way, also active attacks trying to impersonate the serving network can be mitigated.
+If EAP method is used, N3WIF forwards the EAP payload to the UE within IKEv2 message.
+Otherwise, e.g. if traditional AKA is used, Authentication Challenge is carried directly as IKEv2 parameters.
+The diagram flow does not represent the separation and interaction in NFs involved in Authentication.
+Depicted in Figure 5.2.4.z.2-2 is NG1 protocol stack during the Attach procedure when NAS messages is carried directly as IKEv2 parameters.
+Editor's Note: It is ffs if changes are required in the call flow to meet RFC requirements for using Configuration Payload in IKEv2 messages.
+Figure5.2.4.25.2-2: NG1 Protocol stack during Attach procedureEditor Notes: The three optional EAP based secondary authentication solutions need to be merged by next SA3 meeting.
+Figure 5.2.4.26.2-1 shows a possible flow where this SMF based secondary authentication is run with an external AAA server.
+The SMF obtains subscription data from UDM for the given Permanent User ID obtained from AMF in step 2.
+The SMF checks whether the UE request is compliant with the user subscription and with local policies.
+If not, the SMF will reject UE’s request via SM-NAS signaling and skip rest of the procedure.5.
+The message is routed to the DN AAA Server based on the realm part of the UE identity obtained in step 5.
+The DN AAA server and the UE exchange EAP messages as required by the EAP method.
+This EAP signalling is sent between the UE and the SMF over NAS.10.
+The SMF sends an N4 Session Establishment Request to the UPF as in step 8.a and 8.b of Fig 4.3.2.2.1-1 in.14.
+"PDU session establishment accept" that contains the EAP Success to the UE as described in step 10 and step 11 of Figure 4.3.2.2.1-1 in.
+The three optional EAP based secondary authentication solutions need to be merged by next SA3 meeting.
+Figure 5.2.4.27.2.1-2: Message flow of the secondary authenticationThe primary authentication procedure is executed between the UE and the SEAF.
+requestThe SMF sends back a PDU session response depending on the outcome of the previous authentication steps.
+Figure 5.2.4.27.2.1-2 shows the protocol architecture for the support of the EAP based secondary authentication.
+Figure 5.2.4.27.2.1-2: Protocol architecture for secondary authenticationThe secondary authentication could be used for Network Slice specific authorization.
+The secondary authentication is performed using SM NAS signalling that is exchanged between an NG-UE and an SMF via protected MM NAS signalling.1-5.
+The SMF initiates EAP authentication by sending an Authentication Request message to the 3rd party AAA server.
+Besed on the received UE Service Identity, the AAA determines the EAP method.
+If the EAP authentication is successful, the 3rd party AAA sends a service session response, including EAP success message to the SMF.
+IntroductionIt refers in the key issue #2.4 that "IMEI reported by the UE to network is not authenticated.
+Therefore, the network cannot place any trust on the reported IMEI of the UE", and therefore the requirement that "it 5.2.4.29.2 Solution details1.
+UE sends an attach request to AMF in which contains an optional equipment identifier authentication indicator.3.
+AMF decides whether perform the equipment identifier authentication to the UE according to the requirement of the operator or the subscription of UE.5.
+AUSF/ARPF chooses the authentication method for UE according to the identifier.
+The number of EAP message exchanges between the UE and the AUSF/ARPF depends upon the EAP Method AUSF/ARPF chooses.10.
+This solution addresses the key issue #2.4 "Equipment identifier authentication" by proposing an EAP-based method.
+The following statement outlines the technologies used for equipment identifier authentication in each solution.
+Solution #2.17 and #2.18 adopt a kind of binding relationship between IMEI and the certificate or public key.
+Between the UE and the SMF, EAP messages are sent in the SM NAS message.
+The SMF communicates with the external DN-AAA transparently via the UPF.
+Figure 5.2.4.30.2-1 shows a possible flow where this SMF based secondary authentication is run with an external AAA server.
+Solution details The following figure depicts the general information flow for the present solution.
+The UE initiates establishment of a new PDU Session by sending a SM NAS message containing a PDU Session Establishment Request.
+The SMF obtains subscription data from UDM for the given Permanent User ID obtained from AMF in step 5.
+The SMF checks whether the UE request is compliant with the user subscription and with local policies.
+If not, the SMF will reject UE’s request via SM-NAS signaling and skip rest of the procedure.9.
+The SMF selects a UPF and initiates a N4 Session establishment procedure with it.
+This establishes an end-to-end connection between the SMF and the external DN-AAA server for EAP exchange.14.
+The SMF sends “SM Request Ack” to AMF as in step 10 of Fig.
+This message includes EAP Success to be sent to the UE within the NAS SM “PDU session establishment accept”.
+The UE-requested PDU Session Establishment proceeds further as described in clause 4.3.2.3 in.
+Figure 5.2.4.30.2-2 shows the protocol architecture for the support of the EAP based secondary authentication.
+But well-designed key management protocols for Next Generation Systems could also reduce the threat significantly.
+The following key theft attacks and re-routing attack are expected to be relevant for a NextGen Interconnection network.
+Editors' note: The action of the UE if the network fails to change the security is for ffs.
+The network side takes the decision for both NAS and AS security mode procedures.
+This situation already started to get a little more complex in the GPRS security enhancements defined in the EASE work item in Rel-13.
+According to EASE, cf. , Annex H, the MS informs the SGSN whether it supports user plane integrity or not.
+Furthermore, the subscriber profile optionally contains information about whether user plane integrity is required for this subscription or not.
+If the UE sends no such indication the UE leaves the decision entirely to network policy.
+It Authentication between UE and network will establish an authentication session key.
+This authentication session key Further keys will be derived from this session key.
+Access-network-specific keys It matters for the overall security of the system where this top-level key, from which all access-network-specific keys are derived, resides.
+Editor's Note: The terms 'session', 'registration period' will be clarified as SA2 work progresses.
+UE sends attach Request to UE in which contains indicators of UE D-H capability groups.
+A D-H capability group indicator indicates a pair of large primes that are pre-configured.4.
+SEAF selects a D-H capability indicator based on the D-H capability groups of the UE and the preference list of the SEAF.
+SEAF generates a private Diffie-Hellman key APRIV and a corresponding public key APUB based on the selected D-H capability.
+SEAF sends message 1 to UE, which contains selected D-H capability indicator, APUB and a MAC computed using K1.
+UE also derives a symmetric key KDH from BPRIV and APUB with Diffie-Hellman procedure.
+UE derives a session key Ksession from with KDH and K1.Both UE and SEAFnow own the same shared session key Ksession.
+They use Ksession to derive other keys for encryption and integrity protection.
+In this solution, different access technology shares the same supplicant at UE side.
+Editor notes: Use of term security context in various places need ffs.
+To isolate the authentication security context from access technologies, the authentication security context is protected and is inaccessible to the individual acces technology.
+A key derived from Kauth is transmitted to an access technology for data and signalling protection.
+An example key derivation can be as follows:The Kauth is always kept within the supplicant and only the KAT is passed to the access technology.
+The present version of the solution focuses on the NG equivalent of TWAN, i.e. it focuses on trusted WLAN access to the NG core.
+Figure 5.3.4.5.2-1: Procedural aspects: The UE determines that the access network is trusted.
+The NG-TWAN triggers the UE to send an EAP Identity Response message to the NG-TWAN, which the NG-TWAN forwards to the CCF.
+The NG-TWAN uses this key to establish WLAN security according to IEEE 802.11i with the UE.
+IP packets protected between the UE and the NG-TWAN can now be exchanged between the UE and the NG core.
+Figure 5.3.4.6.2-1 UE Authentication and Security context instantiation with NG-KSI assignment.
+Step 1: The next generation UE, NG UE, does Attach Request to the NextGen system.
+Attach Request can be made through any of the radio access technologies supported in the NextGen system.
+Step3: The CCNF/SEAF and UE run NextGen AKA and the authentication request is verified.
+Step 5: The CCNF/SEAF sends NextGen NAS Security mode command to instruct the UE to instantiate the NextGen NAS security context and the NG-KSI.
+Step 7: UE sends NAS Security mode command to convey the CCNF/SEAF that it has instantiated the NAS security context.
+Editor’s Note: Depending on SA2 architecture decision, the 5G architecture terminology and functional element names are FFS.
+Solution #3.7: Algorithms Negotiation ProcedureThis solution provides an algorithm negotiation mechanism for the NextGen network.
+SSF sends an Authentication Request to SEAF.The ARPF response with authentication data response message.
+The message at least includes the algorithms priority list belonging to MM and the UE identity.
+SEAF responds to MM with Security Context Request message which includes determined algorithms and the UE security capability.
+The messages UE and MM perform the rest of Attach MM procedure.
+The SM performs the rest of SM procedure or the rest of the attach procedure.
+message.5.3.4.8.1 IntroductionIt refers in the key issue #4.3 that "an attacker Therefore, this proposal provides a new solution to key negotiation in dual connectivity.
+eNB sends a gNB addition request to gNB containing the D-H capability groups of UE.3.
+gNB sends a gNB addition response to eNB containg the selected D-H capability and KEi.5.
+Editor’s Note: Computational overhead aspect needs to be considered in the evaluation.5.3.4.9.1 IntroductionUE is equipped with a key refreshing policy.
+The policy indicate the risk level of the visited network, different risk level will trigger the refresh of different keys.
+Four risk levels are considered in the policy: High, Middle, Low, None.
+When the risk is High, the UE will trigger reauthentication, and then refresh all the interface keys.
+When the risk is Middle, the UE will trigger main key refresh.
+CP/UP key will be refreshed if the risk is Low, and no key will be refreshed if the risk is None.
+More specifically, detailed scenarios of different risk levels are discussed here.
+Once UE moves to a visited network with lax security policy.
+With high probability, the main key will be compromised if the key is used for a long time.
+The policy is defined by the home network and dynamically configured to UE during IAR/IAS in the MASA framework in solution #2.12.
+Different levels are defined according to the geographical location of the serving network, the regularity, the home network policy, etc.
+HSS define a refreshing policy based on the UE subscribe information, the geographical location of the serving network, the regularity, the home network policy etc.
+If the UE roams to a visited network with High risk as defined per the home network policy.
+UE will trigger the reauthencation procedure and refresh all the interface key.
+Finally, it refreshes the main key as K’_main = KDF(K_main, KDH).CP-AU first checks the MAC of APUB, and then computes the DH key KDH.
+Finally it refreshes the key as K’_main=KDF(K_main, KDH).UE sends a KeyRefresh Request to CP-AU and contains indication RefreshMainKey and Flag=1 to use chain based method.
+The UP case: Figure 5.3.4.9.2-6The CP case: Figure 5.3.4.9.2-7tbaEditor's Note: The threat needs to be clarified: Who triggers?
+If the attacker is not the genuine network how does the attacker get hold of the keys if not by eavesdropping on communication links?
+The present solution needs further justification based on a thorough risk analysis.
+Such binding ensures the UE that the current authentication session and corresponding communication with the serving network is authorized by the home network.
+Similarly, it implicitly ensure that the home network that any authentication vector sent can only be used for the present session.
+Editor's Note: It needs further clarification whether the home network has any notion of authentication session.
+Editor's Note: This statement suffers from a lack of clarity in the threat analysis, cf.
+If the attacker obtains any secret information by eavesdropping then confidentiality protection in the interconnection network would seem sufficient.
+If the genuine serving network acts as an attacker then there is no issue of masquerading as the serving network cannot masquerade as itself.
+NOTE 1: either the AUSF’s public key or a shared key between the NG-UE and the AUSF can be used as an encryption key.
+The AUSF sends the authentication response that includes an encrypted authentication session root key (KASRK) and an encrypted KEK.
+The KASRK is encrypted using the KEK and the KEK is encrypted using the public key of the serving network.
+In this case, the AV is encrypted using the KEK.The SEAF/CP-CN authenticates with the NG-UE based on the AV.
+The SEAF/CP-CN integrity-protects the attach accept message using the KEK and sends the integrity-protected message to the NG-UE.
+The figure does not take into account that base stations Neither does it show whether the UE is connected via NR or (e)LTE.
+The figure shows two base stations, but does not take into account whether they are gNBs or eNBs.
+Neither does the figure depict whether the UE is connected via NR or (e)LTE radio access.
+Some of the security functions This is not seen as a problem as the structure of the TR is such that security are inherently overlapping.
+Possible security requirements on the gNB depend on the NG architecture.
+Similarities and differences between the systems will hence influence the study of the security aspects of dual connectivity.
+The communication between EPC and NR, i.e. between gNB and EPC via eNB or directly, can be compromised.
+Such devices include IoT devices that send small amount of data infrequently.
+The key issue in subclause 5.4 of TR 23.799is on session management for those IoT devices.
+This attack was not dealt with in LTE, but the introduction of user plane integrity in NextGen allows the possibility to protect against this attack.
+The logical nodes in the new RAN of the NextGen system are interconnected with each other through a new RAN interface named the Xn interface.
+The control plane interface of these RAN nodes with the Next Generation Core (NGC) is named the N2 interface.
+-Source eNB has no knowledge of the security keys (KeNB and keys derived from it) used in target eNB.
+EPC-Core Network:-Target MME has knowledge of the Kasme and the derived NAS keys from it, used in source MME.
+There is no support of 1 hop backward securityOne difference in NG Systems is related to handover scenarios involving AMF changes.
+The target MME This key issue concerns the security aspects of the N2 handover.
+Xn interface: It denotes the interface between the NGC-connected RAN nodes, either gNBs or eLTE eNBs.
+However, refreshing the security keys does have impact on performance, e.g. time delay, buffering requirements, radio resource usage etc.
+But a key-refresh is done anyway in the LTE system at intra-eNB HO.
+Another motivation is related to the centralized RAN deployment (Figure 5.3.3.11.1-1) and co-sited deployment scenarios, described in the 801.
+Furthermore, the number and the types of devices served by Next Generation systems is expected to dramatically increase.
+This implies that the consumption of radio resources because of additional RACH-like procedures for each key-change will get worse.
+The New RAN functions and the Xn interface are described respectively in the clauses 6.2 and 7.3.1 of the TR 38.801.
+The target eNB uses the KeNB*, that was sent by the source eNB, as its KeNB.
+The source eNB knows this KeNB (i.e. same as KeNB*) used in the immediate target eNB.
+But the source eNB will not know the future KeNBs used in the new target eNBs because of future handovers.
+The RRC protocol exchanged between the RAN and UE requires both integrity protection and confidentiality protection.
+The CN would need to inform gNBs about the policy decision.
+It 5.4.4 SolutionsEditor's note: The impact of global certificates is for ffs.
+The list of visited network certificates available to a subscription could be maintained by an OTA mechanism.
+This alternative seems harder to maintain, however.- The UE first looks for three lists on the USIM:o A list of Forbidden CA Certificates.
+Otherwise, the two forbidden certificate lists can be managed in ME software updates.
+Network Node Certificates have a relatively short duration, e.g. one day.
+The UE Revocation of Global CA Certificates is managed by the use of Certificate Revocation Lists on the UE.
+The home network can send OTA messages to update the list of Forbidden CA Certificates, or the list of Permitted CA Certificates, or both.
+Device vendors Trusted online revocation servers Network Node Certificates are not revoked – just allowed to expire, and not renewed.
+Editor’s note: It is ffs how best to support new algorithms in future, such as quantum computing resistant algorithms.
+The UE pays attention only to the "best" algorithm that it supports.
+The UE would loose all the valid paging messages, broadcast messages by camping on it.
+UE will send the subscription identity (e.g such as IMSI or P-IMSI) to the network.
+The attacker succeeds in extracting the identifier (IMSI/PMSI/GUTI etc) from the UE, the signature verification will fail only in the subsequent messages.
+The Network Private Key is not used directly for signing signalling messages.
+The UE is expected cache the most recently seen Network Node Certificate, and The Network Node Private Key is then used to sign messages.
+The network node broadcasts its Network Node Certificate, which the UE will be able to verify.
+Observation 3: To avoid the replay attacks completely calendar+UTC time stamp (as specified in RFC) is needed as parameters in signature calculation.
+If the UE was power cycled totally it would be difficult for UE to know the local time or UE without learning from the SIB.2.
+The attacker succeeds in extracting the identifier (IMSI/PMSI/GUTI etc) from the UE.
+The generated DS together with some least significant bits of Time Counter is added to the system information before transmitting over the air.
+The private key (K-SIGPrivate) is provisioned in the NR by the MNO.
+The public K-SIGPublic key is provisioned by the core network to the UE, when performing location update procedure, as shown in Figure 5.4.4.2.2.1-2.
+The gNB obtains a value for a UTC-based counter associated with a transmission slot based on UTC time.
+The usage of Time Counter ensures that received system information cannot be replayed.
+To take care of these errors least significant bits of Time Counter are also transmitted along with system information.
+The size of the digital signature leads to increase in the signalling overhead.
+System information is periodically broadcasted, in order to reduce the overhead; protection can be applied once every ‘N’ period instead of every period.
+Editor’s Note: It is FFS whether the K-SIG-Priv of all eNBs within a TA are same or different.
+The possible key leakage if the same K-SIG-Priv is shared by all eNBs needs to be considered.
+The other SI The authenticity verification information can be classified into the other SI.
+This solution is based on the principles of existing Dual Connectivity solution in LTE.
+For this purpose, UL receiver is implemented in all NextGen UEs.
+If the UE can monitor and detect that there is UL traffic, that is reliable indication that the gNB is serving multiple UEs.
+The UE includes a freshness parameter NONCE in the System Query message.
+The Response to the System Query is generated by the Serving System network element (gNB or CCNF).
+The Response is digitally signed by using the Private Key of the Serving System.
+When digital signature is computed, the NONCE received from the UE is also used as a part of signed contents.
+This signed Public Key of the Serving System is also included in the Response message.
+Then, the UE verifies that the received NONCE is the one associated with the query that it sent.
+But UE cannot figure out the actual GPS cordinates of the cell.
+In fact the scheme could be extended to cover SIB information in general rather than always broadcast over the air.
+Drawback of system query method: An Idle mode UE is made to transmit a query message to verify the gNB thus losing power.
+In key issue 5.4.3.6 of TR 33.899, it discussed about the user plane DOS attack that might be caused by the small data from UE.
+It mentioned that, in TR 23.799, some solutions for infrequent small data transmission are proposing the absence of user plane AS security.
+UE transmit the data to the core network handling function for further processing.
+Figure 5.4.4.5.2-1: UP plane data verification using Identity-based Digital SignaturesEditor’s Note: It is ffs security aspects of storing Identity based private key (SST).
+This solution assumes that the similar service capability is available across all the cells serviced by the given NG (R)AN.
+The sender UE uses the eNB/gNB identity (receiving entity for SAKKE payload) and the public key of the KMS to create an encrypted SAKKE payload.
+The eNB/gNB uses its identity, its Receiver Secret Key and the public key of the KMS to decrypt SAKKE payload.
+To avoid signaling overhead concern, this Verify-Request, Verify-Accept does not need to be performed all the time.
+Upon reception of the Verify-Request message, eNB verifies the signature payload SIGN in the verify-request message.
+Identity = This information is used to derive the Signer’s identifier (used by ECCSI).
+The UE and eNB use this key to derive integrity key for integrity protecting RRC messages.
+But, detect that the UE camped on a false base station when the UE connects back to the genuine network.
+When in RRC_IDLE mode, the UE builds the measurement reports according to the configuration information that was sent by the gNB.
+The existing "MeasResults" message identifier and received-signal strength information of the cell that the UE camped on, and detailed location information of the UE.
+Since the network can collect data from multiple UEs, it also has opportunity to filter out incorrect information from potential rouge UE.
+Upon detection of the false base station, the operator can take further actions, e.g. informing legal authorities; or contacting the victim subscriber.
+The proposal of Type 2 solution that uses already existing measurement reporting mechanisms [] has only a minimal impact on the system.
+It then passes NR security capabilities of the UE to the gNB.
+In option 3x (SCG split bearer), for both the SCG split bearer and the SCG bearer, the PDCP encryption terminates at the gNB.
+From security point of view, the security procedures defined for option 3a can be reused for 3x.
+Therefore, it can be concluded that Option 3x can reuse the security procedures defined for Option 3a.
+Figure 5.4.4.12.2-3, the call flow for Variant 2 based on Rel-12 DC.
+Figure 5.4.4.12.2-4: SRB termination: MCG SRB, MCG split SRB and SCG SRBFor the SCG SRB, the PDCP layer terminates in the NR/SgNB.
+Therefore, SCG SRBs need to use NR PDCP for ciphering and integrity protection of RRC message.
+The MeNB provides the S-KeNB to the SgNB as in LTE only dual connectivity.
+S-KeNB is used by the SgNB to derive further keys for ciphering and integrity protection of RRC messages.
+The UE communicates with the source cell over-the-air using radio interface (called Uu interface in LTE).
+The source cell and the target cell communicate via an interface known as Xn.
+Only few steps are shown in the figure for the sake of simplicity.
+Figure 5.4.4.14.2-1: Flexibile mechanism for AS key-changeThe source cell decides to perform handover.
+= KgNB.The source cell sends NG Handover Request, containing the retain-key-cell value, to the target cell.
+Roaming UEs could also log the key change characteristics of the visited network and report the log to the home network.
+Note that already in LTE, information like TA list, MME code, etc., reveal some sort of network topology and are not considered problem.
+P1 = algorithm identityEditor’s note: 5G if bearer dependent keys are used.
+The terminology It is assumed for this procedure that the UE is attached to the network and a PDU session is established.
+The new AN provides the Resume ID, the MAC to the old AN.
+The RRC Connection Suspend message is encrypted and integrity protected in PDCP.The UE and the AN store the related context information.
+in TR 38.804where the UE state RRC_INACTIVE and the UE state machine are described.
+According to TR 38.804 , the AN does not release the UE context when the UE moves into RRC_INACTIVE state.
+In case the AN releases the UE context, the solution falls back to regular RRC_IDLE and CN IDLE state handling.
+The UE and the AN needs to transit to RRC_CONNECTED state.
+The new AN provides the Resume ID and the MAC to the old AN.
+The old AN identifies the UE security context by using the Resume ID.
+The AN indicates to UE that it has transitioned to RRC_ACTIVE state by sending message (msg4) RRC Connection Resume to the UE.
+The RRC Connection Resume message is encrypted and integrity protected in PDCP.10.
+Then, the data could be transferred protected by the new KeNB*, which satisfied the backward and forward security requirement.
+EvaluationThis solution addresses Key Issue #4.9 and proposes the handover procedure for Intra AMF, Intra SMF, Inter NG RAN (without Xn interface) scenario.
+It then sends the Handover Request ACK to the target AMF.
+Figure 5.4.4.20.2-1: Inter AMF, Intra SMF, Inter NG RAN handover without Xn interface.
+The AMF sends the Handover Command to the source NG (R)AN.
+Figure 5.4.4.21.2-1: Inter AMF, Inter SMF, Inter NG RAN handover without Xn interface.
+The target UPF sends the Session establishment Response to the target AMF.The target AMF derives the KNAS-MM*.
+Solution details Figure 5.4.4.22.2-1 shows the procedure for Intra AMF, Inter SMF, Inter NG RAN handover without Xn interface.
+The source NG (R)AN evaluates the report and makes the handover decision.
+The AMF selects the SMF based on NSSAI.The target SMF selects the UPF for the slice.
+Figure 5.4.4.22.2-1: Intra AMF, Inter SMF, Inter NG RAN handover without Xn interface.
+The UE derives KAN* and the subsequent RRC and UP integrity and encryption keys.
+The source NG (R)AN evaluates the report and makes the handover decision.
+The source NG (R)AN sends the Handover Request(UE Security Capabilities, Handover Restriction List, NSSAI, KAN*) to the target NG (R)AN via the Xn interface.
+The target gNB generate Apriv and Apub based on the selected DH capability.
+In the RRCConnReconfig message, the selected DH capability and Apub are forwarded to UE by the source gNB.SN status Transfer.
+This solution does not add any additional new messages to the Xn handover procedure.
+It does not have any major impact on the system and enables the network to collect measurements relevant to false base station.
+Since the actual detection is left for implementations, there is room for network implementations to adapt to the evolution of the attack.
+Option 3 does not have any security impact on NR/gNB.For Option 3a, Variant 1 of solution 2 in Solution #4.12 is preferred.
+Editor’s Note: Whether the impacts to eNB and MME of Variant 2 for option 3a are acceptable needs to be checked with RAN2 and CT1.
+If it is acceptable, then the above conclusion of preference for Variant 1 can be revisted.
+The SgNB uses its own key derivation function to derive the ciphering and integrity protection keys.
+The attacker could use the cloned subscription credentials and identities with his/her Mobile Equipment to impersonate the subscription.
+For example, the subscription would be billed for communications he/it is not the originator of.
+Editor's Note: This clause will document security assumptions related to each security area.
+This concept is expected to continue for operator-controlled authentication and authorization procedures.
+The two use cases below illustrate a possible misfit for provisioning static authorization to address the requirements for NextGen networks.
+If so the UE aborts the procedure by sending a reject message.
+If they do not match then the UE aborts the procedure by sending a reject message.
+In all other cases, the UE displays the received serving/access network identity to the user.
+The user can then identify serving network identities that do not belong in the geographical area he is located in.
+The list of authorized serving network identities available in the UE could reflect membership of the network in one of these Circles of Trust.
+Enforcement Function (EF): These functions perform enforcements for policies relating to access control to services / slices based upon "Proof-of-Authorization".
+Figure 5.6.4.2.2-2 defines mapping of architectural components described above into approved SA2 components.
+The EF checks to see if the NG-UE has been authorized to access the service.
+The AuthF obtains authorization policies from an ACPF, based upon which the AuthF performs authorization.
+The description of the steps is as follows:The NG-UE sends a Service Request message to the network over N1 interface.
+The NG-UE also received an Accepted NSSAI in that same message.
+If the NG-UE has not been authorized for the requested service / slice(s) then an authorization check has to be performed.
+In order to perform further authorization, the AMF / SCMF selects an appropriate authorization function, SMF (AuthF).
+In case of failed authorization no further resource allocation and configurations are performed.
+The NG-UE is provided with access to the service / slice(s).
+The SPCF provides the security policy based on application service logic applicable to security policy negotiation.
+A PoA The PoA OAuth token).Figure 5.6.4.2.2-3 defines mapping of architectural components described above into approved SA2 components.
+Policy Information Point (PIP): The PIP contains information about the various attributes that Examples of the attributes Examples of PIP, authorization / authentication ) etc.
+It is assumed that the UE presents the PoA to the EF using a secure communications channel.
+The EF verifies the PoA and determines the type of service access that has to be provided to the NG-UE.
+It is assumed that EF and AuthF share a trust relationship.
+After the EF verifies the PoA the NG-UE is granted access to the service.
+Procedure for a Dynamic Authorization by a Trusted Third-party is depicted in Figure 5.6.4.3.2-3.
+The TTP/AF (AuthF) sends a message requesting authorization policies associated with the requested service / slice(s) from the HN for the NG-UE.
+The message contains the IMSI, temp ID or MSISDN of the NG-UE.
+slice(s).The NG-UE is provided with access to the service / slice(s).
+The Service Access phase (Steps 10-14) The Network Exposure Function (NEF) supports external exposure of capabilities of network functions.
+External exposure can be categorized as Monitoring capability, Provisioning capability, and Policy/Charging capability.
+Provisioning capability can be used for the mobility management and session management of the UE.
+For the mobility management of the UE, Mobility Pattern can be provisioned.
+It is proposed to delay the secondary (PCO-based) authentication until IP connectivity established between the UE and the UPF.
+This AAA and related credentials have nothing to do with the NextGen SDM/SEAF/AUSF/ARPF functions and credentials used for access/primary authentication.
+EAP is widely used and provide support for many authentication methods such as EAP-TLS, EAP-AKA, EAP-TTLS and EAP-PEAP.
+EAP payloads would be carried by the PANA protocol (rfc) which is IP-based.
+A limited PDU session is then established for the transport of user plane data between the UE and the UPF.
+In case RAN security is established before step 5, then the EAP exchange would be protected on the air interface.
+The Figure 5.7.3.2.1-1 illustrates various points where permanent identifiers (IMSI and MSISDN) are available in the current LTE system.
+The Figure 5.7.3.2.1-1 also shows a passive and an active IMSI catcher.
+The UE, the MME, and the HSS, all have the IMSI of a subscription.
+The passive IMSI catcher can eavesdrop on the Uu interface and collect the IMSI when the UE attaches using the IMSI.
+The active IMSI catcher, however, can ask the UE to provide its IMSI.
+The MME and the HSS have the MSISDN of the subscription.
+Note that the MSISDN might be available to the UE as well, e.g. optionally stored in USIM or requested via MSISDN notification procedure.
+However, the UE does not use the MSISDN for operational purposes.
+The IMSI concealment can either terminate in the eNB or in the core (MME or HSS).
+There is also no LI requirement on the eNB for using IMSI to intercept the communication.
+The subscription identifier protection Editor’s Note: It is FFS to determine if only the temporary subscription identifiers could be used in all communications.
+However, if the temporary identifiers are poorly generated, it becomes easier for an attacker to identify the subscription.
+Let’s take some unrealistically naive example, just for making the point clear.
+If a TMSI is generated by appending a counter to an IMSI, then an attacker can easily figure out the IMSI.
+From one or more temporary equipment identifiers, it NextGen architecture introduces the concept of network slices.
+In order for the user to choose and to attach to a slice, an identification will be needed.
+For example, per , IMSI is composed as shown in figure 5.7.3.9.1-1.
+Figure 5.7.3.9.1-1: Structure of IMSIMobile Country Code (MCC) consisting of three digits.
+But reallocation of S-TMSI and IMSI as paging identifier need not be linked.
+AMF can cache the IMSI together with the most current S-TMSI allocated to it.
+AMF can then use the S-TMSI for paging, if it receives a request to initiate Paging.
+This way IMSI / SUPI paging doesn’t become necessary and user tracking using IMSI paging can be avoided.
+Within the CN, many network nodes This usage doesn’t become a privacy threat to the user nor a threat for the internal nodes.
+CN nodes can continue using the IMSI as long as they are not exposed to public.
+Nevertheless, it seems very likely that this solution will be achievable and applicable, no matter what choices are made.
+The home PLMN has a public key PK and a corresponding private key SK.
+It is assumed that the UE knows PK and no one except the home PLMN know SK.
+The PK can be preconfigured on the USIM, and hence a public key infrastructure is not needed.
+MCC, MNC are not encrypted as they need to be used for routing in roaming use cases.
+The public key of the home PLMN is provisioned on the UE.
+This public key needs to be refreshed and provisioned to the UE before it expires or when detecting the corresponding private key is compromised.
+If the UE’s security context does not exist, the new public key Either encryption or MAC can be used as a proof of the authenticity.
+Instead the home PLMN operator can configure or revoke its public key in the UE, e.g., using OTA.
+This derivation continues until a new PMSI is not currently being used by other UEs.
+Whenever a PMSI next is derived, the associated index is increased by a certain number (e.g., 1).
+This index is provided to the UE so that the UE can derive the correct PMSI_next using the index.
+Second, the use of index to calculate PMSI ensure that PMSI is fresh for that user.
+The AUSF sends an authentication information response to the CP-CN/SEAF including the authentication vector and the PMSI_next and index pair.
+The PMSI_next and index pair is encrypted using a key (AK2) that is only known to the UE and AUSF.
+Also, the CP-CN/SEAF includes the encrypted PMSI_next and index pair in the authentication request message.
+= PMSIUntil the next attach occurs, the UE uses the PMSI_prev as its identifier and provides it to the network when requested.
+If the verification is successful, the AUSF clears the pending PMSI acknowledgement flag (i.e., Pending ack) set in step 2.
+NOTE 1: PMSI initialization is solely determined by the UE, which prevent a rogue base station from requesting an IMSI by triggering PMSI initialization.
+Editor’s note: It is FFS whether PMSI initialization by the ME causes a substantial privacy risk and needs to be mitigated by other means.
+It proposes a way to efficiently generate temporary or short-term identifiers in next generation system by using the randomness properties of channel estimation.
+The CSI makes it possible to adapt transmissions to current channel conditions and to achieve reliable communication.
+The UE and the gNB are communicating over the Uu interface.
+For the purpose of the communication, channel estimation can be performed in order to adapt the link to the propagation conditions.
+If no channel estimation was performed during 1, this is done by the UE and/or the gNB.
+The CSI report can contain the complete response or a selected part depending on the application case.
+In order to ensure the randomness of the CSI report, some processing can be applied on the channel estimation to improve its randomness quality.
+This operation can be done either by the UE or the gNB, either by the depositary in 4.
+The depositary uses the CSI report as a random source for the generation of the new temporary/short-term identifier.
+and thus does not require the implementation of new particular techniques.
+The method can be combined with other techniques that need to be randomized.
+It enables to use a simple generation process by the depositary completed by a random source from the channel.
+Now, the serving PLMN knows the long-term identifier of the UE and can perform lawful interception without the home PLMN’s assistance or visibility.
+This algorithm has the advantage to be well developed but requires high computing capabilities.
+At the end of the AKA protocol, UE and the network generate the same key Kmid on the basis of the shared root key.
+The proposed scheme can also alleviate the possible DoS attacks in the attach procedure by embedding anti-DOS attacks measure in the protocol.
+The proposed attach procedure is depicted in Figure 5.7.4.9.2-1, where the term "UE" instead of "NG-UE" is still used for simplicity.
+After receiving KCpub, UE derives the shared key KDH between itself and SEAF by using its private key KUpriv and SEAF`s public key KCpub.
+To encrypt its identity, UE generates a nonce, and derives the encryption key KE and integrity key KM as follows:KM=KDF(nonce, KDH, 2);5.
+Like in LTE, UE and SEAF perform mutual authentication, and acquire the intermediate key Kmid which is similar to the key Kasme in LTE.
+SEAF sends the Security mode command message to UE, whose message authentication code MAC1 is computed by using the session key Ks. 10.
+UE verifies the received MAC1 by using the session key Ks.
+Otherwise, UE responds to SEAF with the Security mode complete message, whose message authentication code MAC2 is computed by using the session key Ks.
+After receiving the Security mode complete message, SEAF checks the correctness of MAC2.
+This further implies that they have agreed upon the same key KDH.
+The proposed scheme mitigates DoS attacks by embedding the hash challenge/response mechanism in the identity acquisition stage.
+This mechanism forces attackers to spend more computation resource than SEAF if the network is under DoS attacks.
+As a result, SEAF will execute asymmetric cryptographic computation only in the case that it is free of DoS attacks.
+Other mechanisms, such as back-off timer, could be used for anti DoS attacks.
+In a nutshell, the proposed scheme can defend against passive attacks but not active ones.
+On the other hand, its simplicity makes it subject to active attacks.
+The can significantly reduce the computation cost rising from the DH computation.
+Solution #7.10: Applying DHIES to the attach procedure#3.1 Interception of radio interface keys sent between operator entities#7.9: Need to protect entire Permanent Identifier.
+It integrates different functions into one scheme for message encryption, including public key operation, encryption algorithm, message authentication algorithm, and KDF (Key Derivation Function).
+To send an encrypted message to a recipient, the sender first generates its DH private key and computes its ephemeral DH public key.
+The resulting ciphertext comprises the ephemeral DH public key of the sender, the symmetrically encrypted message, and message authentication code (MAC).
+The authenticity of DH public key of the network is assured in a way that it is contained in a certificate.
+UE validates the certificate with the help of a PKI before computing the shared key KDH using the DH public key of the network.
+The management of the PKI refers to 5.4.4.1 of TR 33.899.
+The real identity of a UE is encrypted by using DHIES so that an attacker (even active) is unable to catch it.
+At the end of the AKA protocol, UE and the network generate the same key Kmid on the basis of the shared root key.
+The proposed scheme can also alleviate the possible DoS attacks in the attach procedure by embedding anti-DOS attacks measure in the protocol.
+The proposed attach procedure is depicted in Figure 5.7.4.10.2-1, where the term "UE" instead of "NG-UE" is still used for simplicity.
+To encrypt its identity, UE generates a nonce, and derives the encryption key KE and integrity key KM.
+Ks=KDF(KDH, Kmid)The session key Ks is viewed as the key anchor, which is used to derive other keys for confidentiality and integrity protection.
+For efficiency, DHIES used in the procedure can be replaced with ECIES.
+This mechanism forces attackers to spend more computation resource than SEAF if the network is under DoS attacks.
+As a result, SEAF will execute asymmetric cryptographic computation only in the case that it is free of DoS attacks.
+Other mechanisms, such as back-off timer, could be used for anti DoS attacks.
+Ks depends on not only the intermediate key Kmid that is derived from the long-time secret, but also the shared key KDH.
+The receiver can decrypt the encrypted message with its RSK, K_(ID, T).
+In the follow, we assume that the funcation of KMS is included in the credential repository.
+E.g. how can a home operator know which network the user will roam to.1.
+In the USIM, it is overwritten with a new computed value with every authentication procedure.
+If the network queries the mobile for its permanent identifier (IMSI), the current cached P-IMSI is reported by the USIM instead of IMSI.
+Therefore, some computed MSPNs Figure 5.7.4.12.2.5-1 shows process steps executed at the HSS when the authentication vector is requested by the serving system:2.
+The HSS checks if the computed value of MSPNNEXT collides with any currently stored values in MSPN cache.
+If collision is discovered, return to step 3.a to select another value of RAND.
+If there is no collision with any currently stored MSPN values in a cache, proceed to step 5, 6, and 7.6.
+At that point HSS gets the indication that the MSPNCURR is no longer used, and can be replaced with the received MSPNN.8.
+This step is executed when HSS cannot find in its cache the MSPN associated with any IMSI.
+Handling of this Error by the UE and the USIM configured to support the P-IMSI is described in the section below.
+This value was used during last access when HSS could successfully associate the reported identity with the IMSI.
+This solution does not rely on public key crypto, thus computational effort and message size can be kept low.
+P-IMSI is computed from a root key (K), a randomizer RAND, and a constant MSINASSOC.
+MSPNNEXT is computed from the K and MSPNASSOC which are not known to the serving system.
+The RAND, of course, is known, but cannot allow the serving system to precompute the next MSPN.
+Therefore, concealment of next expected value from SN is given and correlation of pseudonym is not possible.
+Confirmation of usage of the correct values in UE and HSS derived from RAND can be achieved implicitly, when next P-IMSI is received by HSS.
+The generated short-term identifier will be used the next time the UE contacts NGC.
+In this way, neither implementations nor configurations can avoid the refreshment of short-term identifier, thereby enhancing the subscriber’s privacy.
+The first 48 bits, i.e. MCC || MNC || MMEGI || MMEC, uniquely identify the MME that assigned the GUTI.
+Editor's Note: It is FFS to determine how many of last assigned temporary identifiers are sufficient for the UE to check for enhancing the privacy.
+Variant-B involves more signalling than Variant-A, but avoids the collision problem.
+The scheme ensures that only the authorized entity owning the private key bound to the public attribute is able to decrypt the encrypted subscription identifier.
+Therefore, the solution conceals the entire subscription identifier from attackers on the air interface (c.f.
+Only the attribute used in encryption changes depending on the network the UE is attaching to.
+Consequently, each authorized entity possesses one private key or a number of them for revocation purposes.
+The global public key and the private keys are generated by a Trusted Authority (TA) according to a large universe ABE scheme .
+In the initial setup phase the TA first generates a secret master key (MK) and the PK.
+As in any public-key based encryption mechanism, the PK (and consequently the MK) can be occasionally updated.
+In this case, the new PK is provisioned by each mobile operator to the respective subscriber’s UE.
+Their bitsizes correspond to the bitsize of the underlying elliptic curve finite field, e.g., 256 bits for 128-bit security.
+Both security and reliability/robustness can be achieved by using a (k, n)-threshold secret sharing scheme.
+This means that up to n-k servers are allowed to fail, while up to k-1 servers are allowed to be compromised.
+The distributed protocol can be adapted to deal with active adversaries too.
+The partial computation results of the servers are sent directly to mobile network operators, where they are combined together.
+The attribute uniquely identifies the authorized entity that is allowed to decrypt the subscription identifier, i.e., the entity that owns the corresponding private key.
+There is no need for standard PKI and public-key certificates to be broadcasted to and verified by the UE.
+According to this solution, upon decryption, the UE's subscription identifier is known only to the authorized entity (the current serving network).
+This permits the serving network to satisfy the requirements of lawful interception, i.e., to perform lawful interception without the home network’s assistance or visibility.
+In Option 2, it also provides e2e protection to the home network of the IMSI.
+Figure 5.7.4.15.2-3 illustrates the use of commitment scheme on top of ECIES.
+Figure 5.7.4.15.2-3: Enabling the serving CN to be LI compliant (1) The UE sends the Register message to the serving CN.
+The XOR function provides support for size and format preserving as well.
+As shown in Figure 5.7.4.15.2-1, the size of the output includes the ephemeral public key of the UE in addition to the encrypted IMSI.
+But, note that it is the S-TMSI that is transferred in SRB0 (c.f. LTE RRC connection request).
+The IMSI, however, is neither transferred in RACH nor SRB0 (c.f. LTE RRC connection request).
+The LTE RRC connection setup complete message is transferred in SRB1 with RLC AM that supports segmentation.
+Therefore, the size of encrypted IMSI is not limited by the physical layer transport block size.
+The solution does not use a tag unlike in normal ECIES.
+The solution provides identifier privacy at the cost of additional computational overhead in the core network function that does the IMSI decryption.
+First, the serving CN gets hold of the IMSIs that it can trust.
+So, in case the verification fails, there is no unnecessary/waste signalling or resource setups/teardowns.
+However, the home PLMN (c.f. HSS) uses only a permanent subscription identifier, i.e. IMSI.
+The GUTI is primarily used to minimize the exposure of the IMSI over the air.
+When there is an IMSIPseudo in place, the GUTI might look redundant at first.
+It also seems unnecessary to impose any other complexity, e.g. good random, for the temporary identifier generator.
+The network needs to verify that the newly generated value is not already assigned to another UE.
+If the value is already assigned, the network This process needs to be repeated until an unused value is generated.
+It means that the time for generating new temporary identifiers increases for every new assignment.
+This guarantee IMSI privacy even during the UE initial attach to the network.
+The home network The UE recovers HGUTI from the IAS message after decrypting the inner block using KIASENC key.
+UE & SEAF can utilize the NAS encryption whenever mandatory and enabled.
+Intwo options have been discussed to avoid IMSI catching by frequently changing the identity.
+The change of IMSI is either triggered by the USIM or by the network.
+Triggering by the USIM is simply done by using a different IMSI from the predefined set.
+If AKA was successful, the USIM would check whether RAND includes a trigger information.
+If the result is the same as the SMAC sent by the HSS, the UE knows that the trigger was set by the home operator.
+Thus, the USIM will choose a new IMSI from its predefined set.
+This new IMSI is stored and will be used next time the UE needs to send its identity.
+All USIM pre-defined IMSIs are associated with a single account in the HSS.
+Thus, if UE attaches with a new IMSI, HSS can set this IMSI to the current IMSI.
+The home network will always retain the complete list of IMSIs allocated to the particular USIM.
+If an attacker would force the UE to re-attach several times, the UE would use always a fresh IMSI out of the predefined set.
+In this option, two IMSIs are recorded for each subscriber in the home network’s database.
+The new IMSI is transferred to the USIM during AKA, encrypted within the RAND.
+This new IMSI is stored in the USIM and will be used next time the identity of the subscriber is requested.
+For both options, A and B, LI compliance can be arranged by demanding that the USIM and the AuC store the IMSI alongside the PMSIs.
+This comes at the cost of using additional IMSI space because for every IMSI the AuC now stores at least two other PMSIs.
+So if the IMSI space is further reduced for the use of multiple IMSIs per subscription, the problem gets worse.
+Finally, both the options have huge practical issues in the handling of available IMSIs and IMSI assignment to active users within HPLMN.
+The degree of protection can be increased by storing more PMSIs.
+Therefore, the similar arguments regarding the backward compatibility, IMSI space, and complexity on HSS/UDM apply to this solution as well.
+First, even though the solution For that reason, the solution cannot be carried over to earlier generation networks without major costs.
+Further, the solution does not provide a recovery mechanism, e.g., when the UE stores the new PMSI incorrectly.
+In pseudonym solutions, the identity of the subscriber visible to the radio interface, changes.
+It using the same pseudonym, otherwise a situation for recovery Several methods have been proposed that demand re-synchronisation in case of failure.
+The following reasons for out-of synch are mentioned in solution #7.3: lost pseudonym, already assigned pseudonym or invalid pseudonym, which need recovery mechanisms.
+Other reasons include collision, e.g. 2 UEs were assigned the same pseudonym.
+In case of encrypting the identity with the home network public key, no synchronisation is needed, because the identity does not change.
+However, recovery situation an active attacker is running denial of service attacks.
+I.e. UE has provided the encrypted IMSI or a recovery value (second pseudonym) and would be requested again to present the permanent identity.
+Long-term identifiers are needed for initial attach and if the serving network does not have the temporary identity available.
+Impact to HSS is limited to decryption of the received identity.
+Home PLMN needs to have means to update public keys in its subscribers' devices.
+Solution #7.4 describes one variant of symmetric key solution using pseudonyms that need to be mapped to the permanent subscription identifier.
+Other solutions describe so-called serving network based managed asymmetric key solutions.
+In all solutions, it is generally agreed that it will be the home network provider who provides the authentication vectors to the visited network’s SEAF.
+In the following, focus is set to the so-called home network asymmetric key based solution.
+However, the proposed solution can be similarly applied to the other solutions as well.
+Further, an operator For this in 4G a SLF (server location function) is implemented in front of a set of HSSs.
+The SLF need to analyse an attach request of a user first and routes it to the correct HSS.
+Thus, in a 5G network where the permanent subscriber identity (IMSI) is encrypted, an SLF would need to take over the decryption.
+Temporary identifier change is performed only once in few days e.g. S-TMSI reallocation procedure.
+The subscriber's location can be tracked using temporary subscriber identity if temporary identities are not refreshed frequently.
+Solution proposes abstraction of temporary identities in two ways which can be used independently or in combination.
+Following two options describes the general principle of the solutions proposed.
+As shown in figure 5.7.4.23.2-1, NAS security context is established during the initial attach procedure.
+This procedure results in the assignment of KASME between UE and AMF.
+Following diagram shows the initial establishment of the security context and generation of the KDSK utilized for the generation of the scrambled UE identifier.
+If the calculated short-MAC matches with the short-MAC included in paging request the UE can determine that the paging request is its own.
+Such a pseudonym is sent only once in the clear form, from UE to MME over-the-air.
+Let PID denote a dynamic pseudonym to be used as a temporary subscriber identifier for a given UE by a given MME.
+In particular, let PIDnew and PIDold denote the new and old values of PID for given UE and MME, respectively.
+If the verification fails, then the UE disconnects from the network and the UE’s user is notified about the problem.
+A mechanism for push generation of dynamic pseudonyms is outlined below.
+PIDnew = ENC(KMME, COUNTnew),PIDnew = FPE(KMME, COUNTnew).There is yet another important issue to be addressed in the push generation of dynamic pseudonyms.
+Namely, each new pseudonym PIDnew needs to be transmitted from MME to UE.
+For unlinkability, it 5.7.4.24.3 Evaluation Synchronized pseudonym generation supports one-time pseudonyms in a way intrinsically verifiable by UE.
+Since synchronized generation leverages UE-specific secret key, the collisions among generated pseudonyms can be avoided only with a very high probability.
+Due to the birthday paradox, this effectively halves the bitlength of dynamic pseudonyms.
+In the case when synchronization is lost due to communications or computational errors, repeating the IMSI ATTACH procedure is required.
+Most of them are based on the use of asymmetric, public-key (PK) encryption techniques.1.
+To minimize message expansion and computational overhead, elliptic-curve cryptosystems (ECC) appear to be preferable to RSA-based cryptosystems.
+This has negative impact on privacy, especially if combined with side-information.
+For network-based granularity, network certificates can be stored in UE, while the broadcasted network identifier (MCC|MNC) determines the right network certificate to be used.
+Alternatively, the whole network certificate of the network can be broadcasted, but then it needs to be verified by UE.
+All MMEs of a given network share the same network certificate and the corresponding private key to be used for decryption.
+PK certificates need to be transmitted to network elements and UE over authentic channels.
+Revocation of compromised or expired keys Long-term certificates for revocation include network certificates and possibly also CA root certificates.
+To this end, trusted online revocation servers and OTA transmission from the (trusted) home network to UE can be used.
+For MSIN encryption, UE uses the trusted home network PK securely preprovisioned on its USIM, possibly in the form of the home network root certificate.
+Accordingly, standard PKI is not needed and the PK certificate need not be verified by UE.
+Further significant speeding up can be obtained by using 64-bit instead of 256-bit randomizing parameter (as a scalar in point multiplication).
+To reduce impact of compromised MKs with respect to passive IMSI catchers, multiple TAs can be used.
+There are multiple potential benefits, with solutions making use of network public keys in clauses 2, 3, 4 and 7.
+But clearly there are challenges in doing it properly, whatever type of public key approach is taken.
+Also, it encrypts the full IMSI, which is better for subscriber privacy.
+This would make the AUSF become a target of denial of service attacks more easily, thus making AUSF vulnerable to overload.
+The network needs to have a revocation mechanism of the AUSF public key (or certificate) in NG-UEs to deal with any private key compromises.
+None of the proposed solutions that use asymmetric crypto address how recovaction will be handled.
+Note the counter desync issue (i.e., between SQNMS and SQNHE) in UMTS and LTE USIM is resolved based on a shared key based sync method.
+Network function sharing; - Access network sharing;- Coexistence within a network slice with 3rd parties’ network functions;- Simultaneous UE connections through different access technologies.
+Initial access by UE to the network by including a network slice selection parameter, if UE has such a parameter provisioned.
+TR 22.864 (, clause.5.1.2.1) and TR 22.891( , clause.5.2.3) have given some specific requirements about isolation.
+For example, elasticity and change of slices or the communication in one slice cannot have impact on services served by other slices.
+On CriC services, the quick access and strong authentication protocol, encryption algorithms, or/and credential management etc.
+The fact that several network slices might be available in Next Generation systems requires a selection procedure in order to direct UEs to corresponding slices.
+For the attach procedure of UEs’ access to network slices, following scenarios should be considered: Figure 5.8.3.3-2Scenario#2: UE is authenticated by MNO.
+Long-term keys, root keys, and CN-CP keys are shared between slices.
+Long-term keys, root keys, CN-CP keys, and AN-CP keys are shared between slices.
+Impersonation attacks can lead to fraudulent charging and can potentially leak sensitive information on the victim UE.
+Slicing architecture can increase the risk of network elements getting attacks.
+The g. set parameters for resource sharing or dynamically create network slice.
+The capabilities 5.8.3.5.2 Security threats Attackers terminate a slice or compromise a critical network function).
+Between default network slice and other network slices, there is signalling involved.
+Between RAN network slices and core network slices there is signalling and traffic plane involved.
+- Interfaces between the network slices need to be protected similar to the current Network Domain Security.
+- Inter network slice interfaces and communication Editor’s Note: sensitivity level of network slice functions need to be defined.
+Step 2: The RAN selects the CP Function and forwards the Attach Request including the list of slice IDs.
+Step 4: The presence of the slice ID list is indicating the CP Function the UE capability to handle several slices with different security requirements.
+The CP Function requests the Authentication Data from the HSS and includes the list of requested slice IDs, if available.
+The HSS Under the security procedures, the HSS creates individual Authentication Vectors per slice and creates a binding with the corresponding slice IDs.
+Step 8: The HSS sends the set of Authentication Vectors and slice IDs to the CP Function in the Authentication Data Response.
+Step 9: The CP Function sets up the Control Plane layer security per slice and performs authentication and key agreement (AKA).
+The UE finalizes the bearer setup per slice towards the User Plane Function with individual security.
+Editor’s note: The solution needs to describe how the roaming scenarios are handled.
+The validity check on NSI-2 specific key can be performed during the session establishment toward NSI-2.
+For the mutual validity check on NSI-2 specific key, UE and NSI-2 can calculate and verify the message authentication code for NSI-2 specific key respectively.
+During the session establishment, UE can also provide its own security capability (security algorithms, etc) to NSI-2.
+Based on the information, NSI-2 can decide the proper security configuration (e.g., security algorithm, key size, etc) and send it back to UE.
+The mutual authentication can be performed during the session establishment toward NSI-1.
+As a result of successful authentication, UE and NSI-1 can derive the intermediate key for AS key derivation.
+During the session establishment, UE can also provide its own security capability (security algorithms, etc) to NSI-1.
+Based on the information, NSI-1 can decide the proper security configuration (e.g., security algorithm, key size, etc) and send it back to UE.
+Step 2: The Default AMF notifies the SEAF to trigger network authentication procedure with the NG-UE.
+Step 5: The NG-UE sends a Network User Authentication Response (RES) message to the SEAF.
+Step 7: The Default AMF sends a Forward Attach Request (IMSI, requested NSSAI, MM Context, home-slice-sec-policy) message to the Serving AMF.
+The MM Context includes KSEAF (similar as Kasme in LTE) for network.
+This solution presents UE authentication and initial attach to a network slice using the NSSAI presented by the UE.
+This security solution described here addresses the SA2 network slice solution 6.1.2 in TR 23.799.2.
+If the Temporary ID is available for the selected PLMN, the corresponding CCNF is selected by the RAN for routing the Attach Request.
+Editor’s Note: It is FFS whether the default CCNF does the NSI selection at this step.6.
+(If the UE is not forwarded to a serving CCNF, this step doesn’t happen.)6a.
+The serving CCNF initiates NAS Security Mode command and instantiates NAS security context.
+(If the UE is not forwarded to a serving CCNF, this step doesn’t happen.).
+NOTE 2: in this step the new CCNF includes in the transport layer message it received.6c.
+The serving CCNF acknowledges the default CCNF that the UE forward request has been accepted and UE has been assigned a network slice.
+If the UE was forwarded to a serving CCNF, the serving CCNF would send the UE with the Attach Accept message to the RAN node.8.
+The slice security root key is used to derive the keys for the user plane protection in a network slice instance.
+An authentication function resides in a network slice instance in the core network.
+A general slice security procedure that includes a slice authentication is shown in figure 5.8.4.7.2.3-1.
+The exact details of the flows here depend on the authentication method being used.
+The exact details of the flows here depend on the authentication method being used.
+This solution also addresses the key issue #8.3 “Security on UEs’ access to slices”.
+It allows a UE to be authenticated in a network slice instance besides the primary authentication performed outside the slice instance.
+Editor’s note: The relationships between MMFs and slice need further clarification in light of expected response LS.1 – 9.
+The SMF determines whether the NG-UE is allowed to create the service session based on the NG-UE subscription profile.13.
+Editor’s Note: Whether SM message protection is necessary in addition to NAS protection and how to protect SM messages are FFS.17.
+SPCF returns the selected AUSF’s ID to SEAF.UE and AUSF authenticates to each other.
+SPCF selects an encryption algorithm, integrity algorithm and key lengths considering the slice security policy, UE’s security capabilities and network’s security capabilities.
+Editor's note: It is ffs whether this solution is aligned with SA2 architecure.
+MM and AU/SEAF belong to Common CP NFStep 9: Slice AUSF/ARPF returns the Slice AVs to the AU/SEAF in Slice.
+Step 13: SSF sends Attach Response to UE.5.8.4.11.2 Solution details This solution presents initial attach and UE authentication, together with authorization, to a network slice.
+Editor's note: It is ffs whether this solution is aligned with SA2 architecure.
+As a container, PCO could be used to carry other authentication methods applicable directly between the UE and the external server.3.
+The Serving CCNF forwards the PDU Session Request to the target NSI.5.
+The NSI initiates a Diameter based AA-Request message to the AAA Server.
+This message will contain CHAP-Auth and CHAP-Response (RFC ) parameters carrying user provided CHAP details.7.
+IntroductionThe high level security architecture and general procedure for network slicing is shown in figure 5.8.4.14.2-1.
+The exact details of the flows here depend on the authentication method being used.
+In the case where the relevant information is stored in the UDM, the SMF The SMF checks the slice security control policy.
+It 5.9.3.2 Key Issue #9.2: Integrity and confidentiality protection of remote UEs5.9.3.2.3 Potential security requirements5.9.3.3.1 Key issue detailsOngoing sessions could be hijacked by other UEs.
+The lack of native support of authentication and integrity mechanisms in the core network signalling messages.
+Editor's Note: This clause will document security assumptions related to each security area.
+It is assumed that an operator takes the full responsibility of securing his network elements e.g. by usage of IPSec according to.
+Many operators and service providers have not embraced IPSec and a global PKI infrastructure is missing for that purpose.
+The virtualized network infrastructure makes the condition worse, since the network elements and functions could be deployed dynamically in different location.
+Also, the fast deployment of next generation mobile network brings difficulties of IPsec management.
+The certificate requires a PKI system, which is a big cost.
+In addition, PKI systems meet difficulties in initial certificate application, certificate revocation and the periodical revocation list updating brings risk to the network.
+The online certificate status validation protocols, like OCSP, could help to solve this problem, however it is not widely used so far.
+There are many legal (for governments) and illegal service companies that rent out the attack services or the access to SS7.“Brute force” access.
+That can mean bribing an employee, bullying an operator, stealing access credentials of an operator or similar.
+Intelligence agencies appeared in the news for gaining access that way.
+However, there is one key questions:A Public Key Infrastructure (PKI) has some key elements.
+There are the cryptographic key pairs, which need to be securely generated and registered.
+When they are registered, they get a certificate, which binds them normally to an entity and has a lifetime.
+This whole trust construct raises some very fundamental trust and political issues with regard to the global Interconnection network.
+For the other cases, there are service providers which take care of providing roaming services.
+These service providers did not need to provide security in the past for SS7.
+In addition, those service providers would need to ensure, that the incoming hop and the outgoing hop are secured.
+Another aspect is that the equipment one sees on the interconnection network is very inhomogenous, there are many different releases, different protocols and different suppliers.
+This required the support of multi domain models or Interworking functions.
+Security wise, those “translation boxes” can be used to attack a system by pretending to be a node which only supports the low security protocol.
+Legacy nodes and protocols will have to be supported for a long time to come.
+Upgrading nodes in an organically grown network with security requires a very special expertise.
+its digital territoryOnce it is established what is the security you expect the next step is to look at the individual network.
+Each network will have to deal with messages from partners running the same level of trust and partners with different levels of trust.
+Trust and security come with a price tag for all participants.
+The rules related to a trust level define the actual costs.
+The same entity needs to provide also the revocation blacklist, which is important to identify compromised nodes.
+All entities in the trust group adhering to the trust level principals obtain the needed cryptographic material.
+As we discussed before, a message This implies that we have “two classes” of messages.
+Note, that an interconnection or a backbone connectivity provider untrusted, “RegionA-trusted”, “RegionB-trusted”.
+An operator who is security aware, This would pose the innermost circle of trust.
+The public key is known to the responding entity, i.e. the home network or the neighbouring serving network.
+Case 1: The serving network requests an authentication vector from the home network.
+It is expected that security contexts are forwarded between core network nodes also in NextGen.
+In the example of EPS, they include one or two KASME keys.
+In the present solution, this key is encrypted by the sending serving network with the public key of the receiving serving network.
+However, as the relationship among serving networks and home networks is a many-to-many relationship, the use of public key methods seems advantageous.
+First, the use of shared keys would require n(n-1)/2 agreements among n operators, while the number of public keys only grows linearly.
+Indication of security will be presented to the user when security capability negotiation happens and only if indication condition is met.
+The preference to the strongest algorithm available is delivered to the system.
+Security preference of UE will be delivered to network when security capability negotiation happens.
+If it has passed 12 hours since radio interface key refresh, UE will trigger key refresh request procedure.
+This solution provides a framework for UE configuration of security, while items for configuration can be added later whenever it is appropriate.
+Parts of procedures could be included in other procedures (e.g. Secure Mode Command procedures).
+Editor's Note: It is ffs whether EAP-TLS or EAP-TTLS, or the use of client certificates, are suitable examples of these methods.
+Editor's Note: It is ffs whether optional support by theThis issue is to be distinguished from the credential provisioning procedure between UE and provisioning server.
+Different network accesses and services have their own characteristics therefore the requirements for security mechanisms are diverse.
+IoT devices will span a wide range, from small devices (such as sensors, wearable devices) to big devices (such as smart home appliance).
+The Companion UE and IoT device NFC, Bluetooth, Wi-Fi Direct, lower power Wi-Fi, etc.
+The Companion UE acts as a bridge between IoT device andIOT Device is provisioned with certificate of the subscription Manager used for mutual authentication.
+The URL also includes a unique identifier for this device – e.g., www.NextGenCertAuthority.com/DeviceID=xxxx.
+The read URL is sent from companion UE to a specified functional component (hereafter, it is referred to as subscription manager) in the Core Network.
+For mutual authentication, Subscription Manager signs the profile, nonce using the private key of the Subscription Manager.
+IoT Device verifies the payload received using the public key of Subscription Manager.
+Figure 5.12.4.2.2-1: Credentials provisioning using captive portal techniqueWhen device is turned on, it performs network discovery to find available NextGen Networks.
+The device Device startsDuring this procedures, the device provides the Certificate URL to the NextGen Core Authentication Server Function (AuSF).
+Upon successful service subscription sign-up, a subscription profile (encrypted using the device’s certificate) is pushed to the device.
+If the verifications succeed, CP-AU continues the procedure, otherwise, it is aborted by CP-AU.
+NOTE 5: UE is assumed to have the public key of the operator.
+NOTE 6: eUICC in the UE applies the Cert_eUICC from GSMA CI which is different CA between CP-AU belongs to.
+If the IMEI is blocked, operator policies determine whether the Attach procedure continues or is stopped.
+The MM function then triggers the authentication procedure through the SEAF.
+The AUSF initiates the EAP-TLS authentication procedure with the UE (i.e. eUICC in the UE).
+The NextGen UE (i.e. eUICC in the UE) performs the mutual authentication with the AUSF.
+This message Editor’s Note: It’s FFS how to restrict the UE traffic over the PDU session.
+There are other solutions in this Security area that use provisioning credentials and provisioning identifiers for network access for credentials provisioning.
+Solution #12.2 uses a public-private key pair and certificate URL that includes a pointer to Certificate Authority and a unique identifier of the UE.
+Editor’s Note: More detail In Figure 5.12.4.5.2.2-1, high-level flows are provided for network access for credentials provisioning.
+The AUSF/ARPF authenticates the UE using the provisioning credentials and an EAP method, e.g., EAP-TLS, EAP-TTLS or PEAP.
+The SMF installs the received rules at the NG User Plane Function (NG-UPF not depicted).
+This ensures that the UE only uses the connection for the purpose of the remote provisioning of subscription credentials.
+The MMF completes the attach request and establishes the security contexts.
+The MMF/SMF the address of the provisioning server that the UE is allowed to connect to according to the policy rules.6.
+Several options of interworking and migration between radio technologies and possible core network concepts have been identified.
+In the latter trusted and untrusted access needs to be considered.
+For example the need for NextGen core of an operator to support roaming with partners that have not yet migrated to the NextGen core.
+The security key is transferred between MME and AMF through Nx interface to be used in the other network.
+Furthermore, appropriate security algorithms for confidentiality and integrity protection are selected based on the UE’s capabilities and service types.
+AMF requests PGW-C/SMF to provide SM (Session Management) context, and PGW-C/SMF provides it to AMF.
+If the UE has multiple sessions, AMF sends the request to multiple PGW-C/SMF.
+In this step, messages Editor’s note: How to derive the intermediate key is FFS.Editor’s note: Mapping of security context from 5G to 4G is FFS.8.
+The MME derives a security key KASME, which is used in EPS, by using K’ASME received form AMF in step 5.9.
+The MME sends create session request to SGW based on the received SM context.
+The SGW allocates resources for the session, and sends create session response to the MME.11.
+The eNB also derives security keys of AS security for confidentiality and integrity protection.13.
+The gNB sends HO command to the UE, which includes security configurations mentioned in step 14.
+Bearer and session modification is carried out among MME, SGW, PGW-C/SMF and PGW-U/UPF.1.
+The MME requests PGW-C/SMF to provide SM (Session Management) context, and PGW-C/SMF provides it to MME.
+If the UE has multiple sessions, the MME sends the request to multiple PGW-C/SMF.
+In this step, messages Editor’s note: How to derive the intermediate key is FFS.Editor’s note: Mapping of security context from 4G to 5G is FFS.8.
+The AMF derives a security key KAMF, which is used in 5GS, by using the intermediate key received form MME in step 5.9.
+The AMF sends create session request to the PGW-C/SMF based on the received SM context.
+The PGW-C/SMF allocates resources for the session, and sends create session response to AMF.11.
+The gNB also derives security keys of AS security for confidentiality and integrity protection.13.
+The command includes security configurations (algorithms for AS and NAS security).
+There is no dedicated signalling exchange specific to the UE between the RAN and the Core, there is no UE specific security in the RAN.
+The security and header decompression of the user plane packets are handled in the NextGen Core (in the UPGW part of the NextGen Core).
+Security algorithms, Compression algorithms etc are negotiated between the UE and the CN during the PDU Session set up.
+Security keys are derived are also derived at the UE and CN during the session set up.
+UEs sending data more than the size of allowed packet size need to be signaled to be in the regular connected mode.
+UEs sending data more frequently than allowed frequency of transmission need to signaled to be in connected mode.
+To receive mobile terminated SMS over NAS in this state, UE need to be paged first to make it connect to the network.
+Step 2: Mobile originated SMS scenario: UE sends the NAS message containing the SMS PDU.
+After AMF has checked the integrity of the NAS message, SMS PDU is retrieved by using decryption.
+Step1: The UE establishes a NAS context and registers with SMSF.
+AMF has the address of the SMSF in the UE NAS context.
+In the one step procedure, the SMSF and the UE keep the registration and thus the AMF retrieves the SMSF address fromthe UE NAS context.
+The NAS context in the UE and the AMF will dteremine whether the generic procedure needs to be done or one step procedure is possible.
+If the UE is in CM-IDLE, AMF initiates paging the UE to make it connected to the network.
+If the UE is already in CM-CONNECTED, this step is not needed, step 4 is directly executed.
+Both scenarios show the management plane communication can be subject to external attacks.
+Therefore, the protections on S1 interface All threats to management functions, i.e. the FCAPS functions.
+The attackers could Disclosing or tampering the software, configuration in NEs, and thereafter attacking the network functions or attacking other NEs via the compromised NEs.
+Network management entities 5.16.3.2.1 Key issue detailsIn next generation, low cost and quick deployment is required.
+The requirements Both are required to minimize manual operations and rely on automated operations as much as possible.
+The automated operations Faking NEs connecting to OM center or connecting to network.
+If there is information (e.g auditing information) that needs to saved, this happens during this phase.
+Run-time phaseAPIs exposed to tenants used for supervision and management could be compromised.
+it Editor’s note: Solutions addressing this key issue will be considered in Phase 2.
+AES is considered as quantum safe since the cipher can adapt to resist quantum computing attacks by increasing the length of keys.
+This key generation can make use of a random number generator API on the UE.
+A new home network public key (raw or certificate) can be delivered to the UE using any secure OTA mechanism, if required.
+This solution allows the UE and home network to enforce use of a superior (e.g. quantum safe) algorithm when both parties support it.
+See solution #2.12 for an example of how this can be done via the home network.
+Editor's Note: The study is expected to be divided into several security areas which all have their own key issues and solutions.
+A:Editor’s note: It is proposed that this Annex would include a list of security topics that are expected to help identifying areas of preferred contributions.
+As a consequence, similar mechanisms to the ones inandcan be reused in order to protect the exposed interfaces.
+In the remainder of this clause, a high level justification is proposed in support of the proposed trust model.
+The trust chain anchored at the hardware can extend to this layer via secure boot mechanisms.
+Furthermore, the network functions need to be mutually authenticated for example using similar credentials specific to for example the slice owner.
+For example, this can be achieved by using slice specific information (unique identifiers) in the derivation of access keys like the KASME in LTE.
+The deployment configuration of the network functions could then be based on an agreement with the service provider.
+Prioritization of key issues Below table concludes the key issue prioritization of the present TR.
+"Yes" (or phase 1) means that key issue needs to be decided in phase 1.
+"Yes" (or phase 1) does not mean that assumption made in key issue description is recognized as valid.
+The key hierarchy is done in phase 1 such that AMF and SEAF can be separated in later 5G phases.
+Description of QuestionThere This point E.1.5.3 Before security activation, there is no NAS security context to protect the NAS signalling messages.
+However, if these messages are tampered with, forged or replayed, it Thus, Yes. E.1.5.4 E.1.5.4.1 Description of QuestionYes.
+This question addresses whether the key hierarchy will support a key for the confidentiality protection of the NAS traffic.
+This question addresses also whether there is a need for an additional (compared to EPS) forward security mechanism during AMF changes.1.
+This question addresses also whether there is a need for a backward security mechanism (like in LTE) during handovers.
+It is agreed that the systems will provide backward security during handovers.
+E.2.1.2 Support for EAP framework for primary authenticationSeveral solutions propose support for the EAP framework for primary authentication.
+The choice of EAP methods E.2.1.3.1 Description of QuestionThe following EAP method The specific additional EAP method is decided in the normative phase.
+Questions and interim agreements for key issue #4.10E.4.10.1.1 Description of questionE.4.10.1.2 Interim agreementE.4.11 Questions and interim agreements for key issue #4.11Yes.
+Security aspects of changing AS security keys on-the-fly E.4.12.1.1 Description of questionE.4.12.1.2 Interim agreementE.4.13.1 Prevention of radio jamming attackNo.
+There is no need of temporary equipment identifiers in Phase 1 because permanent temporary identifier is sent protected except for emergency attach.
+If later phases, use cases for sending permanent temporary identifier in clear-text are envisioned, then this KI will be revisited.
+Security on management of slicingThis question addresses whether ther is a need to consider security for the network slice management.
+namesE.17.1.2.1 Description of QuestionYesComparison on nonAll the solutions are expected to support a unified authentication scheme by the NG core.
+For different procedures the functionality expected at N3IWF and other nodes are captured below.

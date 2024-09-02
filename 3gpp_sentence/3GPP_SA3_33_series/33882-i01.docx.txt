@@ -1,0 +1,66 @@
+The present document studies how 5G security architecture and procedures can be enhanced to support Personal IoT Network.
+A UE or non-For the purposes of the present document, the abbreviations given in TR 21.905 , TR 23.700-88 , and the following apply.
+So fardefines authorization of exposure capabilities on a rather general level in Clause 12.
+No details about handling of permissions or providing consent to a specific application function are defined.
+Therefore, aspects related to ownership and possible operation models of PINs need to be included in the analysis of the key issue.
+This solution addresses the requirement in KI#1 on authentication and authorization for PINE.
+This solution provides a method to ensure that the PINE can be authenticated and authorized by an AF before the connectivity for PINE is enabled.
+The PEGC initiates PDU Session modification procedure with the PINE information sent to the SMF via NAS signalling.
+The criteria for triggering PDU Session modification request can be based on existing mechanism or implementation.
+The SMF updates the PCF with the PINE information in SM Policy Association Modification if PINE is authorized.
+The QoS flow for the PINE communication with 5GS is established via PDU session modification procedure.8.
+Therefore, the solution has impact on 5GC.This solution addresses the KI#1 "Authentication and authorization for PINE".1.
+The PINE initially connects to the PEGC, the PEGC indicates to the PEMC of the connection.
+The DN authorization data described in clause 5.6.6 ofonly include a DN Authorization Profile Index.8.
+This solution addresses the authentication of PIN elements as described in KI#1 by utilizing a procedure similar to Data Network specific secondary authentication.
+An attacker might deploy a potentially malicious PEGC with aim to connect a victims' PINEs to this PEGC.
+Alternatively, an attacker might try to connect potentially malicious PINEs to a victim's PEGC.
+Figure 6.4.2-1: Authentication procedure for PINE using DN specific secondary authenticationPINE requesting connectivity via PEGC/UE:Step 1d.
+The SMF obtains the subscription information from the UDM and verifies if the PEGC/UE request for PSP DN is allowed or not.
+The PSP DN-AAA server verifies if the PINE is authorized or not.
+UE.This solution proposes combining PINE authentication and authorization with PDU session management.
+In Step 4a, the AF informs the CN about the outcome of Step 3 and provides the CN with a configuration.
+This configuration includes information about: PIN, PIN elements, communication requirements such as QoS, allowed interactions between PINE, etc.
+In Step 4b, the CN stores the configuration, e.g., in the UDR.
+In Step 5a, the CN informs the UE about the outcome of Step 4 and provides the UE with a configuration.
+This configuration (provisioned information) includes information about: PIN, PIN elements, communication requirements such as QoS, allowed interactions between PINE, etc.
+This configuration includes rules to enable an authentication and authorization procedure for a PINE (e.g., as required in Step 7c).
+With "authorization values" it is meant some type of authorization tokens that can be used to authenticate/authorize the access to the PIN during operation.
+For instance, the authorization values might be used by PINE/PEGC to protect/verify the traffic.
+These authorization values In reference to Figure 6.4.2.1-1:- In Step 8, PINE and AF perform an end-to-end authentication and authorization step.
+- Provisioning of the policy and parameters to PEGC by 5GC.
+Thus, the solution impacts the 5GCEAP-based authentication mechanisms are employed to enable 5GS to authenticate the PINEs.
+A PINE requests to access the PEGC for traffic relay to 5GS.
+The request includes identities of PINE, external AAA server address (optional).
+EAP identity of PINE can contain information about PINE ID, MAC Address, PEI, device ID.
+The PEGC authenticates and authorizes the access of the PINE, and allocates IP address for the PINE.
+The SMF can select the AAA server based on the AAA server address provided by the PINE.
+The SMF sends the EAP identity of PINE to the external AAA server to trigger EAP-based authentication mechanism.
+The external AAA server sends the successfully authenticated EAP identity of PINE to the SMF.
+The PCF queries the UDR for PIN Specific Service Parameters PINE ID and authenticated EAP identity, and receives the QoS requirement of the PINE communication.
+As per KI#1, the PIN Elements in a Personal IoT Network need to be authenticated and authorized.
+The PEMC and PEGC are authenticated and authorized as 5G UEs by the 5GC using existing procedures.
+Application-level authentication and authorization can use existing specifications e.g., CSA Matter .
+Upon successful authentication with PEMC, PIN Element is authorized by the PEMC to join the PIN.
+Depending on the WPA mode (personal/enterprise) an authentication server, local to the PIN, can be used.
+In particular, the WPA enterprise mode requires an authentication server, while the personal mode does not.
+The authorization is performed by PEMC or PEGC after successful authentication of PINE based on local authorization policy or configuration.
+The authentication server can be implemented as a part of the PEMC/PEGC or separately.
+The PEGC accepts/rejects the PIN Element request for data transfer from step 4.
+Similarly, to step 4, step 6 uses transport and/or application layer messages and is implementation specific.
+Step 7 uses procedures of existing standards such as e.g., CSA Matter .
+Initial packets of step 7 can be transmitted concurrently with steps 4,5 and 6.
+To authorize the AF to manage a specific PIN, the access token sent to the AF includes PIN identity.
+This architecture figure is closely following the architecture proposed in Solution #0D in TR 23.700-88including the labelling of the reference points.
+Since both PEMC and PEGC are UEs, they can use cellular connectivity to connect via the 5G user plane to application in a Data Network.
+Figure 6.11.2.1-1: Architecture assumed by the solutionPINE authentication and authorization is executed locally within a PIN domain.
+For this purpose, EAP is used between the PINE and the (local) PEMC.
+The PEGC is acting as EAP authenticator and in this role is relaying EAP messages between PINE and PEMC.
+The EAP messages are carried on top of the non-cellular communication protocol which is used for communication within a PIN domain.
+The actual procedure used for local authentication and authorization of a PINE is shown in Figure 6.11.2.2.1-1.
+The PINE is acting as EAP Client, the PEGC as EAP Authenticator and the PEMC as EAP Server.
+Step 3: The PEGC sends Access Request to the PEMC, which includes the EAP identity of PINE.
+The same protocol as in step 3, e.g., RADIUS or Diameter, can be used to convey this message to the PEMC.
+Step 7: The EAP Success message sent to the PINE completes the authentication procedure.
+The following text captured inindicates that the AF needs to send information to 5GC to generate PIN related URSP rules.
+It is further concluded that no normative work is needed for the authentication requirement of this key issue.

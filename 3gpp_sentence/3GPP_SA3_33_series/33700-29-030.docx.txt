@@ -1,0 +1,194 @@
+The EPS/5G AKA procedure It results into incomplete procedure for mutual authentication between the network and the UE.
+IntroductionThis solution, by reversing roles between UE/USIM and network, enables an Authentication and Key Agreement mutual scheme, with same security level as the usual one.
+Those reversed roles, because UE is originating the procedure, enable to cope with the connection discontinuity introduced by intermittent satellite coverage.
+UE generating AV can directly secure the user data to be attached as payload associated with first signalling messages.
+To avoid any synchronization issue, it will be recommended to use time-based SQN generation.
+UE and satellite setup a secure channel to mutually authenticate each other.3.
+The UE then derives keys from CK, IK as defined intill User Plane keys and generates UL user data protected by NAS keys.4.
+The UDM/ARPF computes RES, CK, IK and then computes RES* and KAUSF15.
+The AMF/SEAF determine the next satellite over the zone and send key material for RRC protection 21.
+The AMF/SEAF send to the satellite the REGISTRATION ACCEPT with RES* and user data DL message if any as encrypted payload.
+…till it will be able to reopen a service link with UE, RRC protected 23/24.
+The satellite sends to UE, the REGISTRATION ACCEPT with RES* and user data DL message if any as encrypted payload.
+Those reversed roles, because UE is originating the procedure, enable to cope with the connection discontinuity introduced by intermittent satellite coverage.
+UE generating AV can directly secure the user data to be attached as payload associated with first signalling messages.
+Nominal AKA procedure will be performed after with symmetrical key K_nsat.
+Local MME generates the AUTHENTICATE REQ to the local HSS/AuC for the requesting IMSI 4.
+Local HSS/Auc generates AV from the key Knsat derived from MK for the satellite nsat.
+Proprietary bit of AMF is used to indicate that the authentication is performed with a satellite acting as a local network9.
+The USIM checks AMF value and derives K_nsat from MK thanks to KDF where n=nsat stored previously.
+The derived key K_nsat takes the role of permanent subscriber K to perform AKA procedure11.
+GET IDENTITY COMMAND with specific context to provide NCGI (NR Cell Global Identifier) as parameter.
+USIM responds with SUCI.Local AMF generates the AUTHENTICATE REQ to the local AUSF/UDM/ARPF/SIDF for the requesting SUCI.
+Local AUSF/UDM/ARPF/SIDF generates AV from the key K_nsat derived for the satellite nsat.
+The USIM checks AMF value and derives K_nsat from MK thanks to KDF where n=nsat stored previously.
+The derived key K_nsat takes the role of permanent subscriber key to perform AKA procedure.
+It applies to an architecture when a complete network is deployed in the satellite or set of interlinked satellites..
+The small data is transferred within the NAS message similar to the small data IoT feature.
+Each time the UE sends small data, it derives the new NAS keys and computes the corresponding authentication result from the previously received token.
+Interruption of the logical RRC and NAS connections are mitigated by this solution.
+The satellite stores the NAS message and forwards it to the AMF once the link becomes available.
+The AMF/SEAF sends an Nausf_UEAuthentication_Authenticate Request message to the AUSF including the indication that the registration is via store and forward network.
+The AMF derives both the KAMF and the provisional NAS keys from KSEAF without performing a NAS SMC procedure.
+The default algorithms for integrity and confidentiality maybe preconfigured in the AMF and UE.
+The UE sends a NAS Request to the store and forward satellite network.
+The UE includes its identifier, the authentication result, computed from the previously received authentication token, and the small data.
+The AMF derives the new KAMF and the new provisional NAS keys without performing a NAS SMC procedure.
+The default algorithms for integrity and confidentiality maybe preconfigured in the AMF and UE.
+The serving satellite sends a NAS Response message to the UE including an acknowledgement for the small data and the new authentication token.
+The UE computes the new authentication result from the new authentication token.
+Interruption of the logical RRC and NAS connections are mitigated by this solution.
+When the gNB, AMF and UDM/AUSF are all on board, the authentication and NAS security procedures follow what defined in TS 33.501.
+Figure 6.6.2-1 shows the message flow for secure primary authentication and NAS security context establishment in S&F operations.
+Also, the reject message with this new cause includes updated NAS timers for S&F operations.
+The solution assumes that atleast gNB and AMF are on-board on satellite.
+Upon receiving the list of RANDs and AUTNs, the UE verifies the received AUTNs and calculate the RES and stores it.
+The message includes the SUCI or 5G-GUTI, RES*, RAND, SQN and NAS MAC-I. The NAS MAC-I is used for integrity protection of the message.
+Upon receiving the N1 message request from the UE, the SEAF stores the NAS MAC-I for the later integrity check.
+If successful, the SEAF considers the authentication successful from the serving network point of view.
+The SEAF derives further keys to establish the NAS security context.
+This solution mostly follows inverse AKA procedure but is applicable only for subsequent authentication.
+The solution requires the UE to be provisioned with the required one or more AVs to be utilized during subsequent authentication.
+This solution addresses key issue #1: Security protection in Store and Forward Satellite Operation.
+In addition, after a valid UE sends registration request message, the UE will wait till the service link is available again for authentication.
+The satellite provides a random number generated by the satellite (SAT.RN) and S&F indicator indicating that the satellite is operating in S&F mode.
+These This message consists of the Attach Request message (UE.ID, UE.RN, SAT.RN, and S&F indicator in addition to existing parameters) and digital signature.
+The UE checks the validity of the satellite by verifying the SAT.Sig.
+If verified, UE waits for step 7 based on the guideline received.
+If so, the UE computes a response RES.The satellite checks that the RES equals XRES.
+As a result of the authentication and key agreement, an intermediate key KASME is shared between the UE and the satellite.
+Editor’s Note: System impact is FFS.This solution satisfies all of the potential security requirements in KI#1.
+It 1-3 Initial Registration Process: Upon entering the satellite's coverage, the UE initiates an Initial Attach Request.
+The MME-SAT, unable to immediately establish a ground connection, temporarily stores the UE's International Mobile Subscriber Identity (IMSI) and issues an Attach Reject message.
+Any discrepancies trigger a detach procedure during the next satellite contact.
+The solution introduces a split architecture for the MME, with segments aboard the satellite (MME-SAT) and on the ground (MME-GND).
+This design accommodates the intermittent connectivity of satellite coverage and facilitates secure communication between the UE and the network.
+Upon establishing contact with MME-GND, MME-SAT requests authentication vectors from the Home Subscriber Server (HSS), enabling the authentication of the UE in subsequent coverage.
+This process ensures that the communication between the UE and the network is authenticated and secure, addressing the confidentiality and integrity of the messages.
+The provisional Update Location Request sent to the HSS immediately after successful authentication includes an indicator that the location update is provisional.
+This approach optimizes the handling of location data under intermittent connectivity, ensuring that the integrity and confidentiality of control-plane messages are maintained.
+UE subscription information is stored in a UE authentication token that is protected by confidentiality and integrity.
+Figure 6.10.2-1: UE context management procedure for S&F operationNOTE: What subscription information 2.
+The satellite decrypts and verifies the UE authentication token using the security materials received in step 0.
+The satellite generates UE subscription data using the content contained in the UE authentication token.4.
+The satellite and the UE continue to perform other attach/registration procedure.
+procedures.- Token protection keys need to be pre-configured in the satellites.6.11.1 Introduction1.
+After an UE attaches a satellite, the satellite saves the MME UE context in the UE authentication token that is protected by confidentiality and integrity.
+When the UE connects to another satellite, it provisions the UE authentication token to the satellite.
+When a UE is handed over to a second satellite, its MME UE context will also need to be relocated to a second satellite.
+Security information used for MME relocation is provided to the second satellite through the token.0.
+The 4G system provisions security materials for encrypting and verifying UE authentication tokens to satellites that support S&F operation.
+UE authentication tokens need to be protected by confidentiality and integrity.1.
+When the UE connects to another satellite, it sends an attach request to the satellite, which includes GUTI and UE authentication token.7.
+The drawbacks of this method are:- Protocol needs to be changed in order to transmit tokens.
+This solution addresses Key Issue#1 on Security protection in Store and Forward Satellite Operation.
+The UE and the HSS-NTs for multiple satellites use subscriber key separation mechanism descriped in Annex F “Isolated E-UTRAN Operation for Public Safety” in.
+For each UE, there is a master key MK for S&F Satellite operation.
+The master key MK is stored in the UICC, but not in any HSS-NTs.
+Each HSS-NT is only provisioned with the subscriber keys (i.e., long-term key) derived from the master keys MKs for a subset of users.
+The HSS-T is provisioned with the the subscriber keys (i.e., long-term key) derived from the master key MK for all users.
+Then, EPS AKA proceeds as described in clause 6.1 in 3 , with the subscriber key replacing the permanent subscriber key in all computations.
+The onboard HSS is synchronized with the HSS on the ground when feeder link is available.
+It is assumed that a subset of UEs have their subscriptions and credentials in the onboard HSS.
+Different satellite stores distinct subscriptions and credentials for different subsets of UEs.
+This solution addresses KI#1: Security protection in Store and Forward Satellite Operation.
+This solution addresses an authorization mechanism to prevent the S&F service function from being flooded with excessive uplink NAS message.
+If a UE sends an uplink NAS message without a one-time password, the satellite regards the UE as an unregistered UE or a legacy UE.
+As an example, the satellite only offers registration service or emergency service and drops any other uplink NAS messages for OTP-less UE.
+Figure 6.14.2-1: Authorization mechanism for the uplink data in S&F Satellite OperationThe MME\AMF generate a one-time password based on the S&F service indicator.
+The network forwards the one-time password to the satellite which will provide the S&F service for the UE at the feeder link unavailable period.
+Editor’s Note: How does the UE know the feeding link status will be aligned with SA2 and it is ffs.
+When the feeder link is available, the satellite sends the uplink NAS message to MME\AMF in ground network.
+To be specific, the MME first checks the UE authorization based on the UE subscription information obtained by the HSS.
+If the UE is authorized, the MME interacts with the HSS to get the authentication vector and sends the authentication request to the UE.
+The MME interacts with the HSS to obtain the UE subscription information for initiating the authentication procedure.
+If the service link is unavailable, the eNB temporary stores NAS signalling from the core network.
+When the service link becomes available, the eNB forwards NAS signalling to the UE, which can be Attach reject message or Authentication request message.
+If the UE is authorized to use S&F service operation, the step #5b is executed.
+If the UE receives authentication request message, the UE returns authentication response to the eNB.The MME returns NAS Security Mode Command message.
+IntroductionThis solution provides a method for the eNB to perform UE authorization during S&F MO transmission.
+The UE S&F authorization information is included in the UE context, which can be provided by the MME.
+Only for the authorized UE, the eNB can temporarily store the MO data and forward it when the feeder link becomes available.
+The proposed solution ensures the eNB on board the satellite can resist the DoS attack launched by an unauthorized UE.
+The UE sends MO data by using the CP CIoT EPS Optimization or UP CIoT EPS Optimization.
+If the UE is not authorized, the eNB sends reject message, in9dicating the unavailability of feeder link.
+Once receiving the reject message, the UE stops to send the MO data until both the service link and feeder link become available.
+If the UE is authorized, the eNB determines to temporarily store the MO data.
+NOTE 1: The UE can determine the status of feeder link based on the coverage availability information and/or satellite orbit information.
+Once receiving the attach request, the MME determines whether to trigger the AKA procedure as defined in.
+The back-off timer indicates when the feeder link becomes available, which is determined by using the pre-provisioned orbit information of satellite.
+After the AKA procedure is completed, the MME continues the attach procedure as defined in.
+Editor’s Note: Each solution Key issue#1 is addressed by this solution.
+If supported, the integrity protection is activated as much as possible.
+For example, if the UP integrity protection policy is “preferred”, the integrity protection will be activated.
+This solution addresses store and forward Satellite Operation in the delivery of delay-tolerant/non-real-time satellite services.
+If only data after integrity verification is stored, the fake data from attacker will be discarded.
+Editor’s Note: additional evaluation is FFS.This solution addresses the KI#2.The attach procedure is based on the Solution #11 in TR 23.700-29.
+Step1: The UE randomly generates one or multiple temporary UE IDs.
+The UE sends the initial Attach Request (IMSI, temporary UE IDs) to the SAT1.
+In addtion, the GUTIs are formed based on the temporary UE IDs.
+The UE extracts the temporary UE ID from the received interim GUTI1 and compares it with the stored temporary UE IDs.
+If success, the UE generates and sends S-TMSI1 to get connected.
+The solution is based on the SA2’s solution #11 with security enhancement.
+The solution addresses the key issue #2 “privacy threats of S&F operation”.
+The UE who stores the interim GUTI will reply back to the SAT1 by sending the Attach Request with the interim GUTI.
+The SAT2 uses the interim GUTI to find the stored Authentication Request message.
+The UE and the network continue the procedures above to finish the attach procedure.
+Once a new GUTI is assigned from a protected NAS message, the interim GUTI becomes invalid.
+The network side just stores the association between IMSI and DL NAS message, and uses the IMSI for paging.
+In step 8 and 9, the SAT2 uses IMSI for paging.
+The solution has little additional impact based on SA2 solutions that assign an interim GUTI to the UE in an unprotected NAS message.
+This condition can be exploited by fraudulent UEs mounting a (D)DOS attack.
+The simplified call flow associated with the proposed solution is presented below.
+Figure 6.21.2-1: Call flow for Solution #X: Remediation of unauthenticated (D)DOS in S&F1.
+UE issues Registration Request as per Registration Procedure as perFigure 4.2.2.2.2-1: Registration procedure3.
+The equipment on board of satellite, (either eNB/MME or gNB/AMF) verifies the evidence and checks for the optional freshness.
+RAM productivity has an outsized effect on the time needed to reverse the hash function.
+Evidence produced in the process of solving the puzzle comprises the full length of hash input.
+UnEn checks if the hash is brute-forced (e.g., if the hash output corresponds to the whole hash input)7.
+The evidence is comprised of the solved (i.e., brute-forced) complete hash input text.
+Every Satellite which is maintaining a Service link to a UE/IoT acts as the primary-SAT and is establishing a communication to other neighbour Satellites.
+The primary-SAT establishes Satellite Group/constellation which is used to transfer UE/IoT contexts and/or Data.
+In case the UE/IoT and/or Satellite is moving, then the primary-SAT ‘role’ also moves to the new primary-Satellite.
+The Application Functions (AF) for some reasons might need to connect to a specific UE (IoT), because the AF wants to share data for instance.
+The UE (IoT) paging procedure will need to be triggered by the AMF.
+The AMF is connected to different satellites (SAT#1, SAT#2, …) and the UE (IoT) is connected to SAT#3 (for instance).
+In this case the AMF cannot reach out to the UE (IoT) on a direct path.
+The SAT#3 is acting as Primary SAT (pSAT) and is establishing a Selective SAT Group.
+This selective SAT group (SSG) consists of at least two satellites, i.e., one Primary SAT and another one Secondary SAT.
+New satellites can be added to the Selective SAT group or existing can be removed.
+The pSAT is maintaining an inter-SAT communication to every secondary SAT (star-topology).
+(1) The UE (IoT) is connected via a service link with SAT#3.
+The SAT#3 is acting as the primary SAT for this one UE (IoT).
+Figure 6.22.2-2: (1) The UE (IoT) is connected via a service link with SAT#3.
+The SAT#3 is acting as the primary SAT for this one UE (IoT).
+The SAT#1 (or SAT#2) Satellite receive the paging request for UE (IoT), SAT#1 pages the UE (IoT) within their own ‘tracking area’.
+The SAT#1 Satellites sends a Paging Request towards the SAT#3 as well.
+Due to this, the SAT#3 is receiving a paging request and is triggering paging for that UE (IoT) device in own ‘tracking area’.
+The UE (IoT) is receiving the paging request and is responding with a Random-Access Procedure.
+It applies to an architecture when RAN is deployed in the satellite.
+Solution details Figure 6.23.2-1:Security procedure for the DL NAS message in S&F Satellite Operation0.
+The first 16 bits of NAS-MAC form UE Auth_code and the last 16 bits form RAN_Auth_code.
+The MME also prepares the downlink NAS PDU to send to the UE4.
+If the verification is successful, the UE sends the RRC connection setup complete to the RAN node with UE_Auth_code.8.
+When the service link is available, the UE generates UE Auth_code and RAN_Auth_code using the same method with the AMF/MME.
+With this approach, the NAS PDU will not be sent to a malicious terminal.
+This solution addresses “Key issue #1: Security protection in Store and Forward Satellite Operation”.
+UE loses radio connectivity while waiting for completion of authentication procedure.
+After successful establishment of security context, AMF' needs to perofrm Nudm_UECM / Nudm_SDM procedures before sending Registration Accept to the UE.
+This means two issues:Waiting for next satellite above means UE loses radio connectivity.
+It also stores the information received over NgAP interface, e.g. the UE's location.
+AMF' can validate the RES* if the same was provided by AMF.
+Else, the AMF' Step #11: This is followed by Security Mode Command/Complete.
+Step #13: The AMF' on-board Sat#3 downloads UE-context into the AMF on-ground.
+For example, the satellite The storage capacity of the satellite can be easily exhausted, which leads to DoS attack on the satellite.
+The permanent key Editor’s Note: Whether the permanent key PHASE 1.
+If verified, UE waits for step 7 based on the guideline received.5.
+Upon the receipt of the Authentication Data Request from the satellite, HSS in the GND generates Authentication Vector(s) as defined in clause 6.3.2 in.
+The UE retries the network connection by transmitting the Attach Request.
+Editor’s Note: Whether step 7 needs to be protected is FFS.9.
+As a result of the authentication and key agreement, an intermediate key KASME is shared between the UE and the satellite.
+This solution satisfies all of the potential security requirements in KI#1.
+The UE additionally includes the UE’s Public key in the Certificate in the registration or Attach Request message.
+This Public key in the Certificate will be used to encrypt the partial registration or attach accept message.
+The gNB or eNB and/or AMF or MME (onboard) stores the received authentication vectors, subscription details received until the service link is available.

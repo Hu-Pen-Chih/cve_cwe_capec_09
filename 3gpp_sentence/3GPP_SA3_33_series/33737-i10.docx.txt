@@ -1,0 +1,75 @@
+The present document studies key issues and potential solutions to support roaming aspects and the Authentication Proxy in AKMA, which is specified in.
+This clause captures the architectural assumptions for the non-roaming and roaming models.
+These architectural models do not include the AKMA functions which enable LI in the VPLMN as these functions are the objects of the study.
+The AUSF sends the Naanf_AKMA_AnchorKey_Register Request with SUPI, A-KID, KAKMA, and Registered SN ID to the home AAnF.
+The AKMA context is updated with this received Registered SN ID.5a.
+The UE requests an application session establishment request with A-KID towards the AF.
+IntroductionThis solution provides a method that when both UE and the AF in the same visited network.
+When the AF is inside 5GC, it can communicate with the UE's AAnF in HPLMN directly.
+Step 6, the UDM sends the Nudm_Get_Roaming_NFid Response message to the AF with the VPLMN NF id(s).
+If not, the VPLMN NF ignores the Push application Key Request message.
+Figure 6.4.1-1 shows the SBA architecture that UE is roaming in a VPLMN and accesses the application deployed in the VPLMN.
+The home network (HPLMN) needs an agreement with the service network (VPLMN) to use the AKMA service deployed in the home network.
+In this scenario, the AF in the service network can sense the AKMA service used by the UE.
+The AUSF requests authentication information to the UDM to acquire subscription information and authentication method in primary authentication procedure.3.
+If the AUSF receives the AKMA indication from the UDM, the AUSF stores SN-name, KAUSF and generate AKMA Anchor Key (KAKMA) and the A-KID.
+The UE generates the KAKMA and the A-KID if the primary authentication procedure is completed.5.
+To select the AAnF in VPLMN to register KAKMA and A-KID, local configuration or NRF can be utilized.
+If the AF decides to support the UE from other serving network, the AF requests application key to the AAnF in VPLMN.
+To selects the AAnF in VPLMN for the AF to provide the KAF, local configuration or NRF can be utilized.
+The AAnF in VPLMN sends Naanf_AKMA_ApplicationKey_Get response to the AF in VPLMN with SUPI, KAF and the KAF expiration time.
+When the UE initiates communication with the AF in HPLMN, it includes the derived A-KID in the Application Session Establishment Request message.4.
+The AAnF in HPLMN sends Naanf_AKMA_ApplicationKey_Get response to the AF in VPLMN with SUPI, KAF and the KAF expiration time.
+The solution fulfils LI requirement that LI contexts (e.g. encrypted traffic data and keys related to AKMA) are ready before the application session established.
+KAKMA in HPLMN is shared to VPLMN, and same KAKMA will be AKMA anchor key in HPLMN and VPLMN.
+In step 9, the HAAnF detects based on the SN name that the UE is roaming and if the VPLMN has AKMA LI enhancements.
+If the AF further derives a session key from KAF, then this is also provided to the HAAnF.
+The HAAnF needs to be enhanced with SLAs, operator policies or corresponding contact NF (NEF or VAAnF) in the VPLMNs.
+It helps to reduce the consumption of authentication vectors and/or to minimize SQN synchronization failures, and relieves the AS of security tasks.
+It The AP helps the ASs behind the AP to execute AKMA procedures to save the consumption of signalling resources and AAnF computing resources.
+When an HTTPS request is destined towards an application server (AS) behind an AP, the AP terminates the TLS tunnel and performs UE authentication.
+The AP proxies the HTTP requests received from UE to one or many application servers.
+If the internal AF resides in the HPLMN, the AAnF discovery and selection is performed as specified in the clause 6.7 of.4.
+The AAnF obtains the VPLMN NF (e.g. AMF) id that can store the key from the UDM based on the UE ID.
+Step 5, the UDM sends the Nudm_Get_Roaming_NFid Response message to the AAnF with the VPLMN NF id(s).
+If not, the VPLMN NF ignores the Push application Key Request message.
+The proposed solution supports AKMA roaming by using K_SEAF to derive K_AKMA when the UE connects through the VPLMN.
+Similarly, the HPLMN can also generate the same AKMA keys derived from K_SEAF since the AUSF has K_AUSF.
+This approach removes the need of interacting between VPLMN and HPLMN to retrieve those keys.
+This approach facilitates LI during roaming since AKMA keys are directly available in the VPLMN.a) R17 UEs cannot access AKMA services when roaming.
+VAAnF fetch KAF from HAAnF.Step 0: UE performs primary authentication with the network.
+Then KAUSF is shared between UE and AUSF in Home network.
+Step 1.1: UE generates KAKMA and A-KID following AKMA procedure inand stores them securely.
+Step 4: UE send Application session establishment request (A-KID) to AF.
+General Figure 6.11.2.2-1 Authentication in roaming scenario – Option#2Step 1.2: AAnF generates KAKMA and A-KID following AKMA procedure inand stores them securely.
+The KAKMA and A-KID are forwarded to the VPLMN during primary authentication procedure.
+Rest of primary authentication procedure is performed as defined in clause 6.1.3 of.8.
+The selection of the AAnF is described in clause 6.7 of.10.
+The UE is roaming in VPLMN and AKMA anchor key is registered in the AAnF in VPLMN after the procedure in clause 6.12.2.1.1.
+When the UE initiates communication with the AF in VPLMN, it includes the derived A-KID in the Application Session Establishment Request message.3.
+The AAnF in VPLMN derives the KAF from KAKMA if it does not already have KAF.5.
+The UE is roaming in VPLMN and AKMA anchor key is registered in the AAnF in HPLMN after the procedure in clause 6.12.2.1.2.
+The AF in HPLMN requests application key to the AAnF in HPLMN.
+The new KAKMA and A-KID will replace the old keys whenever primary authentication is performed.
+AUSF can decide this based on indication from the UDM in Step (1) and/or local policy.
+Based on the received information, if vAAnF receives KAF and Key lifetime, it provides the same to AF.
+NOTE 2: How the solution is aligned with the architectural assumption in clause 4 is not addressed in the present document.
+Impacts to UE: - UE needs to send the SN ID in the session establishment request to the AF.
+The solution also ensures that the AKMA Application Key KAF provided by the HPLMN to VPLMN is correct.
+Solution detailsPre-requisite: there is establishment of the key KAKMA between the UE and hAAnF.
+And, during the establishment of the AKMA key (KAKMA), the AUSF also provides the SN name to the AAnF in the HPLMN (hAAnF).
+The key KAF would be replaced by the encryption key provided by hAAnF in all the steps describing the use of the key KAF.8.
+This message contains the current GUTI value encrypted by the UE with KAF, and associated A-KID and AF-ID.
+The UE can use KAF if the KAF check was successful.
+This solution also covers the scenario where AF is an external AF in Data Network.
+If a primary authentication procedure is required, steps 0a - 1 are executed.
+NOTE 2: According to, 4.2.8.2.2, the UE can be registered in two VPLMNs.
+the AMF obtains the address of ASNF via the NRF or local configuration.
+The message contains the UE SUPI, serving PLMN ID, and ASNF address.
+The UE registration information is updated and stored in the UDM.4b.
+The AF requests the AF key (KAF) from the AAnF, possibly via NEF.
+The AAnF generates AF key (KAF) and returns the key to the AF as specified in.
+The AAnF now have AKMA related key material and parameters KAF and the information used for key derivation thereof.
+The message contains for example the UE ID, keys and parameters used to derive AKMA application session keys.8.
+The message contains UE ID (e.g., SUPI), and cryptographic information such as selected encryption algorithms, cipher suites, input for ciphering: key(s), nonce(s), counter(s) etc.
+Now the ASNF(s) has/have the AKMA cryptographic information for the UE and perform(s) necessary regulatory actions accordingly.

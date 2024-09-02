@@ -1,0 +1,50 @@
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+The above specifications form the baseline for the present document on security aspects of MSGin5G Service for the 5G system (5GS).
+MSGin5G Service enables an UE sending/receiving message of text, voice, video or data to/from another UE or application server.
+It is basically designed for IoT device communication, including thing-to-thing communication and person-to-thing communication.
+The emerging IoT device communication will introduce new requirements of messaging service in terms of service capabilities, performance, charging, and security etc.
+For example, for the following scenarios from, the contents of the messages are required to be integrity and confidentially protected.
+This key issue studies the related transport security, i.e. confidentiality, integrity and replay protection.
+Registration of a 5GMSGS client to a MSGin5G Server when not using IMS base solution; and the exchange of MSGin5G messages.
+Sending notifications and information in the incoming MSGin5G messages received by the 5GMSGS client to the application clients from other MSGin5G service endpoints.
+The malicious 5GMSGS Client stores the identifier and uses it in all subsequent MSGin5G communication with the MSGin5G Server.
+This reference point supports access to MSGin5G Server and APIs to enable sending and receiving of MSGin5G messages.
+SEAL Client authenticates with SEAL server as a result of which it receives access token using OpenID Connect protocol as specified in.
+In this step the SIM-C provides the 5GMSGS UE identifier in case to associate the SIM-C with the 5GMSGS client.
+This solution works only if OpenID Connect protocol is supported by the system.
+NOTE 2: The primary credentials for user authentication (e.g., username/password) are based on MSGin5G service provider policy.
+The method chosen by the service provider is neither defined nor limited to the example (username/password) provided in this solution.
+The access token is used by the 5GMSGS UE client to authorize the communication between the 5GMSGS UE client and the MSGin5G server.
+This solution reuses SEAL procedure for authentication and authorization between MSGin5G Client and MSGin5G server.
+In this solution, SEAL server acts as an access token issuer and validator.
+SEAL Client authenticates with SEAL server as a result of which it receives access token using OpenID Connect protocol as specified in.
+This solution addresses the security requirement for the Authentication and Authorization between 5GMSGS UE client and MSGin5G server in key issue #2.1.
+The UE registers to the network and perform the primary authentication procedure.
+After the successful completion of the secondary authentication procedure, the MSGF sends EAP Success message to the SMF including the registration response.10.
+Solution uses the NDS/IP for the data protection over MSGin5G-1 interface as specified in SEAL specification.
+The AKMA capability indicates that 5G MSG Server supports to use AKMA, thus the UE and the 5GC generates KAKMA as specified in .
+Figure 6.4.2-1: Authentication/Authorization based on AKMAStep 4: The UE and the 5G MSG Server establish the TLS security tunnel based on the key K5GMSG.
+This solution proposes to use TLS-PSK based authentication for the authentication between MSGin5G UE and the MSGin5G server.
+The UE and AMF performs the capability exchange procedure and agree upon the method of authentication for MSGin5G service during PDU session establishment.
+The UE derives the KMSG key for MSGin5G service, whenever there is a trigger to get MSG service.
+Based on the UE's capability to support MSGin5G service, the SEAF/AMF derives the KMSG.
+Key derivation step is skipped, if the UE and AMF holds a valid KMSG.
+The SEAL server stores the latest information sent by the SEAF/AMF.
+Step 17-19: SEAL server validates the received access token and the MSGin5G server validates the service request by validating the MSGin5G service ID.
+Step 4: SMSF sends a key request to the designated AMF.
+On receiving the initial service provisioning response, the UE derives the KMSG-PSK.
+On successful initial service provisioning procedure, the UE and SMSF establishes a TLS session using pre-shared key KMSG-PSK.
+Step 11-12: On successful TLS session establishment the UE sends an application token request to the SMSF.
+Step 16-18: SMSF validates the received access token and the MSGin5G server validates the service request by validating the MSGin5G service ID.
+The UE and AMF perform the capability exchange procedure and agree upon the method of authentication for MSGin5G service during the PDU session establishment.
+The AMF sends back the derived KMSG in the key response.
+Step 10: On successful initial service provisioning procedure the UE and N3IWF establishes a TLS session using pre-shared key KMSG-PSK.
+Step 11-12: On successful TLS session establishment the UE sends an application token request to the N3IWF.
+This solution addresses the transport security requirements for MSGin5G-3 interface defined in key issue#1.
+For protection over MSGin5G-3, TLS is used as specified in, unless security is provided by other means, e.g. physical security.
+If the CAPIF capability is consumed by the Application Server, the interface security defined in theclause 12 can be reused.
+Step 4: The MSGin5G UE and the 5G MSG Server establish the TLS security tunnel based on the key K5GMSG.
+This solution addresses key issue#4 by using the authentication and authorization between network functions specified in clause 13.3.2 in 33.501 .
+For MSGin5G-1 interface, it is proposed to use AKMA-based solution (Solution #9) to protect the MSGin5G-1 interface in the normative work.
+For MSGin5G-2 and MSGin5G-4 interfaces, it is proposed to use solution#10 as the basis for the normative work.
+TLS can be used for transport protection of MSGin5G-2 and MSGin5G-4 interfaces unless network security is provided by other means.

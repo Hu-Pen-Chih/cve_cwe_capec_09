@@ -1,0 +1,182 @@
+z the third digit is incremented when editorial only changes have been incorporated in the document.
+The following documents contain provisions which, through reference in this text, constitute provisions of the present document.
+IETF RFC : "Extensible Authentication Protocol (EAP)".3: "Procedures for the 5G System".
+For the purposes of the present document, the terms given in 905and the following apply.
+A term defined in the present document takes precedence over the definition of the same term, if any, in 905 .
+For the purposes of the present document, the abbreviations given in TR 21.905and the following apply.
+An abbreviation defined in the present document takes precedence over the definition of the same abbreviation, if any, in TR 21.905 .
+The 5G PKMF interacts with the 5G ProSe-enabled UE using procedures over PC8 reference point defined in clause 4.2.2.
+The protection for the key request/response messages are described in clause 5.2.5.
+It is used to transport security material to UEs for 5G ProSe UE-to-Network Relay communication.
+The reference point between the 5G PKMF of the 5G ProSe Remote UE and the 5G PKMF of the 5G ProSe UE-to-Network Relay.
+When the Prose Application Server is controlled by a MNO, security procedures specified in clause 13 ofis applicable.
+According to clause 6.3.1.4 of, the UE identity is included in the Discovery Request message.
+Privacy of UE identity is ensured by the confidentiality protection over PC3a interface.
+The 5G ProSe-enabled UEs have interactions with the 5G PKMF over the PC8 interface in the ProSe features described in clause 4.2.2.
+The open 5G ProSe Direct Discovery security procedure is described as follows.
+Match Response (Current Time, Match Report refresh timer)HPLMN of A-UE DDNMF HPLMN of M-UE DDNMFVPLMN of A-UE DDNMF 2.
+(Match Report refresh timer) Figure 6.1.3.1-1: Open 5G ProSe Direct Discovery security procedure 1.
+If the Announcing UE wants to send announcements in the VPLMN, it needs to be authorized from the VPLMN 5G DDNMF.
+The 5G DDNMF in the HPLMN requests authorization from the VPLMN 5G DDNMF by sending Announce Auth.() message.
+There are no changes to these messages for the purpose of protecting the transmitted code for open 5G ProSe Direct Discovery.
+If the Announcing UE is not roaming, these steps do not take place.(-07)153.
+The 5G DDNMF stores the Discovery Key with the ProSe Application Code.
+The Announcing UE obtains a value for a UTC-based counter associated with a discovery slot based on UTC time.
+The counter is set to a value of UTC time in a granularity of seconds.
+Four least significant bits of UTC-based counter are transmitted along with the discovery message.
+The MIC is calculated as described in clause A.2 ofusing the Discovery Key and the UTC-based counter associated with the discovery slot.
+The 5G DDNMF in the HPLMN of the Monitoring UE sends Monitor Req. message to the 5G DDNMF in the HPLMN of the Announcing UE.
+The 5G DDNMF in the HPLMN of the Announcing UE sends Monitor Resp.
+message to the 5G DDNMF in the HPLMN of the Monitoring UE. 9.
+The UE sets its ProSe clock to CURRENT_TIME and stores the MAX_OFFSET parameter, overwriting any previous values.
+The Monitoring UE obtains a value for a UTC-based counter associated with a discovery slot based on UTC time.
+The counter is set to a value of UTC time in a granularity of seconds.
+The relevant Discovery Key is found using the ProSe Application Code.
+The Match Report refresh timer indicates how long the UE will wait before sending a new Match Report for the ProSe Application Code.
+The 5G DDNMF in the HPLMN of the Monitoring UE acknowledges the MIC check result to the Monitoring UE.
+The 5G DDNMF returns the parameter ProSe Application ID to the UE.
+It also provides the CURRENT_TIME parameter, by which the UE (re)sets its ProSe clock.
+The security procedure for restricted 5G ProSe Direct Discovery Model A is described as follows.(-07)173.
+Discovery Rsp (Code-Rcv-SecParams, CURRENT_TIME, MAX_OFFSET, Chosen PC5 ciphering algorithm)Monitoring UE performs Discovery Request procedure8.
+Optional Auth Request / Response ()Monitoring UE performs Match Report procedure for MIC checking if required15.
+The Relay Discovery Key Request message includes the Relay Service Code (RSC) and the 5G ProSe UE-to-Network Relay's PC5 security capability.
+The 5G DDNMF For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+If the Announcing UE is roaming, the 5G DDNMFs in the HPLMN and VPLMN of the Announcing UE exchange Announce Auth.
+The UE stores the chosen PC5 ciphering algorithm together with the ProSe Restricted Code.
+NOTE 2: 5G DDNMF from PCF, from ProSe Application Server, or based on local configuration).
+The Relay Discovery Key Request message includes the RSC and the 5G ProSe Remote UE's PC5 security capability.
+The 5G DDNMF in the HPLMN of the Monitoring UE sends an authorization request to the ProSe Application Server.
+For 5G ProSe UE-to-Network Relay Discovery, Relay Discovery Key Request and RSC are used instead of Discovery Request and RPAUID.(-07)193.
+The 5G DDNMF in the HPLMN of the Announcing UE For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+The Code-Receiving Security Parameters provide the information needed by the Monitoring UE to undo the protection applied by the Announcing UE.
+NOTE 4: The chosen PC5 ciphering algorithm is associated with the ProSe Restricted Code.
+The UE stores the Discovery Filter, Code-Receiving Security Parameters, and the chosen PC5 ciphering algorithm together with the ProSe Restricted Code.
+The four least significant bits of UTC-based counter are transmitted along with the protected discovery message.
+In order to find such a matching message, it processes the message.
+If the Monitoring UE was not asked to send Match Reports for MIC checking, it stops at this step from a security perspective.
+The 5G DDNMF in the HPLMN of the Monitoring UE For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+The 5G DDNMF in the HPLMN of the Monitoring UE returns to the Monitoring UE an acknowledgement that the integrity check passed.
+It also provides the CURRENT_TIME parameter, by which the UE (re)sets its ProSe clock.
+The 5G DDNMF in the HPLMN of the Monitoring UE included the Match Report refresh timer in the message to the Monitoring UE.
+The Match Report refresh timer indicates how long the UE will wait before sending a new Match Report for the ProSe Restricted Code.
+The security procedure for restricted 5G ProSe Direct Discovery Model B is described as follows.(-07)213HPLMN of Discoverer DDNMFVPLMN of Discoveree/Discoveree DDNMFHPLMN of Discoveree DDNMF5.
+Discovery Rsp (Code-Send-SecParams,Code-Rcv-SecParams, CURRENT_TIME, MAX_OFFSET, Chosen PC5 ciphering algorithm)Discoverer UE performs Discovery Request procedure8.
+Optional Auth Request / Response ()Discoverer UE performs Match Report procedure for MIC checking if required18.
+UE performs Discovery Request procedureSending and receiving code on the PC5 interfaceDiscoverer UE Discoveree UE ProSe App Server10.
+The command indicates that this is for ProSe Response (Model B) operation, i.e. for a Discoveree UE.
+The Relay Discovery Key Request message includes the Relay Service Code (RSC) and the 5G ProSe UE-to-Network Relay's PC5 security capabilities.
+The 5G DDNMF For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+The 5G DDNMFs in the HPLMN and VPLMN of the Discoveree UE exchange Announce Auth.
+If the Discoveree UE is not roaming, these steps do not take place.
+The Code-Receiving Security Parameters indicate a Match Report will not be used for MIC checking.
+The UE stores each Discovery Filter with its associated Code-Receiving Security Parameters.
+The UE stores the chosen PC5 ciphering algorithm together with the ProSe Response Code.
+NOTE 2: 5G DDNMF from PCF, from ProSe Application Server, or based on local configuration).
+The Relay Discovery Key Request message includes the RSC and the 5G ProSe Remote UE's PC5 security capabilities.
+The 5G DDNMF in the HPLMN of the Discoverer UE sends an authorization request to the ProSe Application Server.
+For 5G ProSe UE-to-Network Relay Discovery, Relay Discovery Key Request and RSC are used instead of Discovery Request and RPAUID.(-07)233.
+The 5G DDNMF in the HPLMN of the Discoveree UE For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+The Code-Receiving Security Parameters provide the information needed by the Discoverer UE to undo the protection applied by the Discoveree UE.
+The Code-Sending Security Parameters provide the information needed by the Discoverer UE to protect the ProSe Query Code.
+NOTE 4: The chosen PC5 ciphering algorithm is associated with the ProSe Response Code.
+The 5G DDNMFs in the HPLMN and VPLMN of the Discoverer UE exchange Announce Auth. messages.
+If the Discoverer UE is not roaming, these steps do not take place.
+The four least significant bits of UTC-based counter are transmitted along with the protected discovery message.
+In order to find such a matching message, it processes the message.
+NOTE 5: Match Reports are not used for the MIC checking of ProSe Query Codes.(-07)243Release .
+The Discoveree sends the ProSe Response Code associated with the discovered ProSe Query Code.
+The four least significant bits of UTC-based counter are transmitted along with the protected discovery message.
+The Discoverer UE listens for a discovery message that satisfies its Discovery Filter.
+In order to find such a matching message, it processes the message.
+If the Discoverer UE was not asked to send Match Reports for MIC checking, it stops at this step from a security perspective.
+If such a Match Report is sent, then there is no security functionality involved.
+Steps 16-19 refer to a Discoverer UE that has encountered a match: 16.
+The 5G DDNMF in the HPLMN of the Discoverer UE For 5G ProSe UE-to-Network Relay discovery, this step is skipped.
+The 5G DDNMF in the HPLMN of the Discoverer UE returns to the Discoverer UE an acknowledgement that the integrity check passed.
+It also provides the CURRENT_TIME parameter, by which the UE (re)sets its ProSe clock.
+The 5G DDNMF in the HPLMN of the Discoverer UE include the Match Report refresh timer in the message to the Discoverer UE.
+The Match Report refresh timer indicates how long the UE will wait before sending a new Match Report for the ProSe Response Code.
+- Message-specific confidentiality mechanisms as specified in clause A.7 in the present document.
+- Step 3 of clause 6.1.3.4.3.5 ofbecomes: XOR (0xFFFF || time-hash-bitsequence) with the most significant (L + 16) bits of discovery message.
+Calculate MIC if a DUIK was provided, otherwise set MIC to a 32-bit random string.
+The unicast mode 5G ProSe Direct Communication procedures are described in.
+Unicast mode 5G ProSe Direct Communication is used by two UEs that directly exchange traffic for the ProSe applications running between the peer UEs.
+PC5 direct communication security for relay services is specified in clause 6.3.
+The unicast mode security mechanism defined in clause 5.3 ofis reused in 5G ProSe to provide unicast mode 5G ProSe Direct Communication security.
+This clause describes the security requirements and the procedures that are specifically applied to 5G ProSe UE-to-Network Relay communication defined in.
+The choice of authentication mechanism will be defined in SA2's specification, and SA3's specification can refer to it later.
+The functionality in this clause is supported by both 5G ProSe-enabled UEs for commercial services and public safety.
+The UP based procedure uses a UP connection to the 5G PKMF, while the CP based procedure uses the ProSe authentication for PC5 key establishment.
+These security materials are associated with an expiration time, after which they become invalid.
+NOTE 2: Steps 0a, 0b, 1a, 1b are performed when the 5G ProSe Remote UE is in coverage.
+The 5G ProSe Remote UE gets the 5G PKMF address from the 5G DDNMF of its HPLMN.
+The 5G ProSe UE-to-Network Relay gets the 5G PKMF address from its HPLMN in the same way as described in step 0a.
+The 5G ProSe Remote UE sends a PRUK Request message to its 5G PKMF.
+The message indicates that the 5G ProSe Remote UE is requesting a PRUK from the 5G PKMF.
+The 5G PKMF checks whether the 5G ProSe Remote UE is authorized to receive UE-to-Network Relay services.
+If a PRUK and PRUK ID are included, the 5G ProSe Remote UE 2.
+The privacy and integrity protection of DCR are described in clause 6.3.5.
+For a privacy control, the UDM can authorize the PKMF based on its NF type or the service provider domain.
+The 5G PKMF NOTE 6: GPI is supported only when GBA is used.(-07)303d.
+If the 5G ProSe Remote UE receives the message containing the GPI, it processes the GPI as described in.
+The 5G ProSe Remote UE responds with a Direct Security Mode Complete message to the 5G ProSe UE-to-Network Relay as specified in.
+Network entities AMF, AUSF and UDM are involved for key derivation and distribution of keys used for 5G ProSe UE-to-Network Relay communication.
+If the 5G ProSe Remote UE already has a valid 5GPRUK, the 5G ProSe Remote UE 3.
+The AMF of the 5G ProSe UE-to-Network Relay The NAS message is protected using the NAS security context created for the 5G ProSe UE-to-Network Relay.
+The username part includes the Routing Indicator from step 6 and the 5GPRUK ID*, and the realm part includes Home Network Identifier.
+If the 5G ProSe Remote UE is authorized and the retrieved 5GPRUK is valid, the PAnF sends Npanf_ProseKey_get Response message with 5GPRUK to the AUSF.
+The AUSF of the 5G ProSe Remote UE EAP Success message The AUSF of the 5G ProSe Remote UE 13.
+K ID and K ID are established in the same way as K ID and K ID in.
+Further communication between the 5G ProSe Remote UE and the Network takes place securely via the 5G ProSe UE-to-Network Relay.
+The K is derived per unicast link same as K specified in.
+They are derived from K and are refreshed automatically every time K is changed.
+Store Remote UE info in Relay UE SM context and mark as authorized by DN16.
+Based on the authorization and provisioning in step 0, the 5G ProSe Remote UE performs the discovery of a 5G ProSe Layer-3 UE-to-Network Relay.
+The Remote UE runs CP based authentication as described in 6.3.3.3.2.
+The DCA Based on the indication in the DCA message, the 5G ProSe Remote UE 7.
+The Remote UE Report message includes the 5G ProSe Remote UE info (Remote User ID, addressing info) and excludes other 5G ProSe Remote UEs info.
+SMF selection by AMF is performed as per, clause 4.3.2.2.3 (e.g. using PLMN ID of the SUPI, S-NSSAI, etc.).(-07)393.
+When the SMF receives Remote UE Report the SMF retrieves Remote UE's SM subscription data from the UDM by triggering Nudm_SDM_Get service operation.
+The SMF The SMF determines based on the subscription data of the 5G ProSe Remote UE (i.e. Secondary authentication indication as per, Table 5.2.3.3.1).
+NOTE 2: The information on a successful authentication between a 5G ProSe Remote UE and an SMF 10.
+Based on the 5GPRUK ID, the 5G ProSe Layer-3 UE-to-Network Relay forwards the EAP-Request/Identity to the 5G ProSe Remote UE via PC5 signalling(10a).
+The 5G ProSe Remote UE returns the EAP-Response/Identity to the 5G ProSe Layer-3 UE-to-Network Relay via PC5 signalling(10b).
+Secondary Re-authentication If Re-authentication is initiated by the SMF, the procedure proceeds with step 4 (skipping steps 4a and 4b).
+If Re-authentication is initiated by the external DN/AAA server, the procedure proceeds with the alternative steps 4a and 4b.
+The SMF decides to initiate Secondary Re-Authentication for the 5G ProSe Remote UE.
+The DN AAA server decides to initiate Secondary Re-Authentication for the 5G ProSe Remote UE.
+The SMF retrieves the corresponding 5GPRUK ID from the 5G ProSe Layer-3 UE-to-Network Relay's SM context using the GPSI.
+The SMF In case the procedure is initiated by the DN AAA, the SMF retrieves the 5GPRUK ID that is mapped with the received GPSI.(-07)413.
+Then, the UPF This establishes an end-to-end connection between the SMF and the external DN-AAA server for EAP exchange.
+The DN AAA server and the 5G ProSe Remote UE 10.
+After the completion of the authentication procedure, DN AAA server either sends EAP Success or EAP Failure message to the SMF.
+Connection establishment for 5G ProSe Communication via 5G ProSe Layer-2 UE-to-Network Relay is specified in clause 6.5.2.2 of.
+If PC5 UP security policies are included in the PC5 security policies, they are negotiated but not enforced by the 5G ProSe Layer-2 UE-to-Network Relay.
+This clause also describes a mechanism to integrity protect the DCR message when DUIK is provisioned for discovery.
+If the UE is neither configured with DUCK nor DUSK, the DCR message is not protected, and Steps 2-3 are skipped.
+NOTE 1: If PRUK ID is in NAI format, encryption of the PRUK ID is performed on the username part of the PRUK ID.
+The UE-to-network relay If the UE is configured with DUSK but not DUCK, K is set to DUSK.
+If the UE is neither configured with DUCK nor DUSK, the DCR message is not protected, and steps 2-3 are skipped.
+The integrity protection of the DCR message is performed after the privacy protection of PRUK ID and RSC.
+If the UE is configured with DUIK, the DCR integrity key K is set to DUIK.
+The 5G ProSe UE-to-Network Relay If the UE is configured with DUIK, the DCR integrity key K is set to DUIK.
+This clause provides the present document of the SBA services defined for 5G ProSe.
+The 5G PKMF supports the key request from another 5G PKMF in another PLMN via the new service operation Npkmf_PKMFKeyRequest_ProseKey.
+Table 7.2.1-1 shows the services exposed by 5G PKMF supporting 5G ProSe.
+Table 7.3.1-1 shows the services exposed by AUSF supporting 5G ProSe.
+ProseAuthenticate Request/Response (Relay) AMF 7.3.2.1 Nausf_UEAuthentication_ProseAuthenticate service operation Service operation name: Nausf_UEAuthentication_ProseAuthenticate.
+Output, Required: EAP message, Authentication result and if success K, Nonce_2 and 5GPRUK ID.
+Table 7.4.1-1 shows the services exposed by UDM supporting 5G ProSe.
+Deconceal Request/Resonse PKMF 7.4.2.1 Nudm_UEAuthentication_GetProseAv service operation Service operation name: Nudm_UEAuthentication_GetProseAv.
+Description: Requester NF gets the authentication data for Prose and the Routing Indicator from UDM.
+The Prose Anchor Function (PAnF) supports providing storage for the Prose context info (i.e. SUPI, 5GPRUK, 5GPRUK ID, RSC) for a 5G ProSe Remote UE.
+Npanf_ProseKey Npanf_ProseKey_Register Request/Response AUSF Npanf_ProseKey_Get Request/Response AUSF 7.5.2.1 Npanf_ProseKey_Register service operation Service operation name: Npanf_ProseKey_Register.
+Description: The NF consumer requests the PAnF to store the Prose context info (i.e. SUPI, 5GPRUK, 5GPRUK ID, RSC).
+Description: The NF consumer requests 5GPRUK from the PAnF. Input, Required: 5GPRUK ID, Relay Service Code.
+Description: The NF consumer requests Remote UE's SUPI from the PAnF. Input, Required: 5GPRUK ID.
+If PRUK ID is in NAI format, the length of the PRUK ID is determined by the username part of the PRUK ID.
+P1 = discovery message with the MIC value field set to all zeros.
+The MIC is set to the 32 least significant bits of the output of the KDF.
+The use and mode of operation of the ciphering algorithms are specified in Annex D in.
+- P1 = DCR message with the MIC value field set to all zeros.
+The MIC is set to the 32 least significant bits of the output of the KDF.

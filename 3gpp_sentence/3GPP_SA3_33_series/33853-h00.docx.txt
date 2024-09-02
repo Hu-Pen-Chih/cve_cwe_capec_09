@@ -1,0 +1,90 @@
+User Plane integrity protection allows the network operator and the UE detect that user plane data has been modified in transit between each other.
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+Integrity protection for the user plane is not supported in EPS according to.
+If this feature is not securely negotiated, a man-in-the-middle can deceive the network into not activating the feature.
+If the UP security policy indicates UP integrity protection is "not needed", then the MN and SN always activates DRBs disabling the UP IP.a.
+In the aLTEr attack mentioned in , an active attack called "user data redirection" is proposed.
+The attacker can modify the content of a packet if he knows the original plain text, even the packet is encrypted.
+UE needs to be able to indicate to the 5GC whether it supports UP IP over eUTRA.
+Similarly it needs to be ensured that such bearers are integrity protected on the return to the 5G network.
+When encryption is used with no integrity protection, the attacker still could modify the UP packet.
+In the aLTEr attack mentioned in , an active attack called "user data redirection" is proposed.
+The attacker can modify the content of a packet if he knows the original plain text, even the packet is encrypted.
+With the solution the key issue #5 (Optionality of integrity protection in UP DRB) is addressed.
+This solution assumes that all sensitive application layer signalling traffic are confined to 64 kbps.
+If the network needs to protect the DRB terminated at the SgNB, it can choose to not split the PDU session.
+Option 7 - 5G core based Dual Connectivity (eUTRA master - NR secondary)1.
+In NGEN-DC scenario and UP security policy is "required", then the MN (eNB) rejects bearer establishment.3.
+In NE-DC scenario and UP security policy is "preferred", then the MN (gNB) activates the bearer with or without UP IP.
+Key issue #5 is addressed since this protection is applied to all UP DRBs.
+An HSFN + 11 extra bits leads to a roll-over every 1.4 year.
+The TransportBlockID is used to prevent an attacker to collect entries for a CRC -> CRC' dictionary.1.
+This PDCP entity, as any other PDCP entity, All of these packets are integrity protected at the Transport Block level.
+The key K in equation (1) or (2) above can be taken as the key KUPint as specified in.
+Since the key K is part of this information, the security mechanisms as specified in clause 9.8.2 offor the F1-C interface need to be applied.
+The effective user data throughput remains the same as without the integrity protection.
+This solution addresses key issue #6 (UE connected to 5GC indicating support of UP IP over eUTRA).
+The SN makes the decision whether to activate UP integrity protection or not, and also whether to activate UP encryption or not.
+Therefore, it is proposed to go forward with alternative 2 in clause 6.7.3.1.2.
+secondary)5G NR PDCP PDUs is formatted as mentioned in[a] clause 6.2.2.
+Hence, each PDCP data PDU will be composed of PDCP SN, data payload and an optional 4B MAC-i payload.
+In some implementations, padding size could be limited to a maximum of "x" % of the original PDCP PDU to avoid wasting bandwidth.
+However, the attack could still try [the length of the padding] times to verify where exactly the true data part.
+So the solution could be enhanced with adding the limitation of validation times.
+Thus even if the attacker does not corrupt the padding, they'll just end up corrupting the SDU itself unless they guess exactly the right offset.
+A new IE could be included in the Attach Request message and Tracking Area Update Request message.
+The UP IP policy could use similar setting options as in 5GS: "required", "preferred", "not needed".
+The UP IP policy could be extended to a UP security policy which includes a security policy for UP encryption as well.
+This would harmonize the feature over both systems (EPS and 5GS).
+If UP IP policy is set to REQUIRED, then the eNB does not overrule the policy (similar as in 5GS).
+This solution addresses key issue #2 (Secure negotiation of integrity protection support in EPS).
+Hence the PDCP layer in an EN-DC UE needs to be adapted to work with NR speeds.
+The GTP-C signalling from PGW to SGW to MME is extended to carry the "UPIP required/preferred/not needed" information to the MME.
+As GTP-C signalling largely operates on an EPS bearer basis rather than PDN connection basis, this signalling is sent on a per EPS-bearer basis.
+The UE's support (or not) for Full Rate UPIP is signalled from the UE to the MME.
+This S1-AP functionality might be enhanced or simplified by UPIP-supporting eNBs indicating their support for UPIP control signalling in the S1 Setup message.
+At X2 handover, X2-AP signalling extensions carry the "UPIP required/preferred/not needed" information to the target eNB using similar message encoding techniques.
+The solution aligns with the per "DNN and S-NSSAI" control of UPIP policy used in 5GC.
+This solution addresses key issue #1 (UP integrity activation in EPS).
+Figure 6.18.3-1: Restricting handovers to RAN nodes that don't support UP IP0.
+ng-RAN node initiates the handover preparation (via AMF and MME) to the eNB4.
+A similar solution could also apply to S1 handovers in EPS (e.g. see clause 5.5.2.5.2 of[b]).
+For the "hop by hop" variant mentioned in step 3, changes on AMF and MME are also needed.
+For option 1 (eUTRA with EPC), the UP IP over E-UTRA PDCP is already specified infor the relay nodes.
+This solution reuses this feature to support UP IP at the E-UTRA PDCP layer.
+The UP IP support at the E-UTRA PDCP layer is specified in.
+The UP IP support at the NR PDCP layer is specified in.
+Furthermore, this solution aims to enable the use of UP IP when connected to (part of) a core network that has not been upgraded.
+The solution does not prevent the use of UP IP security policy.
+This solution addresses key issue #7: Ensuring UP IP is enforced at interworking.
+Step 8: The UE confirms by sending a Handover Complete message to the target eNB.
+Step 9: The target ng-eNB/gNB notifies the target AMF that the handover procedure is completed by sending a Handover Notify message.
+IP.The source eNB has received the "UE capability indicating UP IP support" from the MME.
+The source eNB has a UP IP policy and a UP IP activation status stored per radio bearer established with the UE.
+The source eNB includes the UP IP activation status per radio bearer in the Source to Target Transparent Container to the target ng-eNB.
+Step 7: The source eNB initiates Handover Command procedure with the UE.Step 10.
+The target eNB can therefore not activate UP IP in the target cell even if the target eNB supports UP IP.
+After the HO is completed the UE initiates a Tracking Area Update procedure with the target MME including the "UE capability indicating UP IP support".
+This solution addresses key issue #7 (Ensuring UP IP is enforced at interworking).
+IP.The source eNB has received the "UE capability indicating UP IP support" and the UP IP policy from the MME.
+The source eNB has a UP IP policy and a UP IP activation status stored per radio bearer established with the UE.
+IP policy or any "UE capability indicating support of UP IP" to the target eNB.
+In this case the target eNB cannot activate UP IP for the radio bearer established with the UE.
+The procedure initiated by target eNB in order to activate UP IP with the UE is left for stage 3.
+IP policy at the target eNB, is achieved during the Path Switch procedure after the X2 handover is completed.
+This solution addresses key issue #7: Ensuring UP IP is enforced at interworking.
+The source AMF forwards the Source to Target Transparent Container received from the source ng-eNB/gNB to the target MME.
+The target eNB prepares the Target to Source Transparent Container to the source ng-eNB/gNB.
+Step 5: The target MME forwards the parameters received in Handover Request Acknowledge message to the source AMF in the Forward Relocation Response message.
+Step 7: The source ng-eNB/gNB initiates Handover Command procedure with the UE.Step 10.
+The solution addresses key issue #1, key issue #2 and key issue #8.
+Option 1 - eUTRA with EPC6.25.3.1 Indication for UP Security Support.
+The eNB can be configured with a default UP security policy per RAN node.
+The UP security policy could use similar setting options as in 5GS: cipher: "required", "preferred", "not needed", integrity protection: "required", "preferred", "not needed".
+This approach can avoid impact on the core network, and, allows Inter-operability testing on a per-algorithm basis.
+The network operator remains in control of the RAN configuration that controls which Integrity Protection algorithms are permitted.
+This solution addresses key issue #7: Ensuring UP IP is enforced at interworking.
+These solutions support handover to and from the gNB and provide the gNB with the capability to enforce the UPIP policy.
+In step 5a, if both MME and UE support user plane integrity protection, the AMF sends an indication in the Nsmf_PDUSession_Context Request message.
+The solution with local RAN policy configuration for UP IP is enhanced with the option of a Core Network/RAN solution for UP IP policy handling.
+For interworking from 5GS to EPS, it is concluded that UP security policy handling will be addressed in normative phase.

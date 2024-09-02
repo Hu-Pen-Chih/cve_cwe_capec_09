@@ -1,0 +1,113 @@
+The study is not exclusively tailored to CAPIF, but This objective includes UE-originated API invocation.
+IETF RFC : "Proof Key for Code Exchange by OAuth Public Clients".
+NOTE 2: How the Resource owner is authenticated to the authorization server is out of scope of this solution.
+The architecture is derived from solution 2 in TR 23.700-95 .
+In this solution, the API invoker endorses the role of client, the triggerer endorses the role of user-agent.
+The Authorization Function authenticates the resource owner in step B, which depends on existing mechanism and is out of this solution.
+The API invoker (i.e. client) retrieves tokenCAPIF from the Authorization function in CCF.
+This solution separates these roles into the authorization function (AZF) and the authentication function (ANF).
+The Token Request includes the authentication of the API Invoker using the API invoker's client credentials.
+The circumstance that the API invoker is located and associated with a UE can be exploited for instance by using AKMA3.
+The authorization server is authorizing the request based on the identity of the API Invoker and the requested scope by applying stored policies and permissions.4.
+In case of successful authorization the authorization server returns the token to the API invoker.
+The token includes claims, which reflect the granted scopes and permissions.
+NOTE 3: The authorization server knows the identity of the UE from the UE authentication executed in step 2.
+Whether GPSI or SUPI is used as UE identifier can be decided during normative work.5.
+The API invoker is sending the actual API request to the AEF.
+The API request contains the token received in the previous step.
+As part of the session establishment the API invoker authenticates the AEF by verifying the Authorization Server's server certificate.6.
+The AEF especially ensures that the scope of API calls is restricted to resources owned the UE, whose identity is included in the token claims.
+API calls with a wider scope are rejected by the AEF.
+In case of successful validation the AEF is executing the request by involving other NFs (not shown in the signalling diagram)9.
+Authentication of the UE is executed using http authentication mechanism, i.e. as part of the http token request.
+In this solution the 5G system only authenticates and authorizes the UE.
+The 5G system does not authenticate or authorize the (invisible) third party application or a user.
+That is, the solution assumes that the UE is the resource owner or requesting party.
+The UE is provisioned with a CAPIF Core Function (CCF) information such as CCF address/ID (e.g. after a successful primary authentication in any protected message).
+Based on the received Onboarding type, the CCF determines to fetch security context related to the UE.
+The CCF can send a key request to the Core NF/AF which can include UE ID, and Kccf ID3.
+The CCF stores the CCF key, Kccf ID and UE ID.
+The CCF generates an API invoker's profile and onboard secret as specified in.
+The AEF Key can be used by the API Invoker to authenticate and establish secure session with the AEF as inClause 6.5.2.3 .
+The AEF key can be derived from Kccf and other input parameters: API Invoker ID, CCF ID, Target AEF ID(s)/information, and Nonce.
+Target AEF ID).API Invoker can perform CAPIF-1 authentication anytime with CCF based on.7.
+It is assumed that the network manages such authorization information in any storage function outside the scope of this solution.
+The CCF generates and sends an Oauth access token (based on OAuth 2.0) to be used as AEF Access token.
+The API Invoker can send Authentication Initiation Request to the AEF, which includes the CCF assigned API invoker ID, and UE ID.12.
+The AEF starts the validity timer based on the value received from the CAPIF core function in step 11.13b.
+NOTE 3: According to , API provider domain provides Onboarding enrolment information to the API invoker as a prerequisite to the Onboarding procedure.
+Figure 6.5.2-1 shows the resource authorization procedure to allow access to resources.
+The CAPIF Function stores the received information and sends a sends resource owner authorization data notification response to the AUSF.6a.
+The UE initiates a resource owner registration request with CAPIF-UE ID, GPSI and a freshness parameter to the CAPIF function.
+The CAPIF function verifies if the received CAPIF-UE ID matches with the resource owner authorization data received in step 4a.
+If the verification is successful, the CAPIF function considers the resource owner registration as successful and it assigns a Resource Owner Identity.
+The CAPIF Function can send a resource owner registration response with nonce.
+The UE and the CAPIF Function generates a key based on the CAPIF Key, nonce and GPSI, establish a secure session.
+The CAPIF Function then sends a resource owner ID and lifetime (for the resource owner registration) following a successful resource owner registration.
+The solution addresses Key Issue #2 and enables the following:The solution assumes the resource owner as the subscriber.
+The solution has impacts to AUSF and UDM as it extends AKMA security for resource owner registration and security establishment.
+The solution requires access to 5G key hierarchy and will only work when the UE is authenticated to 5G network.
+How the MNO authenticates the resource owner and learns the authorization information is out of scope of this solution.
+This solution works as follow for the use case #1 defined in Annex A of TR 23.700-95 .
+The CCF issues an access token that includes an indication for the resource owner authorization.
+The API invoker sends the token to the API Exposing Function.
+This solution applies to the specific case where the application is accessing to the resources of the UE on which the application is running.
+The case of accessing resource of other UEs by the UE is not covered in this solution.
+The following procedure, depicted in Figure 6.6.2-2, shows how revocation of authorization by the resource owner can be handled.
+The AEF verifies the access token, checks the resource owner authorization.
+This solution is very similar to the existing mechanism for the AF originated API invocation case where the AF is outside of the UE.
+In the existing mechanism, the CCF has the authorization information that indicates whether the AF is allowed to consume the service API.
+This solution deviates from the existing CAPIF solution in clause 6.5.2.3 in.
+Resource owner can authorize API invoker for resources via the UE.
+For the case that API invoker is the UE, the mutual authentication can be realized based on certificates.
+A secure connection between API invoker and resource owner is established after the mutual authentication.
+The API invoker sends authorization request to the UE controlled by the resource owner.
+The service identifier/service operation identifier indicates the service/service operation that can be performed on the target resource.
+Therefore, the CAPIF core function/authorization function can generate the access token containing4.
+The resource owner And the resource owner sends the authorization request and grant information to the CAPIF core function/authorization function to request the authorization code.
+CAPIF core function/authorization function can authorize the authorization request for the resource based on the pre-generated profile.
+, the CAPIF core function/authorization function generates authorization code for the API.
+CAPIF core function/authorization function and API invoker For the case of CAPIF core function, API invoker can authenticate CAPIF core function via certificate.
+Then CAPIF core function can authenticate API invoker using GBA-based authentication mechanism, AKMA-based authentication mechanism or certificate-based authentication mechanism.
+And CAPIF core function For the case of authorization function, API invoker can authenticate authorization function via certificate.
+A secure connection between API invoker and CAPIF core function/authorization function is established after the mutual authentication.
+The CAPIF core function/authorization function sends the refresh token/access token to the API invoker.
+The API invoker can send the refresh token to CAPIF core function/authorization function to obtain access token.
+A secure connection between API invoker and API Exposing function is established after the mutual authentication.
+The API invoker sends service API invocation request to the AEF.
+Benefits:Impacts:6.10.1 Introduction This solution addresses the key issue key issue #1 and #2 in terms of API invoker UE authorization.
+The shared secrets among UE and authorization function can be shared keys related to AKMA method, GBA method, and CAPIF onboarding procedure.1.
+The API invoker and authorization function/CAPIF core function do the mutual authentication.
+For the case of CAPIF core function, the API invoker can authenticate CAPIF core function via a certificate.
+Then the CAPIF core function can authenticate the API invoker using GBA-based authentication mechanism, AKMA-based authentication mechanism or certificate-based authentication mechanism.
+And the CAPIF core function For the case of authorization function, the API invoker can authenticate the authorization function via a certificate.
+Authorization function can authenticate the API invoker UE based on its credential (e.g. KAF).
+API invoker and authorization function A secure connection between the API invoker and authorization function/CAPIF core function is established after the mutual authentication.
+The token Details on token, refresh token, and access token are given in RFC .5.
+The API invoker sends a service API request to the API exposing function along with the access token.
+The CAPIF core function/authorization function can authorize the API invoker based on policies provided by the resource owner.
+During the primary authentication, AUSF receives SNAAPPY Indication from UDM, which indicates that the AUSF and the UE need to generate the following pre-requisite 2.1.
+API exposing function checks whether the API Invoker is authorized to invoke the service API based on the selected authorization method in step 2.
+The response includes revocation time and the TokenSNAAPPY with MAC which the Authorization Function generates using the TokenSNAAPPY, revocation time, and KSNAAPPY; and11.
+The claims of the TokenAuz include service API name, S-KID (SNAAPPY Key Identifier), API Invoker Information, "Authorized", generated time, and validity time.
+TokenAuz contains the claims (TokenAuz, claim) and the verification information (TokenAuz, verify).
+Details of S-KID and the corresponding key KAuz are specified in clauses 6.12.2.3 and 6.12.2.4 of the present document, respectively.
+TokenAuz, verify is generated as detailed in clause 6.12.2.5 by using the claims and the key KAuz.4.
+If the resource owner gives the authorization for the API invocation, UE responds with the TokenAuz.
+Upon receiving the response, the API Invoker stores the TokenAuz with UE ID (e.g. application layer ID or GPSI or SUPI).
+API exposing function requests token verification to Authorization Function, via CAPIF-9 interface.8.
+Authorization Function responds with the verification result and UE ID (SUPI or GPSI).10.
+UE and Authorization function perform mutual authentication based on TLS-PSK as specified in clause 6.5.2.1 in , where PSK can be derived from KAuz.
+The TokenRev is transmitted to Authorization Function via CAPIF-8 interface with revocation request message.14.
+Authorization Function notifies the revocation on the API Invoker's service API invocation.
+This solution uses similar mechanism as users of mobile phone giving a permission to application for access to resources such as phonebook, microphone, camera, etc.
+After verifying the token that API Invoker presented, API exposing function responds to API invocation request from API Invoker.
+The solution requires the UE to be authenticated to a 5G core.
+Authorization needs to be provided in advance of calling the API.It is assumed that the API invoker is an UE/AF in SNA scenarios.
+This solution reuses the authorization revocation mechanism defined in clause 8.23.4 of.
+The authorization function This solution allows the AEF to ensure that persistent changes can be undone after authorization revocation.
+It is assumed that requirement for revocation is received in CCF.2.
+The CCF issues a token with a short expiry time when receiving the requirement for revocation, e.g. 1 hour.
+This solution partially addresses the requirement Authz-5-Revoke in KI#2, i.e. using a short-lived token instead of revoking explicitly at any time.
+The claim in the token includes resource owner identity, thus there is no need for additional UE authentication in API invocation.
+Based on the operator's policy, mutual authentication between resource owner and CCF/AUF can be performed.

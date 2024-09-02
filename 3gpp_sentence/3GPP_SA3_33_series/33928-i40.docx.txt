@@ -1,0 +1,71 @@
+The present document provides the logic used within the ADMF in provisioning the LI functions considering those points.
+The present document provides ADMF provisioning logic for LI in association with the LI functions defined in,and.
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+The LICF receives the warrant information from the LEA over LI_HI1 interface.
+The LIPF performs the provisioning of all LI functions within various NFs of CSP network including the MDF2 and MDF3.
+Figure 4.1-1: LIPF in ADMF provisioning of NEsThe present document focuses on LIPF provisioning logic of LI functions, MDF2, MDF3 over the LI_X1.
+Henceforth, the term LIPF logic is used in the present document.
+The LI function present within a NF and provisioned by the LIPF is represented within the parenthesis.
+In the illustration shown in figure 4.2-2, the IRI-POI in P-CSCF and IRI-POI in MGCF are provisioned by the LIPF.
+Figure 4.2-2: LI function as applicable to the NFSome of the flow-charts have a callout description shown next to the provisioned box.
+The text within the callout description provides a hint on the conditions that would enable the LI function to provide the interception.
+When such a condition for the interception is obvious, no such call-out description is provided.
+In the illustration shown in figure 4.2-4, no callout description is given for the IRI-POI of P-CSCF implying no further clarity is needed.
+For the target non-local ID, Voice, RCS and Messaging type of services are supported in the present document.
+The initial configuration of Identity Association Caching is required if and only if the CSP has deployed the Identity Association Caching service.
+The details of LI provisioning logic for Location Acquisition are illustrated in clause 5.9.
+If the warrant explicitly includes both "Messaging" and "RCS" as the service types, the LI provisioning for the service type RCS is done only once.
+Therefore, the provisioning of LAF is treated as internal to the ADMF.
+The CSP When the target identifier is one or more of IMSI, IMEI, MSISDN, the LI functions in EPC are provisioned.
+When the target identifier is one or more variants of SUPI, PEI, GPSI, the LI functions in 5GC are provisioned.
+InterceptionIn PDHR option 1, the IRI-POI in the UPF (based on a trigger from IRI-TF present in the SMF) generates the xIRI.
+It is expected that the CSP implements one of the two deployment options.
+In LALS triggering option 2, the LTF present in the MDF2 triggers the LI-LCS Client.
+Table 5.4.3.2.4-1 provides the scope of NF domain that provides the IRI-POI/CC-TF/CC-POI functions for the service type of Data in the 5GC for various scenarios.
+NOTE 1: The use of "n/a" in the above table implies that the LI function is not applicable to the NF for the indicated scenario.
+NOTE 3: MDF2, MDF3 and LI-LCS Client which are also involved in providing the LI functions are not shown in the tables above.
+NOTE 3: MDF2 and MDF3 which are also involved in providing the LI functions are not shown in the tables above.
+Figure 5.4.3.3.3-1 shows the LIPF logic for provisioning the LI functions in EES for ECS.
+NOTE 3: MDF2 which is also involved in providing the LI function is not shown in the tables above.
+Figure 5.4.3.3.4-1 shows the LIPF logic for provisioning the LI functions in 5G MS AF.
+NOTE 3: MDF2 which is also involved in providing the LI function is not shown in the tables above.
+Figure 5.4.4.1-1 shows the LIPF logic in determining the host NFs in EPC that have the LI functions for the service type of Data.
+The details of LI provisioning for SCEF based services are illustrated in clause 5.4.4.3.There are two deployment options for the packet data header reporting.
+It is expected that the CSP implements one of the two deployment options.
+Accordingly, the CC-TF in SGW-C/PGW-C, CC-POI in SGW/PGW and the PDHR handling function in MDF3 are provisioned.
+In LALS triggering option 1, the LTF present in the host NF that has the associated IRI-POI triggers the LI-LCS client.
+Accordingly, the LTFs in MME, SGW, PGW, SGW-C and PGW-C (when EPC is deployed with CUPS) are provisioned.
+NOTE 1: The use of "n/a" in the above table implies that the LI function is not applicable to the NF for the indicated scenario.
+NOTE 3: MDF2, MDF3 and LI-LCS Client which are also involved in providing the LI functions are not shown in the tables above.
+This clause references to the LI functions provided in the SCEF and IWK-SCEF.
+For all except the parameter provisioning, MSISDN, IMSI and External Identifier are used as the target identifiers.
+For parameter provisioning, only the MSISDN and the External Identifier are used as a target identifier.
+Separate configuration for an HPLMN.This applies to all inbound roaming users using the IMS service.
+The LMISF-IRI is expected to provide the LI functions only for non-emergency services.
+Figures 5.5.4.1-1, 5.5.4.1-2, 5.5.4.1-3 and 5.5.4.1-4 show the LIPF logic for the service type of Voice when the target is not a non-local ID.
+Figure 5.5.4.1-5 illustrates the LIPF logic for additional STIR/SHAKEN related provisioning.
+As illustrated in figure 5.5.4.1-2, the IRI-POIs in P-CSCF, LMISF-IRI and AS are provisioned as part IMS-based voice LI.
+Likewise, the IRI-POI in IBCF is also provisioned for IMS-based voice LI when the alternate option is used.5.5.4.2.1 IMS deployment- Default.
+It is expected that the CSP implements one of the two deployment options.
+It is expected that the CSP implements one of the two deployment options.
+Table 5.5.4.2.3-1 provides the scope of NF domain that provides the IRI-POI/CC-TF/CC-POI functions for the service type of Voice with the IMS deployment option Default.
+NOTE 3: Only when an incoming session to a target is redirected over a CS domain.
+NOTE 5: Only when the target is outbound roaming without a redirection.
+NOTE 7: When the content interception of conferencing, or application of music/ is required.
+NOTE 9: The use of "n/a" in the above table implies that the LI function is not applicable to the NF for the indicated scenario.
+NOTE 11: MDF2, MDF3 and LI-LCS Client which are also involved in providing the LI functions are not shown in the tables above.
+The inclusion of ReportDiversionPASSporTInfo for provisioning of IRI-POI in P-CSCF and LMISF-IRI is not required.
+The signing for STIR/SHAKEN happens in the HPLMN except for the emergency sessions it can also happen in the VPLMN.
+Figures 5.5.5.1-1, 5.5.5.1-2 and 5.5.5.1-3 show the LIPF logic for the service type of Voice when the target is a non-local ID.
+Additional STIR/SHAKEN related provisioning for target non-local ID is illustrated in figure 5.5.5.1-4.
+It is expected that the CSP implements one of the two deployment options.
+Likewise, SUPI represents SUPIIMSI and SUPINAI whereas GPSI represents GPSIMISDN and GPSINAI.
+It is expected that the CSP implements one of the two deployment options.
+It is expected that the CSP implements one of the two deployment options.
+Table 5.6.2.2.3-1 provides the scope of NF domain that provides the IRI-POI/CC-POI/LTF functions for the service type of Messaging.
+NOTE 1: Only for SMS over IMS not involving the emergency centre.
+NOTE 3: The use of "n/a" in the above table implies that the LI function is not applicable to the NF for the indicated scenario.
+NOTE 5: MDF2, MDF3 and LI-LCS Client which are also involved in providing the LI functions are not shown in the tables above.
+Figure 5.10.2-1 illustrates the LIPF logic for the service type RCS.
+The provisioning of an IRI-POI in the S-CSCF is not required if the RCS server is deployed in CSP network.
+This limitation happens when a target or party communicating with the target non-local ID downloads a file from the HTTP Content Server.

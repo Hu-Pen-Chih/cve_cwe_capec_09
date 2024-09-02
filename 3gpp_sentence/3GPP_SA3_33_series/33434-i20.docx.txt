@@ -1,0 +1,42 @@
+the first digit:2 presented to TSG for approval;y the second digit is incremented for all changes of substance, i.e. technical enhancements, corrections, updates, etc.
+The present document specifies the security features and mechanisms to support the Service Enabler Architecture Layer (SEAL) in 5G.
+IETF RFC : "Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants".
+Access to network application functions using Hypertext Transfer Protocol over Transport Layer Security (HTTPS)".3: "T8 reference point for Northbound Application Programming Interfaces (APIs)".
+IETF RFC : "Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework (ACE-OAuth)".
+IETF RFC : "CoAP: Echo, Request-Tag, and Token Processing"IETF RFC : "OSCORE Profile of the Authentication and Authorization for Constrained Environments Framework".
+For the purposes of the present document, the terms given in TR 21.905and the following apply.
+A term defined in the present document takes precedence over the definition of the same term, if any, in TR 21.905 .Void.
+[SEAL-SEC-4.1-e] The VAL service [SEAL-SEC-4.2-a] VAL systems The security procedures in this clause also applies to SEALDD as specified in.
+In the SEALDD scenario, the SEAL client, SEAL server and SEAL service are replaced by the SEALDD client, SEALDD server and SEALDD service, respectively.
+The SEAL-X2 reference point enables the group management server to interact with the location management server as defined in 3 .
+The VAL server interacts with SEAL server over SEAL-S reference point as defined in TS 23.434 .
+The HTTP-3 reference point exists between the HTTP proxies in different networks.
+modelThe reference point IM-UU utilizes Uu reference point as described in 401and 501 .
+Figure 5.2.4-1 describes the VAL Authentication Framework using the OpenID Connect protocol.
+The authentication framework supports extensible user authentication solutions based on the VAL service provider policy (shown as step 3).
+Figure 5.2.4-1: OpenID Connect (OIDC) flow supporting VAL user authenticationStep 2: VAL UE sends an OpenID Connect Authentication Request to the SIM-S.
+The primary credentials for user authentication (e.g. biometrics, secureID, OTP, username/password) are based on VAL service provider policy.
+Step 4: SIM-S sends an OpenID Connect Authentication Response to the UE containing an authorization code.
+The VAL server receives the message and validates the access token.
+If the access token is valid, The VAL server positively acknowledges the request.
+The content of the SEAL KM Request is shown in table 5.3.2-1.The 'Version' field identifies the version of the SEAL KM Request message.
+The key material contents provided in a Payload are defined by the underlying VAL service and are outside the scope of the present document.
+The combination of the ServiceID with the ClientID, DeviceID or UserID allows the VAL service to request a more specific set of key material.
+In addition, a secure connection Figure 5.8.1-1 shows the SEAL key provisioning procedure.
+The SKM-S The request contains key information specific to a particular VAL service, VAL client, VAL device, or VAL user.
+The SEAL KP Response message provides either an acknowledgement or an error code (if the SKM-S encounters a failure condition).
+The SKM-C sends a SEAL KP Request message to the SKM-S.
+The content of the SEAL KM Request is shown in table 5.8.2-1.The 'Version' field identifies the version of the SEAL KP Request message.
+the VAL service Annex A (normative):A.1 GeneralThe OpenID Connect 1.0 standard provides the source of the information contained in this annex.
+A.2.1 ID tokenThe ID Token Token claims provide information pertaining to the authentication of the VAL client by the SIM-S as well as additional claims.
+The following clause profiles the required standard and VAL claims for the VAL Connect profile.
+These standard claims are defined by the OpenID Connect 1.0 specification and are REQUIRED for VAL implementation.
+it The method by which this is done is not specified by this profile.
+A.4 Obtaining tokensOnce a SIM-C has been successfully registered with the SIM-S of the VAL service provider, the SIM-C Only native SIM-C are defined here.
+The exact method in which a SIM-C requests the access token depends upon the client profile.
+The SIM-C profiles, along with steps required from them to obtain OAuth access tokens, are explained below.
+A.4.2.1 GeneralSIM-C fitting the Native application profile utilize the authorization code grant type with the PKCE extension for enhanced security as shown in figure A.4.2.1-1.
+Note that client authentication is REQUIRED for native applications (using PKCE) in order to exchange the authorization code for an access token.
+Assuming that client secrets are used, the client secret is sent in the HTTP Authorization Header.
+The SIM-C then uses the access token to make authorized requests to the SIM resource servers on behalf of the end user.
+The method chosen by the VAL service provider for authentication and authorization is neither defined nor limited by the present document.

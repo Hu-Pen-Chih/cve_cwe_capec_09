@@ -1,0 +1,44 @@
+and A5/2 (GSMA deprecated in ), no inherent integrity protection over the air, and authentication and ciphering over the air are optional to implement.
+SolutionsThis solution addresses the security requirement in key issue#1 on securely notification to UE when the GERAN or UTRAN networks are decommissioned.
+This solution addresses the security requirement in key issue#1 with the impact only on UE and AMF.This solution addresses the security requirement of key issue#1.
+This solution proposes the following:In case of LTE, similar information can be included along with successful response to attach message.
+After NAS registration is complete, as part of NAS registration accept, the serving network informs the UE about the decommissioned RATs.
+If provided by the HPLMN, the list can contain all the PLMNs that have roaming agreement with the HPLMN and have decommissioned 2G/3G.
+The UE on receiving network access restriction information determines not to select decommissioned UTRAN and GERAN.
+If the operator has decommissioned GERAN and UTRAN networks, only 4G and/or 5G networks are listed.
+Upon receiving the message, UE does not connect to the network whose RAT types are not in the allowlist of the networks.
+Impacts on the AMF:The UE does not connect to the networks that are not in the allowlist of the networks.
+This solution addresses key issue #1: "Bidding down attacks from LTE/NR to decommissioned GERAN/UTRAN".
+The solution introduces a new IE in the registration accept message to signal to the UE the list of decommissioned systems.
+parameterThe UE initiates the procedure by sending a Registration Request message.
+The solution addresses the requirement of key issue #1: "Bidding down attacks from LTE/NR to decommissioned GERAN/UTRAN".
+The solution does not provide a mechanism to address backward compatibility issues with UEs not supporting this additional NAS IE.
+The solution has impact on UE and AMF and does not solve the problem for legacy devices.
+This new parameter which is referred to as the List of DecommissionedIn this context, the LDAT includes GERAN or UTRAN or both.
+The UE stores the LDAT information and removes any previously received one (if any).
+The solution requires that UPU is deployed which is not necessarily the case on the network side.
+The solution addresses the key issue #1 “Bidding down attacks from LTE/NR to decommissioned GERAN/UTRAN”.
+The indication is bound to the operator's PLMN ID and indicates to the UE that GERAN and UTRAN access technologies have been decommissioned.
+The UE excludes the combination HPLMN and restricted RAT types of the HPLMN for any PLMN/Cell (re)selection procedures.
+The AMF/MME learns about UE's location based on UE's location update procedure.
+The AMF/MME uses NGAP/S1AP protocol signaling to pass this information to RAN nodes.
+The solution does not solve security requirement of KI#1 for legacy UE that only can access GERAN/UTRAN.
+Also, legacy UE would not have camped on ng-eNB/eNB to begin with.
+The solution ties the UE's location and the available RAT absence absent/presence in an 'allowed list'.
+Thus, the solution prohibits inter RAT handover to GERAN/UTRAN where PLMN has removed GERAN/UTRAN, while still allowing inter RAT handover elsewhere.
+In this mode, UE does not have RRC connection with the radio network and does not have active NAS signalling with CN.
+Therefore, the network uses paging to reach out to UEs in a location where GERAN/UTRAN is removed.
+Once the UE is informed to only use allowed RATs, UE subsequently only accesses allowed RATs.
+It mitigates risk of UE selecting decommissioned GERAN/UTRAN since the allowed RAT will not include GERAN/UTRAN.
+Specific internal processes that lead to UE's subsequent action of only accessing allowed RAT is left to implementation at the UE by OEM.
+removalThe solution informs UEs in CM IDLE mode and CONNECTED mode by network trigger.
+The solution relies only on information stored in the UE: configuration information stored on the USIM and location information known by the UE.
+The solution does not rely on information sent by a base station, as this base station could potentially be a false base station.
+To define one or several access technologies forbidden when the location of the UE cannot be determined by the UE.
+The UE checks that the proposed access technology to establish the communication is not forbidden by the list stored in the USIM.
+EvaluationThe solution relies only on information stored in the UE: configuration information stored on the USIM and location information determined by the UE.
+The solution puts burden on the operator to update the list.
+Overall summarySolutions #1 to #7 propose to enhance the registration/TAU procedure in order to convey such information.
+In both cases a new IE is needed to convey that information to the UE.
+This provides more than a sufficient time window for attackers to mount their schemes by FBS using decommissioned radio technology.
+A.2 ApproachesOperators can use their PR channels to highlight events such as the decommissioning of UTRAN or GERAN networks.
