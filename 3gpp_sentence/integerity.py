@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # 設定CSV檔案的目錄
-directory = '3GPP_SA3_篩選完句子的檔案_0820'
+directory = '3GPP_SA3_final_inference'
 
 # 初始化空的DataFrame
 merged_df = pd.DataFrame()
@@ -25,7 +25,7 @@ merged_df = merged_df.drop_duplicates(subset='Sentence')
 merged_df = merged_df.sort_values(by='Positive Probability', ascending=False)
 
 # 將合併、去重並排序後的資料寫入新的CSV檔案
-output_file_path = os.path.join(directory, 'final_merged_output0819-1.csv')
+output_file_path = os.path.join(directory, 'final_merged.csv')
 try:
     merged_df.to_csv(output_file_path, index=False)
     print(f"Merged, deduplicated, and sorted file saved to {output_file_path}")
