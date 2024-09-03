@@ -51,7 +51,7 @@ model.load_state_dict(torch.load('final_model_average.pt', map_location=device))
 model.eval()
 
 # 創建保存篩選結果的資料夾
-output_folder = '3GPP_SA3_篩選完句子的檔案_0820'
+output_folder = '3GPP_SA3_final_inference'
 os.makedirs(output_folder, exist_ok=True)
 
 # 遍歷3GPP_SA3資料夾中的每個.txt檔案
@@ -95,9 +95,9 @@ for file_name in tqdm(file_list, desc='Overall progress'):
                             max_prob = positive_prob
                             best_cwe_id = int(cwe_id)
                             best_cwe_description = cwe_description
-                        pbar.update(1)  # 更新進度條
+                        pbar.update(1)  
 
-                    if max_prob > 0.997:
+                    if max_prob > 0.997: # 只選取0.997概率以上的句子
                         result = {
                             "File Name": file_name,
                             "Sentence": line,
@@ -108,12 +108,12 @@ for file_name in tqdm(file_list, desc='Overall progress'):
                         high_prob_results.append(result)
                         all_high_prob_results.append(result)
 
-        # 保存每個文件的高概率結果到 CSV 文件
+        # 保存每個文件的結果到 CSV 文件
         if high_prob_results:
             high_prob_results_df = pd.DataFrame(high_prob_results)
             high_prob_results_df.to_csv(output_file_path, index=False, encoding='utf-8')
 
-# 保存所有文件的高概率結果到一個 CSV 文件
+# 保存所有文件的結果到同個 CSV 文件
 if all_high_prob_results:
     all_high_prob_results_df = pd.DataFrame(all_high_prob_results)
     all_high_prob_results_df.to_csv('all_high_prob_sentences_0.99.csv', index=False, encoding='utf-8')
