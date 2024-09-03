@@ -58,7 +58,7 @@ def has_tightly_packed_text(text):
     return bool(re.search(r'\w{1000,}', text))
 
 # 要讀取的資料夾
-directories = ['3GPP_SA3_Security_Spec']
+directories = ['3GPP_SA3']
 
 # 移除不重要內容的函數
 def remove_irrelevant_content(text):
