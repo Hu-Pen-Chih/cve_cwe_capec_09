@@ -262,7 +262,7 @@ def extract_special_terms(texts, common_word_limit=1000, common_bigram_limit=500
     return list(special_terms)
 
 # 創建存儲清洗數據的資料夾
-processed_data_dir = "3GPP_SA3_33series"
+processed_data_dir = "3GPP_SA3_cleantext"
 os.makedirs(processed_data_dir, exist_ok=True)
 
 # 紀錄開始時間
