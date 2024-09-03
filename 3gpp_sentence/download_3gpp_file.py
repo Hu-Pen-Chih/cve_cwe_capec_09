@@ -4,18 +4,18 @@ from bs4 import BeautifulSoup
 from zipfile import ZipFile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# 添加User-Agent
+# User-Agent
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
 # 定義各個工作組的URL和下載目錄
 urls = {
-    "SA1": 'https://www.3gpp.org/ftp/Specs/archive/22_series/',
-    "SA2": 'https://www.3gpp.org/ftp/Specs/archive/23_series/',
+    #"SA1": 'https://www.3gpp.org/ftp/Specs/archive/22_series/',
+    #"SA2": 'https://www.3gpp.org/ftp/Specs/archive/23_series/',
     "SA3": 'https://www.3gpp.org/ftp/Specs/archive/33_series/',
-    "SA4": 'https://www.3gpp.org/ftp/Specs/archive/26_series/',
-    "SA5": 'https://www.3gpp.org/ftp/Specs/archive/32_series/'
+    #"SA4": 'https://www.3gpp.org/ftp/Specs/archive/26_series/',
+    #"SA5": 'https://www.3gpp.org/ftp/Specs/archive/32_series/'
 }
 
 def create_download_dir(group):
