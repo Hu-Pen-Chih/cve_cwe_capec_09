@@ -9,16 +9,15 @@ from tqdm import tqdm
 nltk.download('wordnet')
 
 # 定義增強次數變數
-AUGMENT_TIMES = 1  # 重複正樣本和同義詞增強的次數
-
+AUGMENT_TIMES = 1 
 # 文件路徑
-cve_file_path = '3GPP_SA3_final_inference/final_merged.csv'
-all_cwe_file_path = 'All_CWE.csv'
+cve_file_path = 'final_merged.csv'
+all_cwe_file_path = '../inference_data/All_CWE.csv'
 
-# 創建儲存結果的資料夾
-output_dir = 'tagging_3gpp_data'
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+# # 創建儲存結果的資料夾
+# output_dir = 'tagging_3gpp_data'
+# if not os.path.exists(output_dir):
+#     os.makedirs(output_dir)
 
 # 讀取 CSV 文件的函數
 def load_csv_with_fallback(file_path, use_cols=None):
@@ -112,8 +111,10 @@ df_mapping_repeated = pd.DataFrame(rows_repeated)
 df_mapping_synonyms = pd.DataFrame(rows_synonyms)
 
 # 保存CSV檔案到指定資料夾中
-df_mapping_repeated.to_csv(os.path.join(output_dir, f'for_cvecwe_3gpp_4k.csv'), index=False, encoding='utf-8')
+#df_mapping_repeated.to_csv(os.path.join(output_dir, f'for_cvecwe_3gpp_4k.csv'), index=False, encoding='utf-8')
 #df_mapping_synonyms.to_csv(os.path.join(output_dir, f'synonym_samples_{AUGMENT_TIMES}_times_0815_your.csv'), index=False, encoding='utf-8')
+df_mapping_repeated.to_csv('for_cvecwe_3gpp_4k.csv', index=False, encoding='utf-8')
+
 
 # 列印數據和標籤統計
 print("重複正樣本的CSV檔案行數:", df_mapping_repeated.shape[0])
