@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 from zipfile import ZipFile
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import shutil
+
 
 # User-Agent
 headers = {
@@ -99,6 +101,19 @@ def process_folder(base_url, folder_name, download_dir):
 
 print('所有文件下載並解壓縮完成。')
 
+def clean_up_directory(directory):
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+        # 檢查是否為.zip結尾或檔案名不是以"33"開頭
+        if filename.endswith('.zip') or not filename.startswith('33'):
+            if os.path.isfile(file_path):  # 如果是文件，使用remove
+                os.remove(file_path)
+                print(f'Removed file: {file_path}')
+            elif os.path.isdir(file_path):  # 如果是目錄，使用rmtree
+                shutil.rmtree(file_path)
+                print(f'Removed directory: {file_path}')
+
+
 for group, base_url in urls.items():
     print(f"\nFetching files for {group} from {base_url}")
     links = fetch_files(base_url)
@@ -116,3 +131,10 @@ for group, base_url in urls.items():
         print(f"No files found for {group}.")
 
 print('所有文件下載並解壓縮完成。')
+
+# 調用清理函數
+for group in urls.keys():
+    download_dir = f'3GPP_{group}'
+    clean_up_directory(download_dir)
+
+print('不符合條件的檔案已被刪除。')
