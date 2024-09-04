@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 
 # 讀取 CSV 文件
-file_path = 'All_CWE.csv'
+file_path = '../inference_data/All_CWE.csv'
 try:
     df = pd.read_csv(file_path, encoding='utf-8')
 except UnicodeDecodeError:
@@ -46,8 +46,7 @@ class InferenceModel(nn.Module):
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 model = InferenceModel(num_labels=2)
 device = torch.device('cpu')
-model.load_state_dict(torch.load('final_model_average.pt', map_location=device))
-#model.load_state_dict(torch.load('../../bert_capec/inference_model_v1/2023_0729/best_model_2023_0728_fully_valid.pt', map_location=device))
+model.load_state_dict(torch.load('inference_model.pt', map_location=device))
 model.eval()
 
 # 創建保存篩選結果的資料夾
@@ -55,7 +54,7 @@ output_folder = '3GPP_SA3_final_inference'
 os.makedirs(output_folder, exist_ok=True)
 
 # 遍歷3GPP_SA3資料夾中的每個.txt檔案
-folder_path = '3GPP_SA3_all'
+folder_path = '3GPP_SA3_cleantext'
 file_list = [f for f in os.listdir(folder_path) if f.endswith('.txt')]
 all_high_prob_results = []  # 用於收集所有文件的高概率結果
  
@@ -73,7 +72,7 @@ for file_name in tqdm(file_list, desc='Overall progress'):
         for idx, line in tqdm(enumerate(lines), total=len(lines), desc=f'Processing {file_name}'):
             line = line.strip()
             if line:
-                # Processing each CWE for the sentence
+                # 顯示進度條
                 tqdm_desc = f"Processing CWEs for sentence {idx+1}/{len(lines)}"
                 with tqdm(total=len(df_selected), desc=tqdm_desc) as pbar:
                     max_prob = float('-inf')
