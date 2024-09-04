@@ -181,8 +181,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"使用設備: {device}")
 
 # 設定模型保存的路徑
-model_save_path = 'train_model_save_bert'
-best_model_filename = 'best_model_bert-cvecapec_08-6_repeated2.pt'
+model_save_path = 'train_model_save'
+best_model_filename = 'cve-capec.pt'
 
 # 確認保存路徑存在
 if not os.path.exists(model_save_path):
