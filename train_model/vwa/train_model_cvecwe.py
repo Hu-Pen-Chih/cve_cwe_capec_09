@@ -119,10 +119,8 @@ class CustomBERTModel(nn.Module):
         avg_pooling_embeddings = torch.mean(outputs.last_hidden_state, dim=1)
         diff = torch.abs(cls_embeddings - avg_pooling_embeddings)
         mul = cls_embeddings * avg_pooling_embeddings
-
         combined_features = torch.cat((diff, mul), dim=1)
         combined_features = self.dropout(combined_features)
-
         # 分類
         logits = self.classifier(combined_features)
         return logits
@@ -169,12 +167,12 @@ print(f"使用設備: {device}")
 def save_model(model, save_path):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
-    model_path = os.path.join(save_path, 'vwa-model-cwe.pt')
+    model_path = os.path.join(save_path, 'cve-cwe.pt')
     torch.save(model.state_dict(), model_path)
     print(f"模型已保存到 {model_path}")
 
 # 统一保存路徑
-model_save_path = 'train_model_save_cwe'
+model_save_path = 'train_model_save'
 
 # 確認保存路徑存在
 if not os.path.exists(model_save_path):
