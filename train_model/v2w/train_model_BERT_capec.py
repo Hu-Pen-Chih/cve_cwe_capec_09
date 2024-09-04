@@ -153,8 +153,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"使用設備: {device}")
 
 # 設定模型保存的路徑
-model_save_path = 'train_model_save_capec'
-best_model_filename = 'v2w-capec.pt'
+model_save_path = 'train_model_save'
+best_model_filename = 'cve-capec.pt'
 
 # 確認保存路徑存在
 if not os.path.exists(model_save_path):
