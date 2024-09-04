@@ -9,8 +9,7 @@ from boruta import BorutaPy
 from tqdm import tqdm
 import joblib
 import boruta
-
-
+import os
 
 # 抑制特定警告
 warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned.*")
@@ -130,14 +129,21 @@ average_val_loss = np.mean(val_losses)
 print(f"平均訓練損失: {average_train_loss:.4f}")
 print(f"平均驗證損失: {average_val_loss:.4f}")
 
+# 設定模型保存的路徑
+model_save_path = 'train_model_save'
+
+# 確認保存路徑存在
+if not os.path.exists(model_save_path):
+    os.makedirs(model_save_path)
+
 # 保存模型
-joblib.dump(clf, 'train_model_save_capec/random_forest_model_cvecapec.joblib')
+joblib.dump(clf, 'train_model_save/random_forest_model_cvecapec.joblib')
 print("隨機森林模型已保存")
 
 # 保存特徵選擇器
-joblib.dump(boruta_selector, 'train_model_save_capec/boruta_selector_cvecapecjoblib')
+joblib.dump(boruta_selector, 'train_model_save/boruta_selector_cvecapecjoblib')
 print("特徵選擇器已保存")
 
 # 保存向量化器
-joblib.dump(vectorizer, 'train_model_save_capec/vectorizer_cvecapec.joblib')
+joblib.dump(vectorizer, 'train_model_save/vectorizer_cvecapec.joblib')
 print("向量化器已保存")
