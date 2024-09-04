@@ -25,7 +25,9 @@ merged_df = merged_df.drop_duplicates(subset='Sentence')
 merged_df = merged_df.sort_values(by='Positive Probability', ascending=False)
 
 # 將合併、去重並排序後的資料寫入新的CSV檔案
-output_file_path = os.path.join(directory, 'final_merged.csv')
+#output_file_path = os.path.join(directory, 'final_merged.csv')
+output_file_path = 'final_merged.csv'
+
 try:
     merged_df.to_csv(output_file_path, index=False)
     print(f"Merged, deduplicated, and sorted file saved to {output_file_path}")
