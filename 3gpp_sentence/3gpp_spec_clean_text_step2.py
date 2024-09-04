@@ -8,7 +8,6 @@ import spacy
 from collections import Counter
 from nltk import word_tokenize, bigrams
 import time
-
 import nltk
 nltk.download('punkt')
 
