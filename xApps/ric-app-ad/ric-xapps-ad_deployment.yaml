@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ric-xapps-ad
+  namespace: ricxapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ric-xapps-ad
+  template:
+    metadata:
+      labels:
+        app: ric-xapps-ad
+    spec:
+      containers:
+      - name: ric-xapps-ad
+        image: joehuhu/ric-xapps-ad:v1.0.0
+        ports:
+        - containerPort: 80
