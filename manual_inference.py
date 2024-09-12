@@ -43,7 +43,7 @@ class InferenceModelCVEtoCWE(nn.Module):
         logits = self.classifier(combined_features)
         return logits
 
-# 定義 CWE 到 CAPEC 的推理模型
+# 定義 CVE 到 CAPEC 的推理模型
 class InferenceModelCWEtoCAPEC(nn.Module):
     def __init__(self, num_labels=2):
         super(InferenceModelCWEtoCAPEC, self).__init__()
@@ -96,7 +96,7 @@ model_cve_cwe.load_state_dict(torch.load('vwa_model_save/cve_cwe.pt', map_locati
 # model_cve_cwe.load_state_dict(torch.load('v2w_model_save/cve_cwe.pt', map_location=device, weights_only=True))
 model_cve_cwe.eval()
 
-# 加載 CWE 到 CAPEC 的模型和分詞器
+# 加載 CVE 到 CAPEC 的模型和分詞器
 tokenizer_cwe_capec = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cwe_capec = InferenceModelCWEtoCAPEC(num_labels=2)
 model_cwe_capec.load_state_dict(torch.load('vwa_model_save/cve_capec.pt', map_location=device, weights_only=True))
