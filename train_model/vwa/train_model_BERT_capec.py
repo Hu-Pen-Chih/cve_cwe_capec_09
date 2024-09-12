@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned
 
 
 balanced_samples_path_cve_capec = '2023_CVE_CAPEC.csv'
-balanced_samples_path_3gpp_1 ='for_cvecapec_3gpp_4k.csv'
+balanced_samples_path_3gpp_1 ='../6g_sentence/for_cvecapec_3gpp_4k.csv'
 
 ###########
 
