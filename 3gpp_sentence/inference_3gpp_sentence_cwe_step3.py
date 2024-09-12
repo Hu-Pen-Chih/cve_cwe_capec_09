@@ -5,7 +5,16 @@ import torch.nn as nn
 import torch.nn.functional as F
 from transformers import BertTokenizer, BertModel
 from tqdm import tqdm
+import gdown
 
+model_file = 'inference_model.pt'
+if not os.path.exists(model_file):
+    print("file not exist，from Google Drive downloads...")
+    file_id = "11Sdt_iEq8zGLjOrxQuhKTH-KYZEGi8B-"
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, model_file, quiet=False)
+else:
+    print("inference_model file exist")
 
 # 讀取 CSV 文件
 file_path = '../inference_data/All_CWE.csv'
