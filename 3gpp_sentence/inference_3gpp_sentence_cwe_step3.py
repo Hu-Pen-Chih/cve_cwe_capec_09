@@ -96,7 +96,7 @@ for file_name in tqdm(file_list, desc='Overall progress'):
                             best_cwe_description = cwe_description
                         pbar.update(1)  
 
-                    if max_prob > 0.997: # 只選取0.997概率以上的句子
+                    if max_prob > 0.999: # 只選取0.999概率以上的句子
                         result = {
                             "File Name": file_name,
                             "Sentence": line,
