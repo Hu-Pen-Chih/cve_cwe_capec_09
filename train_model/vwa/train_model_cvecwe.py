@@ -11,12 +11,16 @@ import os
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
+if torch.cuda.is_available():
+    print("本機 PyTorch 支援 CUDA")
+else:
+    print("本機 PyTorch 不支援 CUDA")
 
 # 抑制特定警告
 warnings.filterwarnings("ignore", message=".*overflowing tokens are not returned.*")
 
 # 設置文件路徑
-balanced_samples_path_3gpp = 'for_cvecwe_3gpp_4k.csv'
+balanced_samples_path_3gpp = '../6g_sentence/for_cvecwe_3gpp_4k.csv'
 balanced_samples_path_2023 = '2023_CVE_CWE.csv'
 
 # 讀取處理好的數據
