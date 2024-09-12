@@ -9,7 +9,10 @@ from collections import Counter
 from nltk import word_tokenize, bigrams
 import time
 import nltk
+# nltk version=3.5
 nltk.download('punkt')
+print(nltk.data.path)
+nltk.data.find('tokenizers/punkt')
 
 # 隱藏無關警告
 logging.getLogger("transformers.tokenization_utils_base").setLevel(logging.ERROR)
@@ -57,7 +60,7 @@ def has_tightly_packed_text(text):
     return bool(re.search(r'\w{1000,}', text))
 
 # 要讀取的資料夾
-directories = ['3GPP_SA3']
+directories = ['3GPP_SA3','6g_whitepaper']
 
 # 移除不重要內容的函數
 def remove_irrelevant_content(text):
