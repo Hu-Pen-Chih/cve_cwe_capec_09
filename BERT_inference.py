@@ -43,7 +43,7 @@ class InferenceModelCVEtoCWE(nn.Module):
         logits = self.classifier(combined_features)
         return logits
 
-# 定義 CWE 到 CAPEC 的推理模型
+# 定義 CVE 到 CAPEC 的推理模型
 class InferenceModelCWEtoCAPEC(nn.Module):
     def __init__(self, num_labels=2):
         super(InferenceModelCWEtoCAPEC, self).__init__()
@@ -63,44 +63,19 @@ class InferenceModelCWEtoCAPEC(nn.Module):
         return logits
 
 
-# 從Google Drive下載訓練好的模型
-folders_to_download = {
-    'v2w_model_save': '1GlrhK1LIzbT2ETOEBawYmmAsuFDMibwO',  
-    'vwa_model_save': '1wSUjkeNWdiLxf8SI3zmtqIw8k1zPB9h5'   
-}
-
-# 檢查並創建目標資料夾並下載文件
-for folder_name, folder_id in folders_to_download.items():
-    # 如果目標資料夾不存在，則創建它
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-    
-    # 檢查該資料夾是否已經下載過模型
-    folder_content = os.listdir(folder_name)
-    if len(folder_content) > 0:
-        print(f" {folder_name} 已經存在模型，跳過下載。")
-        continue
-
-    # 使用 gdown 下載每個資料夾中的所有文件
-    command = f'gdown --folder https://drive.google.com/drive/folders/{folder_id} -O {folder_name}'
-    subprocess.run(command, shell=True)
-    print(f"已下載文件到資料夾 {folder_name}。")
-
-print("所有模型已成功下載")
-
 # 加載 CVE 到 CWE 的模型和分詞器
 tokenizer_cve_cwe = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cve_cwe = InferenceModelCVEtoCWE(num_labels=2)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model_cve_cwe.load_state_dict(torch.load('vwa_model_save/cve_cwe.pt', map_location=device, weights_only=True))
-# model_cve_cwe.load_state_dict(torch.load('v2w_model_save/cve_cwe.pt', map_location=device, weights_only=True))
+model_cve_cwe.load_state_dict(torch.load('train_model/vwa/train_model_save/cve-cwe.pt', map_location=device, weights_only=True))
+model_cve_cwe.to(device)  # 將模型移動到正確的設備上
 model_cve_cwe.eval()
 
 # 加載 CWE 到 CAPEC 的模型和分詞器
 tokenizer_cwe_capec = BertTokenizer.from_pretrained("bert-base-uncased")
 model_cwe_capec = InferenceModelCWEtoCAPEC(num_labels=2)
-model_cwe_capec.load_state_dict(torch.load('vwa_model_save/cve_capec.pt', map_location=device, weights_only=True))
-# model_cve_cwe.load_state_dict(torch.load('v2w_model_save/cve_capec.pt', map_location=device, weights_only=True))
+model_cwe_capec.load_state_dict(torch.load('train_model/vwa/train_model_save/cve-capec.pt', map_location=device, weights_only=True))
+model_cwe_capec.to(device)  # 將模型移動到正確的設備上
 model_cwe_capec.eval()
 
 print("模型加載成功。")
@@ -192,6 +167,8 @@ def run_inference(cve_details, cve_severities):
             continue
 
         encoded_new_cve = tokenizer_cve_cwe(cve_description, return_tensors='pt', padding=True, truncation=True, max_length=512)
+        encoded_new_cve['input_ids'] = encoded_new_cve['input_ids'].to(device)
+        encoded_new_cve['attention_mask'] = encoded_new_cve['attention_mask'].to(device)
 
         max_prob = float('-inf')
         best_cwe_id = None
@@ -201,9 +178,11 @@ def run_inference(cve_details, cve_severities):
             cwe_description = row['CWE-Description']
             combined_description = cve_description + " [SEP] " + cwe_description
             encoded_combined = tokenizer_cve_cwe(combined_description, return_tensors='pt', padding=True, truncation=True, max_length=512)
+            encoded_combined['input_ids'] = encoded_combined['input_ids'].to(device)
+            encoded_combined['attention_mask'] = encoded_combined['attention_mask'].to(device)
 
             with torch.no_grad():
-                combined_logits = model_cve_cwe(encoded_combined['input_ids'].to(device), encoded_combined['attention_mask'].to(device))
+                combined_logits = model_cve_cwe(encoded_combined['input_ids'], encoded_combined['attention_mask'])
                 combined_probabilities = F.softmax(combined_logits, dim=1)
                 positive_prob = combined_probabilities[:, 1].item()
 
@@ -237,7 +216,6 @@ def run_inference(cve_details, cve_severities):
     non_2023_accuracy = non_2023_correct / non_2023_count if non_2023_count > 0 else 0
 
     print("推理結果:")
-    # print(results)
     print("嚴重程度準確率:")
     print(severity_accuracy)
     print("整體準確率:")
@@ -347,7 +325,7 @@ def process_new_reports():
         if any(x in report['metadata']['name'] for x in ["ric-xapps-qp", "ric-xapps-rc", "ric-xapps-ad"])
     ]
 
-    output_dir = 'inference_result_RF'
+    output_dir = 'inference_result'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
