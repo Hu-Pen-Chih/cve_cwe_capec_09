@@ -7,14 +7,14 @@ from transformers import BertTokenizer, BertModel
 from tqdm import tqdm
 import gdown
 
-model_file = 'inference_model.pt'
-if not os.path.exists(model_file):
-    print("file not exist，from Google Drive downloads...")
-    file_id = "11Sdt_iEq8zGLjOrxQuhKTH-KYZEGi8B-"
-    url = f"https://drive.google.com/uc?id={file_id}"
-    gdown.download(url, model_file, quiet=False)
-else:
-    print("inference_model file exist")
+# model_file = 'inference_model.pt'
+# if not os.path.exists(model_file):
+#     print("file not exist，from Google Drive downloads...")
+#     file_id = "11Sdt_iEq8zGLjOrxQuhKTH-KYZEGi8B-"
+#     url = f"https://drive.google.com/uc?id={file_id}"
+#     gdown.download(url, model_file, quiet=False)
+# else:
+#     print("inference_model file exist")
 
 # 讀取 CSV 文件
 file_path = '../inference_data/All_CWE.csv'
@@ -54,8 +54,10 @@ class InferenceModel(nn.Module):
 
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 model = InferenceModel(num_labels=2)
-device = torch.device('cpu')
-model.load_state_dict(torch.load('inference_model.pt', map_location=device))
+#device = torch.device('cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model.load_state_dict(torch.load('2000-2023_4.pt', map_location=device , weights_only=True))
+model.to(device)
 model.eval()
 
 # 創建保存篩選結果的資料夾
@@ -91,9 +93,10 @@ for file_name in tqdm(file_list, desc='Overall progress'):
                     for _, row in df_selected.iterrows():
                         cwe_id = row['CWE-ID']
                         cwe_description = row['CWE-Description']
-                        combined_description = line + " [SEP] " + cwe_description
+                        combined_description = line + " [SEP] " + cwe_description                        
                         encoded_combined = tokenizer(combined_description, return_tensors='pt', padding=True, truncation=True, max_length=512)
-
+                        encoded_combined['input_ids'] = encoded_combined['input_ids'].to(device)
+                        
                         with torch.no_grad():
                             combined_logits = model(encoded_combined['input_ids'], encoded_combined['attention_mask'])
                             combined_probabilities = F.softmax(combined_logits, dim=1)
@@ -105,12 +108,12 @@ for file_name in tqdm(file_list, desc='Overall progress'):
                             best_cwe_description = cwe_description
                         pbar.update(1)  
 
-                    if max_prob > 0.999: # 只選取0.999概率以上的句子
+                    if max_prob > 0.99: # 只選取0.99概率以上的句子
                         result = {
-                            "File Name": file_name,
-                            "Sentence": line,
-                            "Mapped CWE-ID": best_cwe_id,
-                            "CWE Description": best_cwe_description,
+                            "CVE-ID": file_name,
+                            "CVE-Description": line,
+                            "CWE-ID": best_cwe_id,
+                            "CWE-Description": best_cwe_description,
                             "Positive Probability": max_prob
                         }
                         high_prob_results.append(result)
