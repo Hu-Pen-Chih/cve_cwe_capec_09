@@ -61,11 +61,11 @@ model.to(device)
 model.eval()
 
 # 創建保存篩選結果的資料夾
-output_folder = '3GPP_SA3_final_inference'
+output_folder = '3GPP_SA2_final_inference'
 os.makedirs(output_folder, exist_ok=True)
 
 # 遍歷3GPP_SA3資料夾中的每個.txt檔案
-folder_path = '3GPP_SA3_cleantext'
+folder_path = '3GPP_SA2_cleantext'
 file_list = [f for f in os.listdir(folder_path) if f.endswith('.txt')]
 all_high_prob_results = []  # 用於收集所有文件的高概率結果
  
@@ -127,6 +127,6 @@ for file_name in tqdm(file_list, desc='Overall progress'):
 # 保存所有文件的結果到同個 CSV 文件
 if all_high_prob_results:
     all_high_prob_results_df = pd.DataFrame(all_high_prob_results)
-    all_high_prob_results_df.to_csv('all_high_prob_sentences_0.99.csv', index=False, encoding='utf-8')
+    #all_high_prob_results_df.to_csv('all_high_prob_sentences_0.99.csv', index=False, encoding='utf-8')
 
-print("處理完成，所有高概率結果已保存到指定的資料夾和 all_high_prob_sentences_0.99.csv")
+print("處理完成，所有高概率結果已保存到指定的資料夾")
