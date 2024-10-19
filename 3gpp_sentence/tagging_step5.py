@@ -12,16 +12,16 @@ nltk.download('wordnet')
 # 定義最少樣本數量與增強次數變數
 MIN_SAMPLES = 25  # 每個CWE最少要有25個樣本
 AUGMENT_TIMES = 1  # 控制正樣本與負樣本生成次數
-MAX_SAMPLES = 500  # 對於樣本數量超過300的CWE-ID，篩選300個樣本
+MAX_SAMPLES = 500  # 對於樣本數量超過500的CWE-ID，篩選300個樣本
 
 # 文件路徑
-cve_file_path_sa1 = 'final_filtered_prob_991_sa1.csv'
-cve_file_path_sa2 = 'final_filtered_prob_991_sa2.csv'
-cve_file_path_sa3 = 'final_filtered_prob_991_sa3.csv'
+cve_file_path_sa1 = 'final_filtered_step4/final_filtered_prob_991_sa1.csv'
+cve_file_path_sa2 = 'final_filtered_step4/final_filtered_prob_991_sa2.csv'
+cve_file_path_sa3 = 'final_filtered_step4/final_filtered_prob_991_sa3.csv'
 all_cwe_file_path = '../inference_data/All_CWE.csv'
 
-# 檔案命名的動態變數
-output_file_name = f'for_cvecwe_3gpp_{MAX_SAMPLES}over_{MIN_SAMPLES}min_{AUGMENT_TIMES}aug.csv'
+# 檔案命名
+output_file_name = f'final_tagging_step5/for_cvecwe_0991.csv'
 
 # === 函數區塊 ===
 # 讀取 CSV 文件的函數
